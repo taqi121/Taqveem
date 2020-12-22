@@ -1,0 +1,11 @@
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\DAL.dll
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\DAL.pdb
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.dll
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.pdb
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\DAL.dll.config
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\EntityFramework.dll
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\EntityFramework.xml
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.csproj.CopyComplete

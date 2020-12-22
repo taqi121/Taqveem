@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Newitem";
+    Layout = "~/Views/Shared/_AdminSharedView.cshtml";
+}
+    <div class="layout-px-spacing" style="margin-left:2%;">
+
+        <div class="row layout-top-spacing">
+            <form>
+                <div class="form-row mb-4">
+                    <div class="form-group col-md-4">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name..." name="name" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="brand">Brand</label>
+                        <select id="brand" class="form-control" required>
+                            <option selected>Choose...</option>
+                            <option>Outfitters</option>
+                            <option>Outfitters</option>
+                            <option>Outfitters</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="category">Category</label>
+                        <select id="Category" class="form-control" required>
+                            <option selected>Choose...</option>
+                            <option>Shirt</option>
+                            <option>Pent</option>
+                            <option>Coat</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="expirydate">Expiry Date:</label>
+                        <input type="date" class="form-control" id="expirydate" placeholder="MM/DD/YYYY">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="barcode">Barcode</label>
+                        <input type="text" class="form-control" id="barcode" placeholder="Barcode Scan" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" required>
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="txtarea">Description</label>
+                    <textarea cols="60" rows="8" id="txtarea" name="txtarea" placeholder="Comments" class="form-control"></textarea>
+                </div>
+
+                <div class="form-row mb-4" style="margin-top:6%">
+                    <div class="form-group col-md-4">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" placeholder="Price..." name="price" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="unit">Unit</label>
+                        <select id="unit" class="form-control" required>
+                            <option selected>Choose...</option>
+                            <option>Box</option>
+                            <option>Packing</option>
+                            <option>etc</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="quantity">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" placeholder="Quantity">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="salesPrice">Sales Price</label>
+                        <input type="text" class="form-control" id="salesPrice" placeholder="Sales Price" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="salesPrice">Tax</label>
+                        <input type="text" class="form-control" id="tax" placeholder="Tax" required>
+                    </div>
+                </div>
+                <div class="form-row mb-4">
+                    <div class="form-group col-md-4">
+                        <label for="currentStock">Current Stock</label>
+                        <input type="text" class="form-control" id="currentStock" name="currentStock" placeholder="Current Stock" disabled>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="NewStock">New Stock</label>
+                        <input type="text" class="form-control" id="NewStock" name="NewStock" placeholder="New Stock" required>
+                    </div>
+                </div>
+                <div class="br-right-30">
+                    <button type="submit" class="btn btn-primary mt-3">Save</button>
+                    <button type="submit" class="btn btn-danger mt-3">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>

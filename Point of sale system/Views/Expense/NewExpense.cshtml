@@ -1,0 +1,63 @@
+﻿@model Point_of_sale_system.Models.Expens
+@{
+    ViewBag.Title = "Expense";
+    Layout = "~/Views/Shared/_AdminSharedView.cshtml";
+}
+    <div class="col-md-11" style="margin-left:2%">
+        <div class="col-md-4">
+            <strong>Expense</strong><span>Add New Expense</span>
+
+        </div>
+        <div class="col-md-12">
+            <hr style="border:solid 0.1px white" />
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="date">Date</label>
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="refno">Reference No.</label>
+                    @Html.EditorFor(model => model.ReferenceNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ReferenceNo, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="category">Category</label>
+                    <select id="Category" class="form-control" required>
+                        <option selected>Choose...</option>
+                        <option>Bills</option>
+                        <option>Petrol</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="expensefor">Expense FOr..</label>
+                    @Html.EditorFor(model => model.Expensefor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Expensefor, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="amount">Amount</label>
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-row form-group mb-4">
+                <label for="txtarea">Note</label>
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+            <div class="br-right-30">
+                <hr style="border:solid 0.1px white" />
+                <button type="submit" class="btn btn-primary mt-3">Save</button>
+                <button type="submit" class="btn btn-danger mt-3">Reset</button>
+            </div>
+        }
+
+    </div>

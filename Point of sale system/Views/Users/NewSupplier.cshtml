@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "NewSupplier";
+    Layout = "~/Views/Shared/_AdminSharedView.cshtml";
+}
+
+<div class="col-md-11" style="margin-left:2%">
+    <div class="col-md-4">
+        <strong>Supplier</strong><span>Add New Supplier</span>
+
+    </div>
+    <div class="col-md-12">
+        <hr style="border:solid 0.1px white" />
+    </div>
+    <form>
+        <div class="form-row mb-4">
+            <div class="form-group col-md-4">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Name..." name="name" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="mobile">Mobile No.</label>
+                <input type="text" class="form-control" id="mobile" placeholder="Mobile No..." name="mobile" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="email">Email..</label>
+                <input type="email" class="form-control" id="email" placeholder="eg. taqi@gmail.com..." name="email" required>
+            </div>
+        </div>
+        <div class="form-row mb-4">
+            <div class="form-group col-md-4">
+                <label for="balance">Balance..</label>
+                <input type="text" class="form-control" id="balance" placeholder="Enter Balance if..." name="balance" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="country">Country</label>
+                <input type="text" class="form-control" id="country" placeholder="Country..." name="country" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="state">State..</label>
+                <input type="text" class="form-control" id="state" placeholder="State (eg. Punjab)..." name="state" required>
+            </div>
+        </div>
+        <div class="form-row mb-4">
+            <div class="form-group col-md-4">
+                <label for="city">City..</label>
+                <input type="text" class="form-control" id="city" placeholder="City..." name="city" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="postcode">Post Code</label>
+                <input type="text" class="form-control" id="postcode" placeholder="Post Code..." name="postcode" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="address">Adress..</label>
+                <input type="text" class="form-control" id="address" placeholder="Address..." name="address" required>
+            </div>
+        </div>
+
+        <div class="br-right-30">
+            <hr style="border:solid 0.1px white" />
+            <button type="submit" class="btn btn-primary mt-3">Save</button>
+            <button type="submit" class="btn btn-danger mt-3">Reset</button>
+        </div>
+    </form>
+
+</div>
