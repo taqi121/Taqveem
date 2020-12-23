@@ -34,7 +34,9 @@ namespace Point_of_sale_system.Models
         public virtual DbSet<purchase> purchases { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<User_Role> User_Role { get; set; }
     }
 }

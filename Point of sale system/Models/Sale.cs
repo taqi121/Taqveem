@@ -32,5 +32,9 @@ namespace Point_of_sale_system.Models
         public int CustomerID { get; set; }
         public int ItemID { get; set; }
         public int UserID { get; set; }
+    
+        public virtual Customer Customer { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual User User { get; set; }
     }
 }

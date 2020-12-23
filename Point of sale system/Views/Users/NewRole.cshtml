@@ -1,4 +1,4 @@
-﻿
+﻿@model Point_of_sale_system.Models.User_Role
 @{
     ViewBag.Title = "NewRole";
     Layout = "~/Views/Shared/_AdminSharedView.cshtml";
@@ -12,21 +12,24 @@
         <div class="col-md-12">
             <hr style="border:solid 0.1px white" />
         </div>
-            <form class="form">
-                <div class="form-row col-md-6">
-                    <div class="form-group col-md-12">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Name..." name="name" required>
-                    </div>
-                </div>
+        @using (Html.BeginForm())
+        {
+            <div class="form-row col-md-6">
                 <div class="form-group col-md-12">
-                    <label for="txtarea">Description</label>
-                    <textarea cols="60" rows="3" id="txtarea" name="txtarea" placeholder="Comments" class="form-control"></textarea>
+                    <label for="name">Name</label>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Address" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
-                <div class="br-right-30">
-                    <hr style="border:solid 0.1px white" />
-                    <button type="submit" class="btn btn-primary mt-3">Save</button>
-                    <button type="submit" class="btn btn-danger mt-3">Reset</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="txtarea">Description</label>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Address" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+            <div class="br-right-30">
+                <hr style="border:solid 0.1px white" />
+                <button type="submit" class="btn btn-primary mt-3">Save</button>
+                <button type="submit" class="btn btn-danger mt-3">Reset</button>
+            </div>
+        }
+    </div>

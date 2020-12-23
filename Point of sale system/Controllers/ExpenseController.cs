@@ -13,10 +13,15 @@ namespace Point_of_sale_system.Controllers
         // GET: Expense
         public ActionResult NewExpense()
         {
+            List<Expens> Explist = new List<Expens>();
             using(DbModelEntities dbmodel =new DbModelEntities())
             {
-                return View();
+                var Exp_list = dbmodel.ExpenseCategories.ToList();
+                var Ex_list = new SelectList(Exp_list, "ID", "Name");
+                ViewBag.ExpenseCategory = Ex_list;
+                
             }
+            return View();
         }
         [HttpPost]
         public ActionResult NewExpense(Expens expens)
@@ -26,6 +31,13 @@ namespace Point_of_sale_system.Controllers
                 dbModel.Expenses.Add(expens);
                 dbModel.SaveChanges();
             }
+            using (DbModelEntities dbmodel = new DbModelEntities())
+            {
+                var Exp_list = dbmodel.ExpenseCategories.ToList();
+                var Ex_list = new SelectList(Exp_list, "ID", "Name");
+                ViewBag.ExpenseCategory = Ex_list;
+
+            }
             return View();
         }
         public ActionResult ViewExpenses()
@@ -34,6 +46,65 @@ namespace Point_of_sale_system.Controllers
             {
                 return View(dbmodel.Expenses.ToList());
             }
+        }
+        //Get Method for edit the Expenses List
+        public ActionResult EditExpenses(int id)
+        {
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                var Exp_list = dbmodel.ExpenseCategories.ToList();
+                var Ex_list = new SelectList(Exp_list, "ID", "Name");
+                ViewBag.ExpenseCategory = Ex_list;
+                return View(dbmodel.Expenses.Where(x => x.ID == id).FirstOrDefault());
+            }
+        }
+        //Post Method for edit Expenses
+        [HttpPost]
+        public ActionResult EditExpenses(int id,Expens expense)
+
+        {
+            try
+            {
+                using (DbModelEntities dbModel = new DbModelEntities())
+                {
+
+                    dbModel.Entry(expense).State = EntityState.Modified;
+                    dbModel.SaveChanges();
+                }
+                using (DbModelEntities dbmodel = new DbModelEntities())
+                {
+                    var Exp_list = dbmodel.ExpenseCategories.ToList();
+                    var Ex_list = new SelectList(Exp_list, "ID", "Name");
+                    ViewBag.ExpenseCategory = Ex_list;
+
+                }
+                return View();
+            }
+            catch
+            {
+                ViewBag.Error = "Invaliid";
+            }
+            return View();
+        }
+        [HttpPost]
+        public JsonResult deleteExpense(int Desi_id)
+        {
+            bool result = false;
+            try
+            {
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                var del_id = dbmodel.Expenses.Where(x => x.ID == Desi_id).FirstOrDefault();
+                dbmodel.Expenses.Remove(del_id);
+                dbmodel.SaveChanges();
+                result = true;
+            }
+            }catch
+            {
+                ViewBag.Msg = "Error";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult NewExpenseCategory()
         {
@@ -78,6 +149,25 @@ namespace Point_of_sale_system.Controllers
             {
                 return View();
             }
+        }
+        public JsonResult DeeteCategory(int id)
+        {
+            bool result = false;
+            try
+            {
+                using (DbModelEntities dbmodel = new DbModelEntities())
+                {
+                    var del_id = dbmodel.ExpenseCategories.Where(x => x.ID == id).FirstOrDefault();
+                    dbmodel.ExpenseCategories.Remove(del_id);
+                    dbmodel.SaveChanges();
+                    result = true;
+                }
+            }
+            catch
+            {
+                ViewBag.Msg = "Error";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

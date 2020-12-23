@@ -14,6 +14,13 @@ namespace Point_of_sale_system.Models
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.purchases = new HashSet<purchase>();
+            this.Sales = new HashSet<Sale>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public string email { get; set; }
@@ -21,5 +28,11 @@ namespace Point_of_sale_system.Models
         public string cpassword { get; set; }
         public string image { get; set; }
         public Nullable<int> RoleID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<purchase> purchases { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale> Sales { get; set; }
+        public virtual User_Role User_Role { get; set; }
     }
 }

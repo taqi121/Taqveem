@@ -81,13 +81,27 @@ namespace Point_of_sale_system.Controllers
         //    }
         //    return true;
         //}
+        [HttpGet]
         public ActionResult NewSupplier()
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult NewSupplier(Supplier supplier)
+        {
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                dbmodel.Suppliers.Add(supplier);
+                dbmodel.SaveChanges();
+            }
+            return View();
+        }
         public ActionResult SupplierList()
         {
-            return View();
+            using(DbModelEntities dbmodel =new DbModelEntities())
+            {
+                return View(dbmodel.Suppliers.ToList());
+            }
         }
         public ActionResult NewEmployee()
         {

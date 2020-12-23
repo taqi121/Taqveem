@@ -4,18 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c71f15c24e5a4e519d48ab8412953cea" Name="Diagram1">
-        <EntityTypeShape EntityType="PointOfSaleModel.Brand" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Category" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Customer" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.ExpenseCategory" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Expens" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Item" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.purchase" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Sale" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Supplier" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.User" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Admin" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="8571528081334184b0c90fc1ea76d05c" Name="Diagram1">
+        <EntityTypeShape EntityType="PointOfSaleModel.Brand" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Category" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Customer" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.ExpenseCategory" Width="1.5" PointX="9.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Expens" Width="1.5" PointX="12" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Item" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.purchase" Width="1.5" PointX="7.5" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Sale" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Supplier" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.sysdiagram" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.User" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Admin" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="PointOfSaleModel.FK_Category_Brand" ManuallyRouted="false" />
+        <AssociationConnector Association="PointOfSaleModel.FK_Item_Brand" ManuallyRouted="false" />
+        <AssociationConnector Association="PointOfSaleModel.FK_Item_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="PointOfSaleModel.FK_Sales_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="PointOfSaleModel.FK_Expenses_ExpenseCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="PointOfSaleModel.FK_Sales_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="PointOfSaleModel.FK_purchase_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="PointOfSaleModel.FK_purchase_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="PointOfSaleModel.FK_Sales_Users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PointOfSaleModel.User_Role" Width="1.5" PointX="3" PointY="12" />
+        <AssociationConnector Association="PointOfSaleModel.FK_Users_User_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

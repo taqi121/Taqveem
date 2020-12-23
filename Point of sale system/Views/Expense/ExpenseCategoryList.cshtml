@@ -4,35 +4,85 @@
     ViewBag.Title = "ExpenseCategoryList";
     Layout = "~/Views/Shared/_AdminSharedView.cshtml";
 }
-    <div style="margin-left:3%" class="col-md-11">
-        <h2>ExpenseCategoryList</h2>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>Actions</th>
-            </tr>
+<div style="margin-left:3%" class="col-md-11">
+    <h2>ExpenseCategoryList</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>Actions</th>
+        </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.ActionLink("EditCategory", "EditCategory", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("EditCategory", "EditCategory", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    <a href="#" data-toggle="modal" onclick="ConfirmDelete(@item.ID)" data-target="#delete_Expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@* Delete the Record through Modal *@
+<div id="delete_Expense" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Department</h4>
+            </div>
+            <div class="modal-body card-box">
+
+                <input type="text" id="Department_id" hidden />
+
+                <p>Please Sure that your Category didn't use in Epenses Section. <br /> If any Record use your Category it will not be remove from <br />
+                Category List....
+                </p>
+                <div class="m-t-20 text-left">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                    <button type="submit" id="Btn_Delete" onclick="deletee()" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Script for Delete Model*@
+<script>
+    var ConfirmDelete = function (Desi_id) {
+        $("#Department_id").val(Desi_id);
+    };
+
+    var deletee = function () {
+
+        var idd = $("#Department_id").val();
+        $.ajax({
+
+            type: "post",
+            url: "/Expense/DeeteCategory",
+            data: { Desi_id: idd },
+            success: function (result) {
+
+                $("Department_id").val(null);
+                $("#delete_Expense").modal('hide');
+                window.location.href = "/Expense/ExpenseCategoryList";
             }
 
-        </table>
-    </div>
+
+        })
+
+    }
+</script>

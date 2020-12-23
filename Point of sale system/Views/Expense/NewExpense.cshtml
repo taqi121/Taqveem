@@ -18,39 +18,37 @@
             <div class="form-row mb-4">
                 <div class="form-group col-md-4">
                     <label for="date">Date</label>
-                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Today_Date, new { htmlAttributes = new { @type="date", @class = "form-control" ,required="required"} })
+                    @Html.ValidationMessageFor(model => model.Today_Date, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group col-md-4">
                     <label for="refno">Reference No.</label>
-                    @Html.EditorFor(model => model.ReferenceNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ReferenceNo, new { htmlAttributes = new { @class = "form-control", placeholder="Refernece No.." ,required="required"} })
                     @Html.ValidationMessageFor(model => model.ReferenceNo, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group col-md-4">
                     <label for="category">Category</label>
-                    <select id="Category" class="form-control" required>
-                        <option selected>Choose...</option>
-                        <option>Bills</option>
-                        <option>Petrol</option>
-                    </select>
+                    @Html.DropDownListFor(item => @Model.CategoryID, ViewBag.ExpenseCategory as SelectList, "--- Select Category ----", new { @class = "form-control" ,required="required"})
+                    @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+
                 </div>
 
             </div>
             <div class="form-row mb-4">
                 <div class="form-group col-md-4">
                     <label for="expensefor">Expense FOr..</label>
-                    @Html.EditorFor(model => model.Expensefor, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Expensefor, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Expensefor, new { htmlAttributes = new { @class = "form-control",placeholder="Expense For...." ,required="required"} })
+                    @Html.ValidationMessageFor(model => model.Expensefor, "", new { @class = "text-danger"})
                 </div>
                 <div class="form-group col-md-4">
                     <label for="amount">Amount</label>
-                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control",placeholder="Amount.." ,required="required"} })
                     @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-row form-group mb-4">
                 <label for="txtarea">Note</label>
-                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control",placeholder="Note...",required="required" } })
                 @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
             </div>
             <div class="br-right-30">

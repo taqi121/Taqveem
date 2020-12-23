@@ -29,5 +29,8 @@ namespace Point_of_sale_system.Models
         public Nullable<double> totalAmountAll { get; set; }
         public int SupplierID { get; set; }
         public int UserID { get; set; }
+    
+        public virtual Supplier Supplier { get; set; }
+        public virtual User User { get; set; }
     }
 }

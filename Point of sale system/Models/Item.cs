@@ -14,6 +14,12 @@ namespace Point_of_sale_system.Models
     
     public partial class Item
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Item()
+        {
+            this.Sales = new HashSet<Sale>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public string Quantity { get; set; }
@@ -27,5 +33,10 @@ namespace Point_of_sale_system.Models
         public string Stock { get; set; }
         public int categoryID { get; set; }
         public int BrandID { get; set; }
+    
+        public virtual Brand Brand { get; set; }
+        public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }

@@ -14,6 +14,12 @@ namespace Point_of_sale_system.Models
     
     public partial class Customer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Customer()
+        {
+            this.Sales = new HashSet<Sale>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public string Mobile { get; set; }
@@ -24,5 +30,8 @@ namespace Point_of_sale_system.Models
         public string city { get; set; }
         public int postcode { get; set; }
         public string Address { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }
