@@ -36,7 +36,13 @@ namespace Point_of_sale_system
                       "~/plugins/table/datatable/custom_dt_html5.css",
                       "~/plugins/table/datatable/dt-global_style.css",
                       "~/plugins/dropify/dropify.min.css",
-                      "~/assets/css/users/account-setting.css"
+                      "~/assets/css/users/account-setting.css",
+                      "~/assets/css/components/cards/card.css",
+                      "~/assets/css/scrollspyNav.css",
+                      "~/assets/css/users/user-profile.css",
+                      "~/assets/css/forms/theme-checkbox-radio.css",
+                      "~/assets/css/tables/table-basic.css"
+
                 ));
             bundles.Add(new ScriptBundle("~/template/Js").Include(
                       "~/assets/js/loader.js",
@@ -55,7 +61,10 @@ namespace Point_of_sale_system
                       "~/plugins/table/datatable/button-ext/buttons.print.min.js",
                       "~/plugins/dropify/dropify.min.js",
                       "~/plugins/blockui/jquery.blockUI.min.js",
-                      "~/assets/js/users/account-settings.js"
+                      "~/assets/js/users/account-settings.js",
+                      "~/plugins/highlight/highlight.pack.js",
+                      "~/assets/js/scrollspyNav.js",
+                      "~/assets/js/scrollspyNav.js"
             ));
         }
     }

@@ -323,7 +323,7 @@
                                 @Html.ActionLink("New Customers", "NewCustomer", "Users")
                             </li>
                             <li>
-                                @Html.ActionLink("View Customers", "ViewItems", "Item")
+                                @Html.ActionLink("View Customers", "Customerlist", "Users")
                             </li>
                         </ul>
                     </li>
@@ -339,12 +339,12 @@
                             </div>
                         </a>
                         <ul class="collapse submenu list-unstyled" id="datatables" data-parent="#accordionExample">
-                            <!--Data Tables-->
+                            <!--Suppliers-->
                             <li>
                                 @Html.ActionLink("New Suppliers", "NewSupplier", "Users")
                             </li>
                             <li>
-                                @Html.ActionLink("View Suppliers", "ViewItems", "Item")
+                                @Html.ActionLink("View Suppliers", "SupplierList", "Item")
                             </li>
                         </ul>
                     </li>
@@ -397,22 +397,16 @@
                             <!--items-->
 
                             <li>
-                                @Html.ActionLink("New Expense", "Newitem", "Expense")
+                                @Html.ActionLink("New Expense", "NewExpense", "Expense")
                             </li>
                             <li>
-                                @Html.ActionLink("View Item", "ViewItems", "Item")
+                                @Html.ActionLink("View Expense", "ViewExpenses", "Expense")
                             </li>
                             <li>
-                                @Html.ActionLink("New Category", "NewCategory", "Item")
+                                @Html.ActionLink("New Category", "NewExpenseCategory", "Expense")
                             </li>
                             <li>
-                                @Html.ActionLink("View Categories", "ViewItems", "Item")
-                            </li>
-                            <li>
-                                @Html.ActionLink("New Brand", "NewBrand", "Item")
-                            </li>
-                            <li>
-                                @Html.ActionLink("View Brand", "ViewItems", "Item")
+                                @Html.ActionLink("View Categories", "ExpenseCategoryList", "Expense")
                             </li>
                         </ul>
                     </li>

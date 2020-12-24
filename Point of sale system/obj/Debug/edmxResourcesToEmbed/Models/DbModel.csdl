@@ -167,6 +167,7 @@
     <Property Name="RoleID" Type="Int32" />
     <NavigationProperty Name="purchases" Relationship="Self.FK_purchase_Users" FromRole="Users" ToRole="purchase" />
     <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Users" FromRole="Users" ToRole="Sales" />
+    <NavigationProperty Name="User_Role" Relationship="PointOfSaleModel.FK_Users_User_Role" FromRole="User" ToRole="User_Role" />
   </EntityType>
   <EntityType Name="Admin">
     <Key>
@@ -337,5 +338,31 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Sales" EntitySet="Sales" />
     </AssociationSet>
+    <EntitySet Name="User_Role" EntityType="PointOfSaleModel.User_Role" />
+    <AssociationSet Name="FK_Users_User_Role" Association="PointOfSaleModel.FK_Users_User_Role">
+      <End Role="User_Role" EntitySet="User_Role" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="User_Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="PointOfSaleModel.FK_Users_User_Role" FromRole="User_Role" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Users_User_Role">
+    <End Type="PointOfSaleModel.User_Role" Role="User_Role" Multiplicity="0..1" />
+    <End Type="PointOfSaleModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

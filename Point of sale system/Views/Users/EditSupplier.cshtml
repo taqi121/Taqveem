@@ -1,0 +1,80 @@
+﻿@model Point_of_sale_system.Models.Supplier
+@{
+    ViewBag.Title = "EditSupplier";
+    Layout = "~/Views/Shared/_AdminSharedView.cshtml";
+}
+
+<div class="col-md-11" style="margin-left:2%">
+    <div class="col-md-4">
+        <strong>Supplier</strong><span>Add New Supplier</span>
+
+    </div>
+    <div class="col-md-12">
+        <hr style="border:solid 0.1px white" />
+    </div>
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model=>model.ID)
+        <div class="form-row mb-4">
+            <div class="form-group col-md-4">
+                <label for="name">Name</label>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Name..." } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="mobile">Mobile No.</label>
+                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Mobile Number" } })
+                @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="email">Email..</label>
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @type = "email", @class = "form-control", required = "required", placeholder = "Email" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-row mb-4">
+            <div class="form-group col-md-4">
+                <label for="balance">Balance..</label>
+                @Html.EditorFor(model => model.Balance, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Balance..." } })
+                @Html.ValidationMessageFor(model => model.Balance, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="country">Country</label>
+                @Html.EditorFor(model => model.country, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Country.." } })
+                @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="state">State..</label>
+                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "State..." } })
+                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-row mb-4">
+            <div class="form-group col-md-4">
+                <label for="city">City..</label>
+                @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "City..." } })
+                @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-2">
+                <label for="postcode">Post Code</label>
+                @Html.EditorFor(model => model.postcode, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "PostCode.." } })
+                @Html.ValidationMessageFor(model => model.postcode, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="address">Adress..</label>
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Address" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="br-right-30">
+            <hr style="border:solid 0.1px white" />
+            <button type="submit" class="btn btn-primary mt-3">Save</button>
+            <button type="reset" class="btn btn-danger mt-3">Reset</button>
+        </div>
+    }
+
+</div>

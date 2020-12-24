@@ -5,78 +5,142 @@
     Layout = "~/Views/Shared/_AdminSharedView.cshtml";
 }
 
-<h2>Customerlist</h2>
+    <div id="tableDropdown" class="col-lg-12 col-12 layout-spacing">
+        <div class="statbox widget box box-shadow">
+            <div class="widget-header">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Customer List</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content widget-content-area">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-4">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>City</th>
+                                <th>Number</th>
+                                <th class="text-center"></th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                             {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.city)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Mobile)</td>
+                                    <td class="text-center">@*<span class="badge badge-success">Approved</span>*@</td>
+                                    <td class="text-center">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mobile)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.balance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.country)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.state)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.city)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.postcode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th></th>
-    </tr>
+                                        <div class="dropdown custom-dropdown">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                            </a>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mobile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.balance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.country)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.state)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.city)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.postcode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("DeleteCustomer", "DeleteCustomer", new { id=item.ID })
-        </td>
-    </tr>
-}
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                                                <a class="dropdown-item" href="/Users/Edit/@item.ID">Edit</a>
+                                                <a class="dropdown-item" href="/Users/DetailsCustomers/@item.ID">Details</a>
+                                            </div>
+                                        </div>
 
-</table>
+                                    </td>
+                                </tr>
+                             }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@*<h2>Customerlist</h2><br />
+
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
+                <div class="card component-card_3">
+                    <div class="card-body">
+                        <h5 class="card-user_name">@Html.DisplayFor(modelItem=>item.Name)</h5>
+                        <p class="card-user_occupation">Manager</p>
+                        <p class="card-text"> Maecenas nec mi vel lacus condimentum rhoncus dignissim egestas orci. Integer blandit porta placerat. Vestibulum in ultricies. </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="btn btn-success btn-sm m-t-10">View Profile</a>
+                        <a href="" class="btn btn-default btn-sm m-t-10">Edit</a>
+                    </div>
+                </div>
+            </div>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mobile)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "DetailsCustomers", new { id = item.ID }) |
+                    @Html.ActionLink("DeleteCustomer", "DeleteCustomer", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>*@
+@*<div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
+            <div class="card component-card_3">
+                <div class="card-body">
+                    <img src="assets/img/profile-7.jpeg" class="card-img-top" alt="...">
+                    <h5 class="card-user_name">Luke Ivory</h5>
+                    <p class="card-user_occupation">Manager</p>
+                    <p class="card-text"> Maecenas nec mi vel lacus condimentum rhoncus dignissim egestas orci. Integer blandit porta placerat. Vestibulum in ultricies. </p>
+                </div>
+                <div class="card-footer"  >
+                    <a href="" class="btn btn-success btn-sm m-t-10">View Profile</a>
+                    <a href="" class="btn btn-default btn-sm m-t-10">Edit</a>
+                </div>
+            </div>
+    </div>*@
+
+@*<div class="col-md-4 col-sm-4 col-xs-6 col-lg-3">
+        <div class="profile-widget">
+            <div class="profile-img">
+                <a href="client-profile.html" class="avatar">G</a>
+            </div>
+            <div class="dropdown profile-action">
+                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="#" data-toggle="modal" data-target="#edit_client"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#delete_client"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
+                </ul>
+            </div>
+            <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="client-profile.html">Delta Infotech</a></h4>
+            <h5 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="client-profile.html">Tressa Wexler</a></h5>
+            <div class="small text-muted">Manager</div>
+            <a href="chat.html" class="btn btn-default btn-sm m-t-10">Message</a>
+            <a href="client-profile.html" class="btn btn-default btn-sm m-t-10">View Profile</a>
+        </div>
+    </div>*@
+<script src="assets/js/scrollspyNav.js"></script>
+<script>checkall('todoAll', 'todochkbox');
+        $('[data-toggle="tooltip"]').tooltip()</script>

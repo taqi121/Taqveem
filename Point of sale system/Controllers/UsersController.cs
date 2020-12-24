@@ -33,6 +33,13 @@ namespace Point_of_sale_system.Controllers
                 return View(dbModel.Customers.ToList());
             }
         }
+        public ActionResult DetailsCustomers(int id)
+        {
+            using (DbModelEntities dbmodel=new DbModelEntities())
+            {
+                return View(dbmodel.Customers.Where(x=>x.ID==id).FirstOrDefault());
+            }
+        }
         public ActionResult Edit(int id)
         {
             using(DbModelEntities dbmodel=new DbModelEntities())
@@ -51,28 +58,28 @@ namespace Point_of_sale_system.Controllers
                 return RedirectToAction("Customerlist");
             }
         }
-        public ActionResult DeleteCustomer(int id)
-        {
-            Customer customer;
-            using (DbModelEntities dbmodel = new DbModelEntities())
-            {
-                customer = dbmodel.Customers.Where(x => x.ID == id).FirstOrDefault();
-                dbmodel.Customers.Remove(customer);
-                dbmodel.SaveChanges();
-            }
-            return RedirectToAction("CustomerList");
-            //bool a = DeleteCustomerData(customer);
-            //if(a)
-            //{
-            //    ViewData["Message"] = "Delete";
-            //    return RedirectToAction("CustomerList");
-            //}
-            //else
-            //{
-            //    ViewData["Message"] = "Error";
-            //    return View();
-            //}
-        }
+        //public ActionResult DeleteCustomer(int id)
+        //{
+        //    Customer customer;
+        //    using (DbModelEntities dbmodel = new DbModelEntities())
+        //    {
+        //        customer = dbmodel.Customers.Where(x => x.ID == id).FirstOrDefault();
+        //        dbmodel.Customers.Remove(customer);
+        //        dbmodel.SaveChanges();
+        //    }
+        //    return RedirectToAction("CustomerList");
+        //    //bool a = DeleteCustomerData(customer);
+        //    //if(a)
+        //    //{
+        //    //    ViewData["Message"] = "Delete";
+        //    //    return RedirectToAction("CustomerList");
+        //    //}
+        //    //else
+        //    //{
+        //    //    ViewData["Message"] = "Error";
+        //    //    return View();
+        //    //}
+        //}
         //public bool DeleteCustomerData(Customer customer)
         //{
         //    using(DbModelEntities dbmodel=new DbModelEntities())
@@ -101,6 +108,32 @@ namespace Point_of_sale_system.Controllers
             using(DbModelEntities dbmodel =new DbModelEntities())
             {
                 return View(dbmodel.Suppliers.ToList());
+            }
+        }
+        public ActionResult DetailsSupplier(int id)
+        {
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                return View(dbmodel.Suppliers.Where(x => x.ID == id).FirstOrDefault());
+            }
+        }
+        [HttpGet]
+        public ActionResult EditSupplier(int id)
+        {
+            using(DbModelEntities dbModel=new DbModelEntities())
+            {
+                return View(dbModel.Suppliers.Where(x=>x.ID==id).FirstOrDefault());
+            }
+        }
+        [HttpPost]
+        [ActionName("EditSupplier")]
+        public ActionResult EditSupplier(int id,Supplier supplier)
+        {
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                dbmodel.Entry(supplier).State = EntityState.Modified;
+                dbmodel.SaveChanges();
+                return RedirectToAction("SupplierList");
             }
         }
         public ActionResult NewEmployee()

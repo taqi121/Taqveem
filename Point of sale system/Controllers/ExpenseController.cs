@@ -47,6 +47,13 @@ namespace Point_of_sale_system.Controllers
                 return View(dbmodel.Expenses.ToList());
             }
         }
+        public ActionResult DetailsOfExpense(int id)
+        {
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                return View(dbmodel.Suppliers.Where(x => x.ID == id).FirstOrDefault());
+            }
+        }
         //Get Method for edit the Expenses List
         public ActionResult EditExpenses(int id)
         {
@@ -87,25 +94,26 @@ namespace Point_of_sale_system.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult deleteExpense(int Desi_id)
-        {
-            bool result = false;
-            try
-            {
-            using(DbModelEntities dbmodel=new DbModelEntities())
-            {
-                var del_id = dbmodel.Expenses.Where(x => x.ID == Desi_id).FirstOrDefault();
-                dbmodel.Expenses.Remove(del_id);
-                dbmodel.SaveChanges();
-                result = true;
-            }
-            }catch
-            {
-                ViewBag.Msg = "Error";
-            }
-            return Json(result, JsonRequestBehavior.AllowGet);
+        //public JsonResult deleteExpense(int Desi_id)
+        //{
+        //    bool result = false;
+        //    try
+        //    {
+        //        using (DbModelEntities dbmodel = new DbModelEntities())
+        //        {
+        //            var del_id = dbmodel.Expenses.Where(x => x.ID == Desi_id).FirstOrDefault();
+        //            dbmodel.Expenses.Remove(del_id);
+        //            dbmodel.SaveChanges();
+        //            result = true;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        ViewBag.Msg = "Error";
+        //    }
+        //    return Json(result, JsonRequestBehavior.AllowGet);
 
-        }
+        //}
         public ActionResult NewExpenseCategory()
         {
             return View();
@@ -150,24 +158,24 @@ namespace Point_of_sale_system.Controllers
                 return View();
             }
         }
-        public JsonResult DeeteCategory(int id)
-        {
-            bool result = false;
-            try
-            {
-                using (DbModelEntities dbmodel = new DbModelEntities())
-                {
-                    var del_id = dbmodel.ExpenseCategories.Where(x => x.ID == id).FirstOrDefault();
-                    dbmodel.ExpenseCategories.Remove(del_id);
-                    dbmodel.SaveChanges();
-                    result = true;
-                }
-            }
-            catch
-            {
-                ViewBag.Msg = "Error";
-            }
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult DeeteCategory(int id)
+        //{
+        //    bool result = false;
+        //    try
+        //    {
+        //        using (DbModelEntities dbmodel = new DbModelEntities())
+        //        {
+        //            var del_id = dbmodel.ExpenseCategories.Where(x => x.ID == id).FirstOrDefault();
+        //            dbmodel.ExpenseCategories.Remove(del_id);
+        //            dbmodel.SaveChanges();
+        //            result = true;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        ViewBag.Msg = "Error";
+        //    }
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
     }
 }
