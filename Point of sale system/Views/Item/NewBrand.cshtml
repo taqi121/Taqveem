@@ -1,29 +1,35 @@
-﻿
+﻿@model Point_of_sale_system.Models.Brand
 @{
     ViewBag.Title = "NewBrand";
     Layout = "~/Views/Shared/_AdminSharedView.cshtml";
 }
 
-<div style="margin-left:3%">
-    <form class="form">
-        <div class="col-md-12 form-row">
-            <div class="form-group col-md-12">
-                <label>Add New Brand</label>
-            </div>
-        </div>
-        <div class="form-row col-md-12">
+<div class="col-md-11" style="margin-left:2%">
+    <div class="col-md-4">
+        <strong>Items</strong><span>Add Item Brand</span>
+
+    </div>
+    <div class="col-md-12">
+        <hr style="border:solid 0.1px white" />
+    </div>
+    @using (Html.BeginForm("NewBrand", "Item",FormMethod.Post))
+    {
+        <div class="form-row col-md-6">
             <div class="form-group col-md-12">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Name..." name="name" required>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Name" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group col-md-12">
             <label for="txtarea">Description</label>
-            <textarea cols="60" rows="5" id="txtarea" name="txtarea" placeholder="Comments" class="form-control"></textarea>
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Description" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
-        <div class="br-right-30 col-md-12">
+        <div class="br-right-30">
+            <hr style="border:solid 0.1px white" />
             <button type="submit" class="btn btn-primary mt-3">Save</button>
-            <button type="submit" class="btn btn-danger mt-3">Reset</button>
+            <button type="reset" class="btn btn-danger mt-3">Reset</button>
         </div>
-    </form>
+    }
 </div>

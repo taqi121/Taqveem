@@ -195,6 +195,7 @@ namespace Point_of_sale_system.Controllers
             return View(Db.Users.Where(x => x.ID == id).FirstOrDefault());
         }
         [HttpPost]
+        [ActionName("EditEmployee")]
         public ActionResult EditEmployee(User user, HttpPostedFileBase ImageofUser)
         {
             try
@@ -214,7 +215,7 @@ namespace Point_of_sale_system.Controllers
                     //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
                     user.password = Crypto.Hash(user.password);
                     user.cpassword = Crypto.Hash(user.cpassword);
-                    Db.Users.Add(user);
+                    Db.Entry(user).State = EntityState.Modified;
                     Db.SaveChanges();
                     ModelState.Clear();
                     var role_list = Db.User_Role.ToList();
@@ -228,8 +229,36 @@ namespace Point_of_sale_system.Controllers
 
 
             }
-            return RedirectToAction("NewEmployee", "Users");
+            return RedirectToAction("EmployeeList", "Users");
             
+        }
+        public ActionResult EmployeeDetails(int id)
+        {
+            //List<User> EmployeeList = Db.Users.ToList();
+            //EmployeeViewModel employeeVM = new EmployeeViewModel();
+            //List<EmployeeViewModel> employeeVMList = EmployeeList.Select(x => new EmployeeViewModel
+            //{
+            //    Name = x.Name,
+            //    FatherName = x.FatherName,
+            //    Bio = x.Bio,
+            //    Addres = x.Addres,
+            //    stateOfCountry = x.stateOfCountry,
+            //    city = x.city,
+            //    Mobile = x.Mobile,
+            //    email = x.email,
+            //    country = x.country,
+            //    CollegeName = x.CollegeName,
+            //    cpassword = x.cpassword,
+            //    password = x.password,
+            //    image = x.image,
+            //    DegreeName = x.DegreeName,
+            //    startDate = x.startDate,
+            //    EndDate = x.EndDate,
+            //    RoleID = x.RoleID,
+            //    RoleName = x.User_Role.Name
+
+            //}).ToList();
+            return View(Db.Users.Where(x=>x.ID==id).FirstOrDefault());
         }
         public ActionResult NewRole()
         {

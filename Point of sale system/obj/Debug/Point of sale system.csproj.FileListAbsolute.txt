@@ -83,3 +83,4 @@ C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\E
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\DAL.dll.config
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.xml
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.SqlServer.xml
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.csproj.CoreCompileInputs.cache

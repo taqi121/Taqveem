@@ -9,3 +9,4 @@ C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\EntityFramew
 C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\EntityFramework.xml
 C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache

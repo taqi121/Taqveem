@@ -166,6 +166,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\Expens.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -175,6 +176,7 @@
     <Compile Include="Models\Item.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemCategoryViewModel.cs" />
     <Compile Include="Models\purchase.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -610,6 +612,11 @@
     <Content Include="Views\Users\RoleList.cshtml" />
     <Content Include="Views\Users\EmployeeList.cshtml" />
     <Content Include="Views\Users\EditEmployee.cshtml" />
+    <Content Include="Views\Users\EmployeeDetails.cshtml" />
+    <Content Include="Views\Item\BrandList.cshtml" />
+    <Content Include="Views\Item\EditBrand.cshtml" />
+    <Content Include="Views\Item\ItemCategoryList.cshtml" />
+    <Content Include="Views\Item\EditItemCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
