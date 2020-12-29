@@ -161,13 +161,24 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="cpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cpassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="RoleID" Type="Int32" />
     <NavigationProperty Name="purchases" Relationship="Self.FK_purchase_Users" FromRole="Users" ToRole="purchase" />
     <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Users" FromRole="Users" ToRole="Sales" />
     <NavigationProperty Name="User_Role" Relationship="PointOfSaleModel.FK_Users_User_Role" FromRole="User" ToRole="User_Role" />
+    <Property Name="FatherName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Bio" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="stateOfCountry" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Addres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CollegeName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DegreeName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="startDate" Type="DateTime" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="Admin">
     <Key>

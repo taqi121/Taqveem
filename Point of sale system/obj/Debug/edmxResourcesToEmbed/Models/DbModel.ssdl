@@ -167,10 +167,21 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="cpassword" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="image" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="password" Type="varchar(max)" Nullable="false" />
+    <Property Name="cpassword" Type="varchar(max)" Nullable="false" />
+    <Property Name="image" Type="varchar(max)" Nullable="false" />
     <Property Name="RoleID" Type="int" />
+    <Property Name="FatherName" Type="varchar" MaxLength="40" />
+    <Property Name="Bio" Type="varchar" MaxLength="800" />
+    <Property Name="country" Type="varchar" MaxLength="40" />
+    <Property Name="stateOfCountry" Type="varchar" MaxLength="40" />
+    <Property Name="city" Type="varchar" MaxLength="40" />
+    <Property Name="Addres" Type="varchar" MaxLength="200" />
+    <Property Name="Mobile" Type="varchar" MaxLength="200" />
+    <Property Name="CollegeName" Type="varchar" MaxLength="200" />
+    <Property Name="DegreeName" Type="varchar" MaxLength="200" />
+    <Property Name="startDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
   </EntityType>
   <Association Name="FK_Category_Brand">
     <End Role="Brand" Type="Self.Brand" Multiplicity="1" />

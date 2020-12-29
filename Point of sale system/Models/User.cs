@@ -28,6 +28,17 @@ namespace Point_of_sale_system.Models
         public string cpassword { get; set; }
         public string image { get; set; }
         public Nullable<int> RoleID { get; set; }
+        public string FatherName { get; set; }
+        public string Bio { get; set; }
+        public string country { get; set; }
+        public string stateOfCountry { get; set; }
+        public string city { get; set; }
+        public string Addres { get; set; }
+        public string Mobile { get; set; }
+        public string CollegeName { get; set; }
+        public string DegreeName { get; set; }
+        public Nullable<System.DateTime> startDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<purchase> purchases { get; set; }

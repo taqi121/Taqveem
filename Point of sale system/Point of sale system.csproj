@@ -135,6 +135,7 @@
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -605,9 +606,14 @@
     <Content Include="Views\Users\DetailsSupplier.cshtml" />
     <Content Include="Views\Users\EditSupplier.cshtml" />
     <Content Include="Views\Expense\DetailsOfExpense.cshtml" />
+    <Content Include="Views\Users\EditRole.cshtml" />
+    <Content Include="Views\Users\RoleList.cshtml" />
+    <Content Include="Views\Users\EmployeeList.cshtml" />
+    <Content Include="Views\Users\EditEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Photo\" />
     <Folder Include="Views\Purchase\" />
     <Folder Include="Views\Sales\" />
     <Folder Include="wwwroot\cssContent\" />

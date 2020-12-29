@@ -4,8 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
-using DAL;
+using Point_of_sale_system.Models;
 
 namespace Point_of_sale_system.Controllers
 {
@@ -23,24 +24,39 @@ namespace Point_of_sale_system.Controllers
         }
         [HttpPost]
         [ActionName("Login")]
-        public ActionResult login2()
+        public ActionResult login2(string email,string password)
         {
+            try
+            {
+                using (DbModelEntities dbmodel = new DbModelEntities())
+                {
+                    //var passss = Crypto.Hash(password);
+                    var login_admin = dbmodel.Admins.Where(x => x.Username == email && x.password == password).SingleOrDefault();
+                    Session["User_Id"] = login_admin.ID.ToString();
+                    Session["UserName"] = login_admin.Name.ToString();
+                    return RedirectToAction("mainPage", "Home");
+                }
+            }catch(Exception)
+            {
+                ViewBag.inco = "Something Invalid";
+                return View();
+            }
             
-            List<Admin> admins = new List<Admin>();
-            string username = Request["username"];
-            string password = Request["pwd"];
-            bool a =DAL.DAL.loginUser(username, password);
-            admins = DAL.DAL.GetAdmin();
-            if(a)
-            {
-                Session["username"] = username;
-                return RedirectToAction("mainPage", "Home");
-            }
-            else
-            {
-                ViewData["PromptMessage"] = "Invalid";
-                return RedirectToAction("Login", "MainControl");
-            }
+            //List<Admin> admins = new List<Admin>();
+            //string username = Request["username"];
+            //string password = Request["pwd"];
+            //bool a =DAL.DAL.loginUser(username, password);
+            //admins = DAL.DAL.GetAdmin();
+            //if(a)
+            //{
+            //    Session["username"] = username;
+            //    return RedirectToAction("mainPage", "Home");
+            //}
+            //else
+            //{
+            //    ViewData["PromptMessage"] = "Invalid";
+            //    return RedirectToAction("Login", "MainControl");
+            //}
         }
         public ActionResult ForgetPassword()
         {

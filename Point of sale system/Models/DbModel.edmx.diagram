@@ -13,9 +13,9 @@
         <EntityTypeShape EntityType="PointOfSaleModel.Item" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PointOfSaleModel.purchase" Width="1.5" PointX="7.5" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PointOfSaleModel.Sale" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Supplier" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Supplier" Width="1.5" PointX="2.875" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="PointOfSaleModel.sysdiagram" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PointOfSaleModel.User" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PointOfSaleModel.User" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PointOfSaleModel.Admin" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
         <AssociationConnector Association="PointOfSaleModel.FK_Category_Brand" ManuallyRouted="false" />
         <AssociationConnector Association="PointOfSaleModel.FK_Item_Brand" ManuallyRouted="false" />

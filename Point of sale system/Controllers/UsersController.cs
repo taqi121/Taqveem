@@ -2,14 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Point_of_sale_system.Controllers
 {
     public class UsersController : Controller
     {
+        DbModelEntities Db = new DbModelEntities();
         // GET: Users
         public ActionResult NewCustomer()
         {
@@ -138,19 +141,136 @@ namespace Point_of_sale_system.Controllers
         }
         public ActionResult NewEmployee()
         {
+            var role_list = Db.User_Role.ToList();
+            var roles_list = new SelectList(role_list, "RoleId", "Name");
+            ViewBag.Role = roles_list;
             return View();
+        }
+        [HttpPost]
+        public ActionResult NewEmployee(User user, HttpPostedFileBase ImageofUser)
+        {
+            try
+            {
+
+                var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
+                var fname = ImageofUser.FileName;
+                var fullnamee = DateeTime + "_" + fname;
+                var ext = Path.GetExtension(fname);
+                var extension = ext.ToLower();
+                if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                {
+                    var path = Server.MapPath("~/Photo");
+                    var fullpath = Path.Combine(path, fullnamee);
+                    ImageofUser.SaveAs(fullpath);
+                    user.image = fullnamee;
+                    //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
+                    user.password = Crypto.Hash(user.password);
+                    user.cpassword = Crypto.Hash(user.cpassword);
+                    Db.Users.Add(user);
+                    Db.SaveChanges();
+                    ModelState.Clear();
+                    var role_list = Db.User_Role.ToList();
+                    var roles_list = new SelectList(role_list, "RoleId", "Name");
+                    ViewBag.Role = roles_list;
+                }
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+            return RedirectToAction("NewEmployee", "Users");
         }
         public ActionResult EmployeeList()
         {
-            return View();
+            return View(Db.Users.ToList());
+        }
+        [HttpGet]
+        public ActionResult EditEmployee(int id)
+        {
+            var role_list = Db.User_Role.ToList();
+            var roles_list = new SelectList(role_list, "RoleId", "Name");
+            ViewBag.Role = roles_list;
+            return View(Db.Users.Where(x => x.ID == id).FirstOrDefault());
+        }
+        [HttpPost]
+        public ActionResult EditEmployee(User user, HttpPostedFileBase ImageofUser)
+        {
+            try
+            {
+
+                var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
+                var fname = ImageofUser.FileName;
+                var fullnamee = DateeTime + "_" + fname;
+                var ext = Path.GetExtension(fname);
+                var extension = ext.ToLower();
+                if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                {
+                    var path = Server.MapPath("~/Photo");
+                    var fullpath = Path.Combine(path, fullnamee);
+                    ImageofUser.SaveAs(fullpath);
+                    user.image = fullnamee;
+                    //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
+                    user.password = Crypto.Hash(user.password);
+                    user.cpassword = Crypto.Hash(user.cpassword);
+                    Db.Users.Add(user);
+                    Db.SaveChanges();
+                    ModelState.Clear();
+                    var role_list = Db.User_Role.ToList();
+                    var roles_list = new SelectList(role_list, "RoleId", "Name");
+                    ViewBag.Role = roles_list;
+                }
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+            return RedirectToAction("NewEmployee", "Users");
+            
         }
         public ActionResult NewRole()
         {
+
             return View();
+        }
+        [HttpPost]
+        public ActionResult NewRole(User_Role user_Role)
+        {
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                dbmodel.User_Role.Add(user_Role);
+                dbmodel.SaveChanges();
+                return RedirectToAction("NewRole", "Users");
+            }
+        }
+        public ActionResult EditRole(int? id)
+        {
+            using (DbModelEntities dbmodel = new DbModelEntities())
+            {
+                User_Role user_Role = dbmodel.User_Role.Find(id);
+                return View(user_Role);
+
+            }
+        }
+        [HttpPost]
+        public ActionResult EditRole( User_Role user_Role)
+        {
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                dbmodel.Entry(user_Role).State = EntityState.Modified;
+                dbmodel.SaveChanges();
+                return RedirectToAction("RoleList", "Users");
+            }
         }
         public ActionResult RoleList()
         {
-            return View();
+            using(DbModelEntities dbmodel=new DbModelEntities())
+            {
+                return View(dbmodel.User_Role.ToList());
+            }
         }
     }
 }

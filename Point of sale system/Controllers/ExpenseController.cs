@@ -12,8 +12,7 @@ namespace Point_of_sale_system.Controllers
     {
         // GET: Expense
         public ActionResult NewExpense()
-        {
-            List<Expens> Explist = new List<Expens>();
+        { 
             using(DbModelEntities dbmodel =new DbModelEntities())
             {
                 var Exp_list = dbmodel.ExpenseCategories.ToList();

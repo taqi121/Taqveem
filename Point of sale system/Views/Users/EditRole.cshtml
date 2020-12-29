@@ -1,6 +1,7 @@
 ﻿@model Point_of_sale_system.Models.User_Role
+
 @{
-    ViewBag.Title = "NewRole";
+    ViewBag.Title = "EditRole";
     Layout = "~/Views/Shared/_AdminSharedView.cshtml";
 }
 
@@ -14,6 +15,9 @@
         </div>
         @using (Html.BeginForm())
         {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.RoleId)
             <div class="form-row col-md-6">
                 <div class="form-group col-md-12">
                     <label for="name">Name</label>

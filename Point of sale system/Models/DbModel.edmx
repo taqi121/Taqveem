@@ -172,10 +172,21 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="cpassword" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="image" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar(max)" Nullable="false" />
+          <Property Name="cpassword" Type="varchar(max)" Nullable="false" />
+          <Property Name="image" Type="varchar(max)" Nullable="false" />
           <Property Name="RoleID" Type="int" />
+          <Property Name="FatherName" Type="varchar" MaxLength="40" />
+          <Property Name="Bio" Type="varchar" MaxLength="800" />
+          <Property Name="country" Type="varchar" MaxLength="40" />
+          <Property Name="stateOfCountry" Type="varchar" MaxLength="40" />
+          <Property Name="city" Type="varchar" MaxLength="40" />
+          <Property Name="Addres" Type="varchar" MaxLength="200" />
+          <Property Name="Mobile" Type="varchar" MaxLength="200" />
+          <Property Name="CollegeName" Type="varchar" MaxLength="200" />
+          <Property Name="DegreeName" Type="varchar" MaxLength="200" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
         </EntityType>
         <Association Name="FK_Category_Brand">
           <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
@@ -524,13 +535,24 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RoleID" Type="Int32" />
           <NavigationProperty Name="purchases" Relationship="Self.FK_purchase_Users" FromRole="Users" ToRole="purchase" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Users" FromRole="Users" ToRole="Sales" />
           <NavigationProperty Name="User_Role" Relationship="PointOfSaleModel.FK_Users_User_Role" FromRole="User" ToRole="User_Role" />
+          <Property Name="FatherName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Bio" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="stateOfCountry" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Addres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CollegeName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DegreeName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Admin">
           <Key>
@@ -885,6 +907,17 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PointOfSaleModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="DegreeName" ColumnName="DegreeName" />
+                <ScalarProperty Name="CollegeName" ColumnName="CollegeName" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Addres" ColumnName="Addres" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="stateOfCountry" ColumnName="stateOfCountry" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="email" ColumnName="email" />
