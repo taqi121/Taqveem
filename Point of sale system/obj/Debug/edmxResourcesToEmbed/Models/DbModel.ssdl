@@ -180,8 +180,8 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
     <Property Name="Mobile" Type="varchar" MaxLength="200" />
     <Property Name="CollegeName" Type="varchar" MaxLength="200" />
     <Property Name="DegreeName" Type="varchar" MaxLength="200" />
-    <Property Name="startDate" Type="date" />
-    <Property Name="EndDate" Type="date" />
+    <Property Name="startDate" Type="varchar" MaxLength="50" />
+    <Property Name="EndDate" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_Category_Brand">
     <End Role="Brand" Type="Self.Brand" Multiplicity="1" />

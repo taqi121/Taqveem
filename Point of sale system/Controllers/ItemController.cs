@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Point_of_sale_system.Controllers
@@ -27,8 +29,39 @@ namespace Point_of_sale_system.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult NewItem(Item item)
+        public ActionResult NewItem(Item item, HttpPostedFileBase ImageofUser)
         {
+            try
+            {
+
+                var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
+                var fname = ImageofUser.FileName;
+                var fullnamee = DateeTime + "_" + fname;
+                var ext = Path.GetExtension(fname);
+                var extension = ext.ToLower();
+                if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                {
+                    var path = Server.MapPath("~/Photo");
+                    var fullpath = Path.Combine(path, fullnamee);
+                    ImageofUser.SaveAs(fullpath);
+                    item.image = fullnamee;
+                    //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
+                    item.Barcode = Crypto.Hash(item.Barcode);
+                    DbModel.Items.Add(item);
+                    DbModel.SaveChanges();
+                    ModelState.Clear();
+                    var role_list = DbModel.User_Role.ToList();
+                    var roles_list = new SelectList(role_list, "RoleId", "Name");
+                    ViewBag.Role = roles_list;
+                }
+
+            }
+            catch (Exception)
+            {
+
+
+            }
+            return RedirectToAction("NewEmployee", "Users");
             DbModel.Items.Add(item);
             DbModel.SaveChanges();
             return RedirectToAction("Newitem","Item");
