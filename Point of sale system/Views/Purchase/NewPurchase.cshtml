@@ -1,0 +1,295 @@
+﻿@model Point_of_sale_system.Models.purchase
+
+@{
+    ViewBag.Title = "NewPurchase";
+    Layout = "~/Views/Shared/_AdminSharedView.cshtml";
+}
+<div class="col-md-12">
+    <!-- ********** ALERT MESSAGE START******* -->
+    <div class="col-md-12">
+        <!-- ********** ALERT MESSAGE START******* -->
+        <div class="alert alert-success  text-left">
+            <a href="javascript:void()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>
+                Ultimate Inventory with POS new Version 1.7.6 released , Faster and Customizable Application Software. If you have any queries please message <a target='_blank' href='https://codecanyon.net/item/ultimate-inventory-with-pos/23992003/comments'>here</a>. [Some features are disabled in demo and it will be reset after each hour.]
+            </strong>
+        </div>
+        <!-- ********** ALERT MESSAGE END******* -->
+    </div>               <!-- ********** ALERT MESSAGE END******* -->
+</div>
+<div class="layout-px-spacing">
+
+    <div class="account-settings-container layout-top-spacing">
+
+        <div class="account-content">
+            <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                        @using (Html.BeginForm("NewEmployee", "Users", FormMethod.Post, new { @enctype = "multipart/form-data", @id= "purchase-form" }))
+                        {
+                            @*<form action="~/assets/index.php/#" class="form-horizontal" id="purchase-form" enctype="multipart/form-data" method="POST" accept-charset="utf-8">*@
+                                <input type="hidden" name="csrf_test_name" value="a8f5c96e331a6014495303119a457634" />
+                                <input type="hidden" id="base_url" value="~/assets/">
+                                <input type="hidden" value='1' id="hidden_rowcount" name="hidden_rowcount">
+                                <input type="hidden" value='0' id="hidden_update_rowid" name="hidden_update_rowid">
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div id="general-info" class="section general-info">
+                                    <div class="info">
+                                        <h6 class="">General Information</h6>
+                                        <div class="row">
+                                            <div class="col-lg-11 mx-auto">
+                                                <div class="row">
+                                                    <div class="col-xl-1 col-lg-10 col-md-2">
+                                                        @*<div class="upload mt-4 pr-md-4">
+                    <input type="file" id="input-file-max-fs" class="dropify" data-default-file="assets/img/user-profile.jpeg" data-max-file-size="15M" name="ImageofUser" required />
+                    <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p>
+                </div>*@
+                                                    </div>
+                                                    <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
+                                                        <div class="form">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    @*<label for="supplier_id">Supplier Name<label class="text-danger">*</label></label>*@
+                                                                    <label for="Supplier">Supplier Name<span class="text-danger">*</span>@*<label class="text-danger">*</label>*@</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control select2" id="supplier_id" name="supplier_id" onkeyup="shift_cursor(event,'mobile')">
+                                                                            <option value=''>-Select-</option>
+                                                                            <option value='1'>Krishna Patil</option>
+                                                                            <option value='2'>Walter Scott</option>
+                                                                            <option value='3'>Steve Roy</option>
+                                                                            <option value='4'>Glenn M</option>
+                                                                            <option value='5'>David W</option>
+                                                                            <option value='6'>Jason Roy</option>
+                                                                            <option value='7'>Aaron</option>
+                                                                            <option value='8'>Subhramaniam</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <span id="supplier_id_msg" style="display:none" class="text-danger"></span>
+
+
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="fatherName">Today Date</label>
+                                                                        <div class="input-group date">
+                                                                            <div class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                                            </div>
+                                                                            <input type="text" class="form-control pull-right datepicker" id="pur_date" name="pur_date" readonly onkeyup="shift_cursor(event,'purchase_status')" value="@DateTime.Now">
+                                                                        </div>
+                                                                        <span id="pur_date_msg" style="display:none" class="text-danger"></span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    @*<label for="supplier_id">Supplier Name<label class="text-danger">*</label></label>*@
+                                                                    <label for="status">Status<span class="text-danger">*</span>@*<label class="text-danger">*</label>*@</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control select2" id="supplier_id" name="supplier_id" onkeyup="shift_cursor(event,'mobile')">
+                                                                            <!-- <option value="">-Select-</option> -->
+                                                                            <option value="Received">Received</option>
+                                                                            <option value="Pending">Pending</option>
+                                                                            <option value="Ordered">Ordered</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <span id="supplier_id_msg" style="display:none" class="text-danger"></span>
+
+
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="fatherName">Today Date</label>
+                                                                        <div class="input-group date">
+                                                                            <div class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                                            </div>
+                                                                            <input type="text" class="form-control pull-right datepicker" id="pur_date" name="pur_date" readonly onkeyup="shift_cursor(event,'purchase_status')" value="@DateTime.Now">
+                                                                        </div>
+                                                                        <span id="pur_date_msg" style="display:none" class="text-danger"></span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class=" col-sm-12">
+                                                                    <hr style="border:0.1px solid white" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for="role">Role</label>
+                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                        @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 ">
+
+                                                        <div class="form-group">
+                                                            <div class="table-responsive mb-4 mt-4">
+                                                                <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Code</th>
+                                                                            <th>Name</th>
+                                                                            <th>Quantity</th>
+                                                                            <th>Expiry Date</th>
+                                                                            <th>Image</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class=" col-sm-12">
+                                                        <hr style="border:0.1px solid white" />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-11 mx-auto">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="country">Country</label>
+                                                                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="state">State</label>
+                                                                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="city">City</label>
+                                                                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="form-group">
+                                                                    <label for="address">Address</label>
+                                                                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="email">Email</label>
+                                                                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="mobile">Mobile No.</label>
+                                                                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-11 mx-auto">
+                                                        <h5 class="">Education</h5>
+                                                        <div class="edu-section">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="degree1">Enter Your Collage Name</label>
+                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                        @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <label for="degreename">Degree Name</label>
+                                                                                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <label for="startingDate">Starting From</label>
+
+                                                                                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <label for="endingDate">Ending Date</label>
+                                                                                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-11 mx-auto">
+                                                        <hr style="border:solid 0.1px white" />
+                                                        <button type="submit" class="btn btn-primary mt-3">Save</button>
+                                                        <button type="reset" class="btn btn-danger mt-3">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="account-settings-footer">
+
+                <div class="as-footer-container">
+
+                    <button id="multiple-reset" class="btn btn-primary">Reset All</button>
+                    <div class="blockui-growl-message">
+                        <i class="flaticon-double-check"></i>&nbsp; Settings Saved Successfully
+                    </div>
+                    <button id="multiple-messages" class="btn btn-dark">Save Changes</button>
+
+                </div>
+
+            </div>*@
+    </div>
+
+</div>
+<!--  END CONTENT AREA  -->
+<!-- END MAIN CONTAINER -->
+
+<script>
+    $(document).ready(function () {
+        App.init();
+    });</script>

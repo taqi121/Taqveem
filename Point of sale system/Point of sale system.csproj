@@ -396,6 +396,18 @@
     <Content Include="assets\js\scrollspyNav.js" />
     <Content Include="assets\js\users\account-settings.js" />
     <Content Include="assets\js\widgets\modules-widgets.js" />
+    <Content Include="assets\theme\bootstrap\css\bootstrap.min.css" />
+    <Content Include="assets\theme\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\theme\bootstrap\js\bootstrap.min.js" />
+    <Content Include="assets\theme\dist\css\AdminLTE.min.css" />
+    <Content Include="assets\theme\dist\css\downloaded_font.css" />
+    <Content Include="assets\theme\dist\img\boxed-bg.jpg" />
+    <Content Include="assets\theme\images\favicon.ico" />
+    <Content Include="assets\theme\plugins\iCheck\icheck.min.js" />
+    <Content Include="assets\theme\plugins\iCheck\square\blue%402x.png" />
+    <Content Include="assets\theme\plugins\iCheck\square\blue.css" />
+    <Content Include="assets\theme\plugins\iCheck\square\blue.png" />
+    <Content Include="assets\theme\plugins\jQuery\jquery-2.2.3.min.js" />
     <Content Include="bootstrap\css\bootstrap.min.css" />
     <Content Include="bootstrap\js\bootstrap.min.js" />
     <Content Include="bootstrap\js\popper.min.js" />
@@ -555,6 +567,11 @@
     <Content Include="Models\DbModel.edmx.diagram">
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\theme\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\theme\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\theme\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\theme\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="assets\theme\bootstrap\fonts\glyphicons-halflings-regulard41d.eot" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -620,11 +637,11 @@
     <Content Include="Views\Item\EditItemCategory.cshtml" />
     <Content Include="Views\Item\EditItem.cshtml" />
     <Content Include="Views\Item\DetailsOfItems.cshtml" />
+    <Content Include="Views\Purchase\NewPurchase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Photo\" />
-    <Folder Include="Views\Purchase\" />
     <Folder Include="Views\Sales\" />
     <Folder Include="wwwroot\cssContent\" />
   </ItemGroup>
