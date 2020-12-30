@@ -78,10 +78,10 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Quantity" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="ExpiryDate" Type="date" Nullable="false" />
-          <Property Name="Barcode" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="image" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExpiryDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Barcode" Type="varchar(max)" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="image" Type="varchar(max)" Nullable="false" />
           <Property Name="price" Type="float" Nullable="false" />
           <Property Name="tax" Type="float" Nullable="false" />
           <Property Name="salesPrice" Type="float" Nullable="false" />
@@ -495,10 +495,10 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Barcode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="image" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpiryDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Barcode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="price" Type="Double" Nullable="false" />
           <Property Name="tax" Type="Double" Nullable="false" />
           <Property Name="salesPrice" Type="Double" Nullable="false" />
@@ -750,7 +750,7 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

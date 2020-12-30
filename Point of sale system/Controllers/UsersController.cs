@@ -141,17 +141,32 @@ namespace Point_of_sale_system.Controllers
         }
         public ActionResult NewEmployee()
         {
-            var role_list = Db.User_Role.ToList();
-            var roles_list = new SelectList(role_list, "RoleId", "Name");
-            ViewBag.Role = roles_list;
-            return View();
+            try
+            { 
+                if(Session["UserName"] != null)
+                { 
+                    var role_list = Db.User_Role.ToList();
+                    var roles_list = new SelectList(role_list, "RoleId", "Name");
+                    ViewBag.Role = roles_list;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
         [HttpPost]
         public ActionResult NewEmployee(User user, HttpPostedFileBase ImageofUser)
         {
             try
             {
-
+                if(Session["UserName"] != null)
+                { 
                 var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
                 var fname = ImageofUser.FileName;
                 var fullnamee = DateeTime + "_" + fname;
@@ -173,6 +188,11 @@ namespace Point_of_sale_system.Controllers
                     var roles_list = new SelectList(role_list, "RoleId", "Name");
                     ViewBag.Role = roles_list;
                 }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
 
             }
             catch (Exception)
@@ -184,15 +204,45 @@ namespace Point_of_sale_system.Controllers
         }
         public ActionResult EmployeeList()
         {
-            return View(Db.Users.ToList());
+            try
+            {
+                if(Session["UserName"]!=null)
+                {
+                    return View(Db.Users.ToList());
+
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
         [HttpGet]
+        [Authorize(Roles ="Admin")]
         public ActionResult EditEmployee(int id)
         {
-            var role_list = Db.User_Role.ToList();
-            var roles_list = new SelectList(role_list, "RoleId", "Name");
-            ViewBag.Role = roles_list;
-            return View(Db.Users.Where(x => x.ID == id).FirstOrDefault());
+            try
+            { 
+                if(Session["UserName"] != null)
+                { 
+                    var role_list = Db.User_Role.ToList();
+                    var roles_list = new SelectList(role_list, "RoleId", "Name");
+                    ViewBag.Role = roles_list;
+                    return View(Db.Users.Where(x => x.ID == id).FirstOrDefault());
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch(Exception)
+            {
+                return View();
+            }
         }
         [HttpPost]
         [ActionName("EditEmployee")]
@@ -200,36 +250,45 @@ namespace Point_of_sale_system.Controllers
         {
             try
             {
-
-                var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
-                var fname = ImageofUser.FileName;
-                var fullnamee = DateeTime + "_" + fname;
-                var ext = Path.GetExtension(fname);
-                var extension = ext.ToLower();
-                if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                if (Session["UserName"] != null)
                 {
-                    var path = Server.MapPath("~/Photo");
-                    var fullpath = Path.Combine(path, fullnamee);
-                    ImageofUser.SaveAs(fullpath);
-                    user.image = fullnamee;
-                    //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
-                    user.password = Crypto.Hash(user.password);
-                    user.cpassword = Crypto.Hash(user.cpassword);
-                    Db.Entry(user).State = EntityState.Modified;
-                    Db.SaveChanges();
-                    ModelState.Clear();
-                    var role_list = Db.User_Role.ToList();
-                    var roles_list = new SelectList(role_list, "RoleId", "Name");
-                    ViewBag.Role = roles_list;
+                    var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
+                    var fname = ImageofUser.FileName;
+                    var fullnamee = DateeTime + "_" + fname;
+                    var ext = Path.GetExtension(fname);
+                    var extension = ext.ToLower();
+                    if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                    {
+                        var path = Server.MapPath("~/Photo");
+                        var fullpath = Path.Combine(path, fullnamee);
+                        ImageofUser.SaveAs(fullpath);
+                        user.image = fullnamee;
+                        //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
+                        //    user.password = Crypto.Hash(user.password);
+                        //    user.cpassword = Crypto.Hash(user.cpassword);
+                        Db.Entry(user).State = EntityState.Modified;
+                        Db.SaveChanges();
+                        ModelState.Clear();
+                        var role_list = Db.User_Role.ToList();
+                        var roles_list = new SelectList(role_list, "RoleId", "Name");
+                        ViewBag.Role = roles_list;
+                    }
+                    return RedirectToAction("EmployeeList", "Users");
+
                 }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+
 
             }
             catch (Exception)
             {
-
+                return RedirectToAction("", "");
 
             }
-            return RedirectToAction("EmployeeList", "Users");
+            
             
         }
         public ActionResult EmployeeDetails(int id)
@@ -258,47 +317,115 @@ namespace Point_of_sale_system.Controllers
             //    RoleName = x.User_Role.Name
 
             //}).ToList();
-            return View(Db.Users.Where(x=>x.ID==id).FirstOrDefault());
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    return View(Db.Users.Where(x => x.ID == id).FirstOrDefault());
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
         public ActionResult NewRole()
         {
+            try
+            {
+                if(Session["UserName"]!=null)
+                {
 
-            return View();
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
         [HttpPost]
         public ActionResult NewRole(User_Role user_Role)
         {
-            using(DbModelEntities dbmodel=new DbModelEntities())
+            try
             {
-                dbmodel.User_Role.Add(user_Role);
-                dbmodel.SaveChanges();
-                return RedirectToAction("NewRole", "Users");
+                if (Session["UserName"] != null)
+                {
+
+                    Db.User_Role.Add(user_Role);
+                    Db.SaveChanges();
+                    return RedirectToAction("NewRole", "Users");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }catch
+            {
+                return View();
             }
         }
         public ActionResult EditRole(int? id)
         {
-            using (DbModelEntities dbmodel = new DbModelEntities())
+            try
             {
-                User_Role user_Role = dbmodel.User_Role.Find(id);
-                return View(user_Role);
-
+                if (Session["UserName"] != null)
+                {
+                    User_Role user_Role = Db.User_Role.Find(id);
+                    return View(user_Role);
+                }else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }catch
+            {
+                return View();
             }
         }
         [HttpPost]
         public ActionResult EditRole( User_Role user_Role)
         {
-            using(DbModelEntities dbmodel=new DbModelEntities())
+            try
             {
-                dbmodel.Entry(user_Role).State = EntityState.Modified;
-                dbmodel.SaveChanges();
-                return RedirectToAction("RoleList", "Users");
+                if (Session["UserName"] != null)
+                {
+                    Db.Entry(user_Role).State = EntityState.Modified;
+                    Db.SaveChanges();
+                    return RedirectToAction("RoleList", "Users");
+                }else
+                {
+                    return RedirectToAction("Login", "MainCOntrol");
+                }
+            }
+            catch
+            {
+                return View();
             }
         }
         public ActionResult RoleList()
         {
-            using(DbModelEntities dbmodel=new DbModelEntities())
+            try
             {
-                return View(dbmodel.User_Role.ToList());
+                if (Session["UserName"] != null)
+                {
+                    return View(Db.User_Role.ToList());
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
             }
         }
     }

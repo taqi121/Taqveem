@@ -23,7 +23,7 @@ namespace Point_of_sale_system.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Quantity { get; set; }
-        public System.DateTime ExpiryDate { get; set; }
+        public string ExpiryDate { get; set; }
         public string Barcode { get; set; }
         public string Description { get; set; }
         public string image { get; set; }

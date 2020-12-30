@@ -73,10 +73,10 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Quantity" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="ExpiryDate" Type="date" Nullable="false" />
-    <Property Name="Barcode" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="Description" Type="varchar" MaxLength="1000" Nullable="false" />
-    <Property Name="image" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpiryDate" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Barcode" Type="varchar(max)" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" Nullable="false" />
+    <Property Name="image" Type="varchar(max)" Nullable="false" />
     <Property Name="price" Type="float" Nullable="false" />
     <Property Name="tax" Type="float" Nullable="false" />
     <Property Name="salesPrice" Type="float" Nullable="false" />

@@ -20,117 +20,415 @@ namespace Point_of_sale_system.Controllers
         }
         public ActionResult Newitem()
         {
-            var Item_brand_List = DbModel.Brands.ToList();
-            var Item_brands_list =new SelectList(Item_brand_List, "BrandID", "Name");
-            ViewBag.ItemBrandList = Item_brands_list;
-            var Item_category_list = DbModel.Categories.ToList();
-            var Item_categories_list = new SelectList(Item_category_list, "categoryID", "Name");
-            ViewBag.ItemCategoryList = Item_categories_list;
-            return View();
+            
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+
+                    var Item_brand_List = DbModel.Brands.ToList();
+                    var Item_brands_list = new SelectList(Item_brand_List, "BrandID", "Name");
+                    ViewBag.ItemBrandList = Item_brands_list;
+                    var Item_category_list = DbModel.Categories.ToList();
+                    var Item_categories_list = new SelectList(Item_category_list, "categoryID", "Name");
+                    ViewBag.ItemCategoryList = Item_categories_list;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
         [HttpPost]
-        public ActionResult NewItem(Item item, HttpPostedFileBase ImageofUser)
+        public ActionResult NewItem(Item item, HttpPostedFileBase Imageee)
         {
             try
             {
-
-                var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
-                var fname = ImageofUser.FileName;
-                var fullnamee = DateeTime + "_" + fname;
-                var ext = Path.GetExtension(fname);
-                var extension = ext.ToLower();
-                if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                if (Session["UserName"] != null)
                 {
-                    var path = Server.MapPath("~/Photo");
-                    var fullpath = Path.Combine(path, fullnamee);
-                    ImageofUser.SaveAs(fullpath);
-                    item.image = fullnamee;
-                    //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
-                    item.Barcode = Crypto.Hash(item.Barcode);
-                    DbModel.Items.Add(item);
-                    DbModel.SaveChanges();
-                    ModelState.Clear();
-                    var role_list = DbModel.User_Role.ToList();
-                    var roles_list = new SelectList(role_list, "RoleId", "Name");
-                    ViewBag.Role = roles_list;
-                }
+                    var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
+                    var fname = Imageee.FileName;
+                    var fullnamee = DateeTime + "_" + fname;
+                    var ext = Path.GetExtension(fname);
+                    var extension = ext.ToLower();
+                    if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                    {
+                        var path = Server.MapPath("~/Photo");
+                        var fullpath = Path.Combine(path, fullnamee);
+                        Imageee.SaveAs(fullpath);
+                        item.image = fullnamee;
+                        //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
+                        item.Barcode = Crypto.Hash(item.Barcode);
+                        DbModel.Items.Add(item);
+                        DbModel.SaveChanges();
+                        ModelState.Clear();
+                        var role_list = DbModel.User_Role.ToList();
+                        var roles_list = new SelectList(role_list, "RoleId", "Name");
+                        ViewBag.Role = roles_list;
+                    }
 
+                    return RedirectToAction("Newitem", "Item");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
             }
             catch (Exception)
             {
-
+                return View();
 
             }
-            return RedirectToAction("NewEmployee", "Users");
-            DbModel.Items.Add(item);
-            DbModel.SaveChanges();
-            return RedirectToAction("Newitem","Item");
+            
         }
         public ActionResult ViewItems()
         {
-            return View();
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+
+                    return View(DbModel.Items.ToList());
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult EditItem(int id)
+        {
+            //try
+            //{
+            //    if (Session["UserName"] != null)
+            //    {
+
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Login", "MainControl");
+            //    }
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+
+                    var Item_brand_List = DbModel.Brands.ToList();
+                    var Item_brands_list = new SelectList(Item_brand_List, "BrandID", "Name");
+                    ViewBag.ItemBrandList = Item_brands_list;
+                    var Item_category_list = DbModel.Categories.ToList();
+                    var Item_categories_list = new SelectList(Item_category_list, "categoryID", "Name");
+                    ViewBag.ItemCategoryList = Item_categories_list;
+                    return View(DbModel.Items.Where(x=>x.ID==id).FirstOrDefault());
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult EditItem(Item item, HttpPostedFileBase Imageee)
+        {
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var DateeTime = DateTime.Now.ToString("yyyyMMdd_hhssms");
+                        var fname = Imageee.FileName;
+                        var fullnamee = DateeTime + "_" + fname;
+                        var ext = Path.GetExtension(fname);
+                        var extension = ext.ToLower();
+                        if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                        {
+                            var path = Server.MapPath("~/Photo");
+                            var fullpath = Path.Combine(path, fullnamee);
+                            Imageee.SaveAs(fullpath);
+                            item.image = fullnamee;
+                            //comp.User_Add_FK = Convert.ToInt32(Session["User_Add_id"].ToString());
+                            //item.Barcode = Crypto.Hash(item.Barcode);
+                            DbModel.Entry(item).State = EntityState.Modified;
+                            DbModel.SaveChanges();
+                            ModelState.Clear();
+                            var role_list = DbModel.User_Role.ToList();
+                            var roles_list = new SelectList(role_list, "RoleId", "Name");
+                            ViewBag.Role = roles_list;
+                        }
+                    }
+                    return RedirectToAction("Newitem", "Item");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult DetailsOfItems(int id)
+        {
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var Item_brand_List = DbModel.Brands.ToList();
+                        var Item_brands_list = new SelectList(Item_brand_List, "BrandID", "Name");
+                        ViewBag.ItemBrandList = Item_brands_list;
+                        var Item_category_list = DbModel.Categories.ToList();
+                        var Item_categories_list = new SelectList(Item_category_list, "categoryID", "Name");
+                        ViewBag.ItemCategoryList = Item_categories_list;
+                        return View(DbModel.Items.Where(x => x.ID == id).FirstOrDefault());
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "MainControl");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
         public ActionResult NewCategory()
         {
-            var brand_list = DbModel.Brands.ToList();
-            var brands_list = new SelectList(brand_list, "BrandID", "Name");
-            ViewBag.BrandList = brands_list;
-            return View();
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    var brand_list = DbModel.Brands.ToList();
+                    var brands_list = new SelectList(brand_list, "BrandID", "Name");
+                    ViewBag.BrandList = brands_list;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
         }
         [HttpPost]
         public ActionResult NewCategory(Category category)
         {
-            DbModel.Categories.Add(category);
-            DbModel.SaveChanges();
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    DbModel.Categories.Add(category);
+                    DbModel.SaveChanges();
 
-            var brand_list = DbModel.Brands.ToList();
-            var brands_list = new SelectList(brand_list, "BrandID", "Name");
-            ViewBag.BrandList = brands_list;
-            return RedirectToAction("NewCategory", "Item");
+                    var brand_list = DbModel.Brands.ToList();
+                    var brands_list = new SelectList(brand_list, "BrandID", "Name");
+                    ViewBag.BrandList = brands_list;
+                    return RedirectToAction("NewCategory", "Item");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
         }
         public ActionResult ItemCategoryList()
         {
-            return View(DbModel.Categories.ToList());
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    return View(DbModel.Categories.ToList());
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
         }
         public ActionResult EditItemCategory(int id)
         {
-            var brand_list = DbModel.Brands.ToList();
-            var brands_list = new SelectList(brand_list, "BrandID", "Name");
-            ViewBag.BrandList = brands_list;
-            return View(DbModel.Categories.Where(x => x.categoryID == id).FirstOrDefault());
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    var brand_list = DbModel.Brands.ToList();
+                    var brands_list = new SelectList(brand_list, "BrandID", "Name");
+                    ViewBag.BrandList = brands_list;
+                    return View(DbModel.Categories.Where(x => x.categoryID == id).FirstOrDefault());
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
         }
         [HttpPost]
         public ActionResult EditItemCategory(Category category)
         {
-            DbModel.Entry(category).State = EntityState.Modified;
-            DbModel.SaveChanges();
-            return RedirectToAction("ItemCategoryList", "Item");
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    DbModel.Entry(category).State = EntityState.Modified;
+                    DbModel.SaveChanges();
+                    return RedirectToAction("ItemCategoryList", "Item");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
         }
         public ActionResult NewBrand()
         {
-            return View();
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
         }
         [HttpPost]
         public ActionResult NewBrand(Brand brand)
         {
-            DbModel.Brands.Add(brand);
-            DbModel.SaveChanges();
-            return RedirectToAction("NewBrand","Item");
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    DbModel.Brands.Add(brand);
+                    DbModel.SaveChanges();
+                    return RedirectToAction("NewBrand", "Item");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
         }
         public ActionResult BrandList()
         {
-            return View(DbModel.Brands.ToList());
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    return View(DbModel.Brands.ToList());
+
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
         public ActionResult EditBrand(int id)
         {
-            return View(DbModel.Brands.Where(x => x.BrandID == id).FirstOrDefault());
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    return View(DbModel.Brands.Where(x => x.BrandID == id).FirstOrDefault());
+
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
         [HttpPost]
         public ActionResult EditBrand(Brand brand)
         {
-            DbModel.Entry(brand).State = EntityState.Modified;
-            DbModel.SaveChanges();
-            return RedirectToAction("BrandList", "Item");
+            try
+            {
+                if (Session["UserName"] != null)
+                {
+                    DbModel.Entry(brand).State = EntityState.Modified;
+                    DbModel.SaveChanges();
+                    return RedirectToAction("BrandList", "Item");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
         }
     }
 }

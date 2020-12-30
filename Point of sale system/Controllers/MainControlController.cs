@@ -12,7 +12,9 @@ namespace Point_of_sale_system.Controllers
 {
     public class MainControlController : Controller
     {
+        DbModelEntities dbmodel = new DbModelEntities();
         // GET: MainControl
+        [Authorize(Roles ="Admin,Customer")]
         public ActionResult Index()
         {
             return View();
@@ -28,20 +30,26 @@ namespace Point_of_sale_system.Controllers
         {
             try
             {
-                using (DbModelEntities dbmodel = new DbModelEntities())
+
+                var passss = Crypto.Hash(password);
+                //var login_admin = dbmodel.Admins.Where(x => x.Username == email && x.password == password).SingleOrDefault();
+                var login_user = dbmodel.Users.Where(x => x.email == email && x.password == passss).SingleOrDefault();
+                if (login_user != null)
                 {
-                    //var passss = Crypto.Hash(password);
-                    var login_admin = dbmodel.Admins.Where(x => x.Username == email && x.password == password).SingleOrDefault();
-                    Session["User_Id"] = login_admin.ID.ToString();
-                    Session["UserName"] = login_admin.Name.ToString();
+                    Session["User_Id"] = login_user.ID.ToString();
+                    Session["UserName"] = login_user.Name.ToString();
                     return RedirectToAction("mainPage", "Home");
                 }
-            }catch(Exception)
+                else
+                {
+                    return RedirectToAction("Login", "MainControl");
+                }
+            }
+            catch (Exception)
             {
                 ViewBag.inco = "Something Invalid";
                 return View();
             }
-            
             //List<Admin> admins = new List<Admin>();
             //string username = Request["username"];
             //string password = Request["pwd"];

@@ -1,0 +1,106 @@
+﻿@model Point_of_sale_system.Models.Item
+
+@{
+    ViewBag.Title = "EditItem";
+    Layout = "~/Views/Shared/_AdminSharedView.cshtml";
+}
+
+<div class="layout-px-spacing" style="margin-left:2%;">
+
+    <div class="row layout-top-spacing">
+        @using (Html.BeginForm("EditItem", "Item", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+            <div class="form-row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="name">Name</label>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Name...", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="brand">Brand</label>
+                    @Html.DropDownListFor(item => @Model.categoryID, ViewBag.ItemCategoryList as SelectList, "--- Select Category ----", new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.categoryID, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="category">Category</label>
+                    @Html.DropDownListFor(item => @Model.BrandID, ViewBag.ItemBrandList as SelectList, "--- Select Brand ----", new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.BrandID, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="expirydate">Expiry Date:</label>
+                    @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control mb-4", type = "date", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="barcode">Barcode</label>
+                    @Html.EditorFor(model => model.Barcode, new { htmlAttributes = new { @class = "form-control", placeholder = "Barcode...", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Barcode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group mb-4 mt-4 row">
+                <div class="form-group col-md-4">
+                    <label for="image">Image</label>
+
+                    <div class="d-flex">
+                        <div class="usr-img-frame mr-2 rounded-circle">
+                            <img alt="avatar" class="img-fluid rounded-sm" src="~/Photo/@Model.image" style="width:200px;">
+                            <input type="file" class="" id="image" required name="Imageee">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="txtarea">Description</label>
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Something about Item", rows = "5", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                
+            </div>
+            <div class="form-group mb-4">
+
+            </div>
+
+            <div class="form-row mb-4" style="margin-top:6%">
+                <div class="form-group col-md-4">
+                    <label for="price">Price</label>
+                    @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", placeholder = "Price...", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="quantity">Quantity</label>
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", placeholder = "Quantity...", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="salesPrice">Sales Price</label>
+                    @Html.EditorFor(model => model.salesPrice, new { htmlAttributes = new { @class = "form-control", placeholder = "Sales Price...", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.salesPrice, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="salesPrice">Tax</label>
+                    @Html.EditorFor(model => model.tax, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Tax...", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.tax, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="currentStock">Current Stock</label>
+                    <input type="text" class="form-control" id="currentStock" name="currentStock" placeholder="Current Stock" disabled>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="NewStock">New Stock</label>
+                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control", placeholder = "Stock...", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="br-right-30">
+                <button type="submit" class="btn btn-primary mt-3">Save</button>
+                <button type="reset" class="btn btn-danger mt-3">Reset</button>
+            </div>
+        }
+    </div>
+</div>
