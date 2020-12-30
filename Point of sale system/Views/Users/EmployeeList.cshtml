@@ -42,10 +42,11 @@
                                         </a>
 
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                            @if(User.IsInRole("Admin"))
-                                            { 
+                                            @*@if (User.IsInRole("Admin"))
+                                            {
+                                                <a class="dropdown-item" href="/Users/EditEmployee/@item.ID">Edit</a>
+                                            }*@
                                             <a class="dropdown-item" href="/Users/EditEmployee/@item.ID">Edit</a>
-                                            }
                                             <a class="dropdown-item" href="/Users/EmployeeDetails/@item.ID">Details</a>
                                         </div>
                                     </div>

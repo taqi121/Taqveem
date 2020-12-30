@@ -222,7 +222,7 @@ namespace Point_of_sale_system.Controllers
             }
         }
         [HttpGet]
-        [Authorize(Roles ="Admin")]
+     //   [Authorize(Roles ="Admin")]
         public ActionResult EditEmployee(int id)
         {
             try
