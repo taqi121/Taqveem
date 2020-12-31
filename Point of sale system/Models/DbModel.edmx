@@ -108,6 +108,7 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <Property Name="totalAmountAll" Type="float" />
           <Property Name="SupplierID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sales">
           <Key>
@@ -236,6 +237,18 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_purchase_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="purchase">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_purchase_Supplier">
           <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
           <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
@@ -345,6 +358,10 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
             <End Role="Category" EntitySet="Category" />
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
+          <AssociationSet Name="FK_purchase_Item" Association="Self.FK_purchase_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="purchase" EntitySet="purchase" />
+          </AssociationSet>
           <AssociationSet Name="FK_purchase_Supplier" Association="Self.FK_purchase_Supplier">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="purchase" EntitySet="purchase" />
@@ -428,6 +445,10 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
             <End Role="User_Role" EntitySet="User_Role" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_purchase_Item" Association="PointOfSaleModel.FK_purchase_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="purchase" EntitySet="purchases" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Brand">
           <Key>
@@ -508,6 +529,7 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <NavigationProperty Name="Brand" Relationship="PointOfSaleModel.FK_Item_Brand" FromRole="Item" ToRole="Brand" />
           <NavigationProperty Name="Category" Relationship="PointOfSaleModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
           <NavigationProperty Name="Sales" Relationship="PointOfSaleModel.FK_Sales_Item" FromRole="Item" ToRole="Sale" />
+          <NavigationProperty Name="purchases" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="Item" ToRole="purchase" />
         </EntityType>
         <EntityType Name="purchase">
           <Key>
@@ -530,6 +552,8 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Supplier" Relationship="PointOfSaleModel.FK_purchase_Supplier" FromRole="purchase" ToRole="Supplier" />
           <NavigationProperty Name="User" Relationship="PointOfSaleModel.FK_purchase_Users" FromRole="purchase" ToRole="User" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="purchase" ToRole="Item" />
         </EntityType>
         <EntityType Name="Sale">
           <Key>
@@ -750,6 +774,18 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_purchase_Item">
+          <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="purchase">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -835,6 +871,7 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
           <EntitySetMapping Name="purchases">
             <EntityTypeMapping TypeName="PointOfSaleModel.purchase">
               <MappingFragment StoreEntitySet="purchase">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="totalAmountAll" ColumnName="totalAmountAll" />

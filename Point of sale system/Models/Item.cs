@@ -18,6 +18,7 @@ namespace Point_of_sale_system.Models
         public Item()
         {
             this.Sales = new HashSet<Sale>();
+            this.purchases = new HashSet<purchase>();
         }
     
         public int ID { get; set; }
@@ -38,5 +39,7 @@ namespace Point_of_sale_system.Models
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<purchase> purchases { get; set; }
     }
 }

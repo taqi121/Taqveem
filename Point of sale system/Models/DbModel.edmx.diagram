@@ -28,6 +28,7 @@
         <AssociationConnector Association="PointOfSaleModel.FK_purchase_Users" />
         <AssociationConnector Association="PointOfSaleModel.FK_Sales_Users" />
         <AssociationConnector Association="PointOfSaleModel.FK_Users_User_Role" />
+        <AssociationConnector Association="PointOfSaleModel.FK_purchase_Item" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

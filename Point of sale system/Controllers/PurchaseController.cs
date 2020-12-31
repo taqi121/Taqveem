@@ -11,24 +11,16 @@ namespace Point_of_sale_system.Controllers
     public class PurchaseController : Controller
     {
         DbModelEntities dbModel = new DbModelEntities();
-        //try
-        //{
-        //    if (Session["UserName"] != null)
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Login", "MainControl");
-        //    }
-        //}
-        //catch
-        //{
-        //    return View();
-        //}
+        
         // GET: Purchase
         public ActionResult NewPurchase()
         {
+            var supplier_list = dbModel.Suppliers.ToList();
+            var suppliers_list = new SelectList(supplier_list, "ID", "Name");
+            ViewBag.SupplierList = suppliers_list;
+            var item_list = dbModel.Items.ToList();
+            var items_list = new SelectList(item_list, "ID", "Name");
+            ViewBag.ItemList = items_list;
             //try
             //{
             //    if (Session["UserName"] != null)

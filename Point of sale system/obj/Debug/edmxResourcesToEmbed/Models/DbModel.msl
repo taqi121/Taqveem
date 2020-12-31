@@ -80,6 +80,7 @@
     <EntitySetMapping Name="purchases">
       <EntityTypeMapping TypeName="PointOfSaleModel.purchase">
         <MappingFragment StoreEntitySet="purchase">
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
           <ScalarProperty Name="totalAmountAll" ColumnName="totalAmountAll" />
