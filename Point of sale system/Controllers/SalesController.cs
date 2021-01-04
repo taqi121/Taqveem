@@ -9,9 +9,10 @@ namespace Point_of_sale_system.Controllers
     public class SalesController : Controller
     {
         // GET: Sales
-        public ActionResult Index()
+        public ActionResult POS()
         {
             return View();
         }
+
     }
 }

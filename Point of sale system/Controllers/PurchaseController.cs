@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using Point_of_sale_system.Models;
 
 
@@ -21,6 +22,10 @@ namespace Point_of_sale_system.Controllers
             var item_list = dbModel.Items.ToList();
             var items_list = new SelectList(item_list, "ID", "Name");
             ViewBag.ItemList = items_list;
+            var Item_ki_list = dbModel.Items.ToList();
+            var Items_ki_list = new SelectList(Item_ki_list, "ID", "Name", "Quantity", "ExpiryDate", "Barcode", "price");
+            ViewBag.MyStates = JsonConvert.SerializeObject(Items_ki_list);
+
             //try
             //{
             //    if (Session["UserName"] != null)

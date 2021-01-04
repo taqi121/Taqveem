@@ -13,7 +13,6 @@
     <EntitySet Name="sysdiagrams" EntityType="PointOfSaleModel.sysdiagram" />
     <EntitySet Name="User_Role" EntityType="PointOfSaleModel.User_Role" />
     <EntitySet Name="Users" EntityType="PointOfSaleModel.User" />
-    <EntitySet Name="Admins" EntityType="PointOfSaleModel.Admin" />
     <AssociationSet Name="FK_Category_Brand" Association="PointOfSaleModel.FK_Category_Brand">
       <End Role="Brand" EntitySet="Brands" />
       <End Role="Category" EntitySet="Categories" />
@@ -58,6 +57,7 @@
       <End Role="Item" EntitySet="Items" />
       <End Role="purchase" EntitySet="purchases" />
     </AssociationSet>
+    <EntitySet Name="Admins" EntityType="PointOfSaleModel.Admin" />
   </EntityContainer>
   <EntityType Name="Brand">
     <Key>
@@ -251,18 +251,6 @@
     <NavigationProperty Name="Sales" Relationship="PointOfSaleModel.FK_Sales_Users" FromRole="User" ToRole="Sale" />
     <NavigationProperty Name="User_Role" Relationship="PointOfSaleModel.FK_Users_User_Role" FromRole="User" ToRole="User_Role" />
   </EntityType>
-  <EntityType Name="Admin">
-    <Key>
-      <PropertyRef Name="ID" />
-      <PropertyRef Name="Name" />
-      <PropertyRef Name="Username" />
-      <PropertyRef Name="password" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="Username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-  </EntityType>
   <Association Name="FK_Category_Brand">
     <End Type="PointOfSaleModel.Brand" Role="Brand" Multiplicity="1" />
     <End Type="PointOfSaleModel.Category" Role="Category" Multiplicity="*" />
@@ -395,4 +383,16 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Username" />
+      <PropertyRef Name="password" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

@@ -7,6 +7,27 @@
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<style>
+    .remove {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        background-color: tomato;
+        color: white;
+        border: none;
+        border-radius: 15px;
+    }
+
+    tr:hover {
+        cursor: move;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+</style>
 <div class="col-md-11" style="margin-left:3%">
     <!-- ********** ALERT MESSAGE START******* -->
     <div class="col-md-12">
@@ -39,7 +60,7 @@
                             <div class="info">
                                 <h6 class="">General Information</h6>
                                 <div class="row">
-                                    <div class="col-lg-11 mx-auto">
+                                    <div class="col-lg-12 mx-auto">
                                         <div class="row">
                                             <div class="col-xl-1 col-lg-10 col-md-2">
                                                 @*<div class="upload mt-4 pr-md-4">
@@ -97,7 +118,7 @@
                                                             <div class="form-group">
                                                                 <label for="Reference Number">Reference No.:</label>
                                                                 <div class="input-group">
-                                                                    @Html.EditorFor(model => model.ReferenceNo, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Reference..." ,@onkeyup="myFunction()",@id="supply"} })
+                                                                    @Html.EditorFor(model => model.ReferenceNo, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Reference...", @onkeyup = "myFunction()", @id = "supply" } })
                                                                     @Html.ValidationMessageFor(model => model.ReferenceNo, "", new { @class = "text-danger" })
                                                                 </div>
                                                                 <span id="pur_date_msg" style="display:none" class="text-danger"></span>
@@ -124,26 +145,23 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 ">
-
                                                 <div class="form-group">
-                                                    <div class="table-responsive mb-4 mt-4">
-                                                        <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
+                                                    <div class="table-responsive">
+                                                        <table  class="table-bordered table-hover table-striped mb-4" style="width:100%">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Name</th>
-                                                                    <th>Quantity</th>
-                                                                    <th>Expiry Date</th>
-                                                                    <th>Image</th>
+                                                                    <th>Item Name</th>
+                                                                    <th style="width:100px;">Quantity</th>
+                                                                    <th>Purchase Price</th>
+                                                                    <th>Tax%</th>
+                                                                    <th>Tax Amount</th>
+                                                                    <th>Discount</th>
+                                                                    <th>Unit Cost</th>
+                                                                    <th>Total Amount</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="Item_table_data">
-                                                                <tr>
-                                                                    <td>
-                                                                        <p><span id="Dataaaraaa"></span></p>
-                                                                    </td>
-                                                                </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -162,7 +180,7 @@
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <span style="color:aliceblue; font-size:25px;">Total Quantaties:</span><span style="font-size:25px;" class="text-success"> 20 </span>
+                                                            <span style="color:aliceblue; font-size:25px;">Total Quantaties:</span><span style="font-size:25px;" class="text-success"> 0 </span>
                                                             <br />
                                                             <br />
                                                             <br />
@@ -176,19 +194,17 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
-                                                                        @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                        @Html.EditorFor(model => model.otherCharges, new { htmlAttributes = new { @class = "form-control mb-4", required = "required" } })
+                                                                        @Html.ValidationMessageFor(model => model.otherCharges, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "None" } })
                                                                         @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <br />
-                                                            <br />
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
@@ -197,14 +213,28 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
-                                                                        @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                        @Html.EditorFor(model => model.DiscountonAll, new { htmlAttributes = new { @class = "form-control mb-4", required = "required" } })
+                                                                        @Html.ValidationMessageFor(model => model.DiscountonAll, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "%" } })
                                                                         @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        <span> Note: <span class="text-danger">*</span></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="form-group">
+
+                                                                        @Html.TextAreaFor(model => model.Note, new { @class = "form-control", placeholder = "Note", rows = "4", required = "required" })
+                                                                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -236,51 +266,49 @@
                                                         <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Name</th>
-                                                                    <th>Quantity</th>
-                                                                    <th>Expiry Date</th>
-                                                                    <th>Image</th>
+                                                                    <th>#</th>
+                                                                    <th>Date</th>
+                                                                    <th>Payment Type</th>
+                                                                    <th>Payment Note</th>
+                                                                    <th>Payment</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
+                                                            <tbody id="Supplier_Old_data">
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
                                         <div class="row">
                                             <div class="col-md-11 mx-auto">
                                                 <h5 class="">Make Payment</h5>
                                                 <div class="edu-section">
-                                                    <div class="row">
+                                                    <div class="row"  style="background-color:rgb(7, 36, 82)">
 
                                                         <div class="col-md-12">
                                                             <div class="row">
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                        <label for="degreename">Degree Name</label>
-                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                        <label for="degreename">Amount</label>
+                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required" } })
                                                                         @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                        <label for="endingDate">Ending Date</label>
-                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                        <label for="endingDate">Payment Type</label>
+                                                                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Payment Type" } })
                                                                         @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label for="degree1">Enter Your Collage Name</label>
-                                                                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Father Name..." } })
+                                                                <label for="degree1">Note</label>
+                                                                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-4", required = "required" } })
                                                                 @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
 
                                                             </div>
@@ -324,14 +352,74 @@
 <!--  END CONTENT AREA  -->
 <!-- END MAIN CONTAINER -->
 
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
+<script>
 
+    //var htmlforItemTable = '<tr><td></td ><td></td><td></td><td></td><td></td><td></td><td><button class="remove">-</button></td></tr >';
+    var htmlforSupplierTable = '<tr><td></td ><td></td><td></td><td></td><td></td><td><button class="remove">-</button></td></tr >';
+
+    $('tbody').sortable();
+
+    //$('#addRow').click(function () {
+    //    $('tbody').append(html);
+    //});
+    $("#Hello").change(function () {
+        //var id = $(this).data("id");
+        //console.log(id);
+        //$.ajax({
+        //    type: "GET",
+        //    url:"/Purchase/NewPurchase"
+        //    /*"/Company/Edit_Company/?CompanyiD=" + id + ""*/,
+        //    //data: "{CompanyiD:" + id + "}",
+        //    contentType: 'application/json; charset=utf-8',
+        //    dataType: 'json',
+        //    success: function (d) {
+        //        //var dd = JSON.parse(d).d;
+        //        //var department = JSON.parse(dd);
+        //        //console.log(department);
+
+        //        console.log(d);
+        //    }
+        //});
+        //var ValueFromInput = document.getElementById("#Hello").value;
+        var ValueFromInput = $('#Hello option:selected').val();
+        var statesAvailable = @Html.Raw(ViewBag.MyStates);
+        $.each(statesAvailable, function (value, Text) {
+
+            if (ValueFromInput == value + 1) {
+                var htmlforItemTable = '<tr class="Table"><td>' + "<input type='text'/>" + '</td ><td>' + "<input type='number'/>" +'</td >'+
+                    +'< td >' + "<input type='text'/>" + '</td ><td>' + "<input type='text'/>" + '</td><td>' + "<input type='text'/>" + '</td>' +
+                    +'<td>' + "<input type='text'/>" + '</td><td>' + "<input type='text'/>" + '</td><td>' + "<input type='text'/>" +'</td><td><button class="remove">-</button></td></tr > ';
+                $('#Item_table_data').append(htmlforItemTable);
+            }
+            console.log(value);
+            console.log(ValueFromInput);
+            console.log(Text);
+        });
+    });
+    $("#dropdown_Supplier").change(function () {
+        $('#Supplier_Old_data').append(htmlforSupplierTable);
+    });
+
+    $(document).on('click', '.remove', function () {
+        $(this).parents('tr').remove();
+    });
+
+    $('#getValues').click(function () {
+        var values = [];
+        $('input[name="name"]').each(function (i, elem) {
+            values.push($(elem).val());
+        });
+        alert(values.join(', '));
+    });
+</script>
 
 <script type="text/javascript">
 
-    $("#Hello").change(function () {
-        alert("Hello");
-    });
+    //$("#Hello").change(function () {
+    //    alert("Hello");
+    //});
 
 
     //function myFunction() {
@@ -343,6 +431,7 @@
 <script>
     function myFunction() {
         var x = document.getElementById("supply").value;
+
         document.getElementById("Dataaaraaa").innerHTML = x;
     }
 </script>

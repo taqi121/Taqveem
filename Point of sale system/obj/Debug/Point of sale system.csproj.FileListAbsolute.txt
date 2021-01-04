@@ -1,3 +1,7 @@
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.pdb
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.csprojAssemblyReference.cache
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.csproj.CoreCompileInputs.cache
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.dll
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Point of sale system.dll.config
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Point of sale system.dll
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Point of sale system.pdb
@@ -51,6 +55,9 @@ C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\r
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\roslyn\VBCSCompiler.exe
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Antlr3.Runtime.dll
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\DAL.dll
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.dll
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.SqlServer.dll
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Newtonsoft.Json.dll
@@ -62,6 +69,10 @@ C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\S
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\System.Web.WebPages.dll
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\System.Web.WebPages.Razor.dll
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\WebGrease.dll
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\DAL.pdb
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\DAL.dll.config
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.xml
+C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.SqlServer.xml
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\System.Web.Helpers.xml
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\System.Web.Mvc.xml
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\System.Web.Optimization.xml
@@ -72,15 +83,4 @@ C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\S
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Newtonsoft.Json.xml
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Antlr3.Runtime.pdb
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.csprojAssemblyReference.cache
 C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.csproj.CopyComplete
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.dll
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.pdb
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\DAL.dll
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\DAL.pdb
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.dll
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.SqlServer.dll
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\DAL.dll.config
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.xml
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\bin\EntityFramework.SqlServer.xml
-C:\Users\Taqi Malik\source\repos\Point of sale system\Point of sale system\obj\Debug\Point of sale system.csproj.CoreCompileInputs.cache

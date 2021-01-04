@@ -17,7 +17,6 @@
         <EntityTypeShape EntityType="PointOfSaleModel.sysdiagram" Width="1.5" PointX="8.75" PointY="1.75" />
         <EntityTypeShape EntityType="PointOfSaleModel.User_Role" Width="1.5" PointX="0.75" PointY="6.375" />
         <EntityTypeShape EntityType="PointOfSaleModel.User" Width="1.5" PointX="3" PointY="4.75" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Admin" Width="1.5" PointX="0.75" PointY="10.75" />
         <AssociationConnector Association="PointOfSaleModel.FK_Category_Brand" />
         <AssociationConnector Association="PointOfSaleModel.FK_Item_Brand" />
         <AssociationConnector Association="PointOfSaleModel.FK_Item_Category" />
@@ -29,6 +28,7 @@
         <AssociationConnector Association="PointOfSaleModel.FK_Sales_Users" />
         <AssociationConnector Association="PointOfSaleModel.FK_Users_User_Role" />
         <AssociationConnector Association="PointOfSaleModel.FK_purchase_Item" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Admin" Width="1.5" PointX="0.75" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
