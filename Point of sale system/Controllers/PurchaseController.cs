@@ -9,11 +9,13 @@ using Point_of_sale_system.Models;
 
 namespace Point_of_sale_system.Controllers
 {
+    
     public class PurchaseController : Controller
     {
         DbModelEntities dbModel = new DbModelEntities();
-        
+
         // GET: Purchase
+        [HttpGet]
         public ActionResult NewPurchase()
         {
             var supplier_list = dbModel.Suppliers.ToList();
@@ -43,6 +45,53 @@ namespace Point_of_sale_system.Controllers
             //}
             return View();
         }
+        [HttpGet]
+        public ActionResult PurchaseData(int id)
+        {
+            try
+            {
+                Item items = dbModel.Items.Where(x => x.ID == id).FirstOrDefault();
+                Item item_list = new Item
+                {
+                    ID = items.ID,
+                    Name = items.Name,
+                    Quantity = items.Quantity,
+                    Barcode = items.Barcode,
+                    ExpiryDate = items.ExpiryDate,
+                    salesPrice = items.salesPrice,
+                    price = items.price,
+                    tax = items.tax,
+                    Stock = items.Stock,
+                    image = items.image,
+                    Description = items.Description,
+                    BrandID = items.BrandID,
+                    categoryID = items.categoryID
+                };
+                //Table_Company Company_list = new Table_Company
+                //{
+                //    comp_id = list.comp_id,
+                //    comp_name = list.comp_name,
+                //    comp_Email = list.comp_Email,
+                //    comp_pass = list.comp_pass,
+                //    comp_phone = list.comp_phone,
+                //    comp_address = list.comp_address,
+                //    comp_ceo = list.comp_ceo,
+                //    comp_img = list.comp_img,
+                //    User_Add_FK = list.User_Add_FK
+
+
+
+                //};
+                //return new Json { Data = purchase.Name,JsonRequestBehavior.AllowGet };
+                return Json(item_list, JsonRequestBehavior.AllowGet);
+
+            }
+            catch
+            {
+                return new JsonResult();
+            }
+        }
+
         [HttpPost]
         public ActionResult newPurchase(purchase purchase)
         {

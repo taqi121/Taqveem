@@ -639,11 +639,12 @@
     <Content Include="Views\Item\EditItem.cshtml" />
     <Content Include="Views\Item\DetailsOfItems.cshtml" />
     <Content Include="Views\Purchase\NewPurchase.cshtml" />
+    <Content Include="Views\Sales\NewSale.cshtml" />
+    <Content Include="Views\Sales\POS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Photo\" />
-    <Folder Include="Views\Sales\" />
     <Folder Include="wwwroot\cssContent\" />
   </ItemGroup>
   <ItemGroup>

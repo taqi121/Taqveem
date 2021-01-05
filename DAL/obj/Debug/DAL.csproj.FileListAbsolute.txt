@@ -9,3 +9,4 @@ C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.csproj.C
 C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.dll
 C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.pdb
+C:\Users\Taqi Malik\source\repos\Point of sale system\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
