@@ -404,8 +404,7 @@
                 var SalesPrice = data.price;
                 var Tax = data.tax;
                 var ans = (SalesPrice / 100) * Tax;
-                var id = $(this).attr('id');
-                alert(id);
+                
                 var htmlforItemTable = '<tr class="Table"><td><span style="color:White">' + data.Name + '</span></td ><td colspan="2"> <div><button id="table_q_btn">-</button> <input type="text"/><button id="table_q_btn">+</button> </div> </td >'
                     + '<td><input type="text" value="' + SalesPrice + '"/></td><td><input type="text" value="' + Tax +'" disabled/></td>'
                     + '<td><input type="text" value="' + ans + '"/></td><td><input type="text" onkeyup="functioncalculate()" id="DiscountValu"/></td><td><span style="color:White">' + SalesPrice +'</span></td><td><span style="color:White">' + SalesPrice+'</span></td><td><button class="remove">-</button></td></tr >';
@@ -419,10 +418,25 @@
 
         });
     });
+    function keyup() {
+        var a = $(this).closest('tr').find('.1a').val();
+        var b = $(this).val();
+        $(this).closest('tr').find('.tot').val(a * b);
+        calculateSum();
+    }
     function functioncalculate() {
         var x = document.getElementById("DiscountValu").value;
         var answerDiscount = x * 100;
- 
+        var a = $(this).closest('tr').find('.1a').val();
+        alert(a);
+        console.log(a);
+        var b = $(this).val();
+        alert(b);
+        console.log(b);
+
+        $(this).closest('tr').find('.tot').val(a * b);
+        calculateSum();
+        calculateSum();
         alert(answerDiscount);
     }
     $("#dropdown_Supplier").change(function () {

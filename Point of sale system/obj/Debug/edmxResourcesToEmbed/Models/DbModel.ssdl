@@ -1,18 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PointOfSaleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Admin">
     <Key>
       <PropertyRef Name="ID" />
-      <PropertyRef Name="Name" />
-      <PropertyRef Name="Username" />
-      <PropertyRef Name="password" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Username" Type="varchar(max)" Nullable="false" />
+    <Property Name="password" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Brand">
     <Key>
@@ -317,6 +312,7 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="PointOfSaleModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
@@ -329,14 +325,6 @@ warning 6002: The table/view 'PointOfSale.dbo.Admin' does not have a primary key
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Role" EntityType="Self.User_Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Admin].[ID] AS [ID], 
-    [Admin].[Name] AS [Name], 
-    [Admin].[Username] AS [Username], 
-    [Admin].[password] AS [password]
-    FROM [dbo].[Admin] AS [Admin]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_Category_Brand" Association="Self.FK_Category_Brand">
       <End Role="Brand" EntitySet="Brand" />
       <End Role="Category" EntitySet="Category" />
