@@ -18,5 +18,8 @@ namespace Point_of_sale_system.Models
         public string Name { get; set; }
         public string Username { get; set; }
         public string password { get; set; }
+        public string resetPasswordCode { get; set; }
+        public Nullable<System.Guid> ActivationCode { get; set; }
+        public Nullable<bool> IsEmailVerified { get; set; }
     }
 }

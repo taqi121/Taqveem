@@ -13,6 +13,9 @@
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Username" Type="varchar(max)" Nullable="false" />
           <Property Name="password" Type="varchar(max)" Nullable="false" />
+          <Property Name="resetPasswordCode" Type="varchar(max)" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" />
+          <Property Name="IsEmailVerified" Type="bit" />
         </EntityType>
         <EntityType Name="Brand">
           <Key>
@@ -770,6 +773,9 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="resetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCode" Type="Guid" />
+          <Property Name="IsEmailVerified" Type="Boolean" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -962,6 +968,9 @@
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="PointOfSaleModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

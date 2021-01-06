@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Security;
 using Point_of_sale_system.Models;
 
 namespace Point_of_sale_system.Controllers
@@ -19,6 +20,7 @@ namespace Point_of_sale_system.Controllers
         {
             return View();
         }
+        [HttpGet]
         public ActionResult Login()
         {
 
@@ -26,22 +28,40 @@ namespace Point_of_sale_system.Controllers
         }
         [HttpPost]
         [ActionName("Login")]
-        public ActionResult login2(string email, string password)
+        public ActionResult login2(string email, string password,bool rememberMe=true,string ReturnUrl="")
         {
             try
             {
-
+                string message = "";
                 var passss = Crypto.Hash(password);
                 //var login_admin = dbmodel.Admins.Where(x => x.Username == email && x.password == password).SingleOrDefault();
-                var login_user = dbmodel.Users.Where(x => x.email == email && x.password == passss).SingleOrDefault();
+                var login_user = dbmodel.Admins.Where(x => x.Username == email && x.password == passss).SingleOrDefault();
                 if (login_user != null)
                 {
-                    Session["User_Id"] = login_user.ID.ToString();
-                    Session["UserName"] = login_user.Name.ToString();
-                    return RedirectToAction("mainPage", "Home");
+                    //int timeout = FielNameFromDatabase ? 525600 : 20; THis is to save cookie remember for one year 525600 min = 1 year
+                    int timeout = rememberMe ? 525600 : 20; //THis is to save cookie remember for one year 525600 min = 1 year
+                    var ticket = new FormsAuthenticationTicket(email, rememberMe, timeout);
+                    string encrypted = FormsAuthentication.Encrypt(ticket);
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                    cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                    cookie.HttpOnly = true;
+                    Response.Cookies.Add(cookie);
+
+                    if(Url.IsLocalUrl(ReturnUrl))
+                    {
+                        return Redirect(ReturnUrl);
+                    }
+                    else
+                    {
+                        Session["User_Id"] = login_user.ID.ToString();
+                        Session["UserName"] = login_user.Name.ToString();
+                        return RedirectToAction("mainPage", "Home");
+                    }
+
                 }
                 else
                 {
+                    message = "Invalid Credential Applied";
                     return RedirectToAction("Login", "MainControl");
                 }
             }
@@ -66,28 +86,34 @@ namespace Point_of_sale_system.Controllers
             //    return RedirectToAction("Login", "MainControl");
             //}
         }
-        public ActionResult ForgetPassword()
+        
+        //Verify Account  
+
+        [HttpGet]
+        public ActionResult VerifyAccount(string id)
         {
+            bool Status = false;
+            
+                dbmodel.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid 
+                                                                // Confirm password does not match issue on save changes
+                //var v = dbmodel.Admins.Where(a => a.ActivationCode == new Guid(id)).FirstOrDefault();
+                //var v = dbmodel.Admins.Where(a => a.Username == new Guid(id)).FirstOrDefault();
+                //////if (v != null)
+                //////{
+                //////    v.IsEmailVerified = true;
+                //////    dc.SaveChanges();
+                //////    Status = true;
+                //////}
+                //////else
+                //////{
+                //////    ViewBag.Message = "Invalid Request";
+                //////}
+            ViewBag.Status = Status;
             return View();
         }
-        [HttpPost]
-        [ActionName("ForgetPassword")]
-        public ActionResult ForgetPassword2()
-        {
-            //string email = Request["email"];
-            //bool a = SendEmail(email);
-            //if (a)
-            //{
-            //    ViewData["Message"] = "SendEmail";
-            //    return View();
-            //}
-            //else
-            //{
-            //    ViewData["Message"] = "Invalid";
-            //    return View();
-            //}
-            return View();
-        }
+
+           //Register New User
+        [HttpGet]
         public ActionResult RegisterUser()
         {
             return View();
@@ -173,9 +199,12 @@ namespace Point_of_sale_system.Controllers
         //    }
         //    return false;
         //}
+        [HttpPost]
         public ActionResult Logout()
         {
+
             Session.Abandon();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login", "MainControl");
         }
         [NonAction]
@@ -191,7 +220,8 @@ namespace Point_of_sale_system.Controllers
             //var host = Request.Url.Host;
             //var port = Request.Url.Port;
 
-            var verifyUrl = "/User/VerifyAccount/" + activationCode;
+            //var verifyUrl = "/User/VerifyAccount/" + activationCode;
+            var verifyUrl = "/MainControl/"+emailFor+"/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("gareenhacker21@gmail.com", "malik taqi");
@@ -230,5 +260,82 @@ namespace Point_of_sale_system.Controllers
             })
                 smtp.Send(message);
         }
+        [HttpGet]
+        public ActionResult ForgetPassword()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgetPassword(string EmailID)
+        {
+            //Verify Email ID
+            //Generate Reset Password Link
+            //Send Email
+
+            string message = "";
+            bool status = false;
+
+            var account = dbmodel.Admins.Where(x => x.Username == EmailID).FirstOrDefault();
+            if(account != null)
+            {
+                //Send Email for Reset Password
+                string resetCode = Guid.NewGuid().ToString();
+                SendVerificationEmailLink(account.Username, resetCode, "ResetPassword");
+                account.resetPasswordCode = resetCode;
+                //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
+                //in our model class
+                dbmodel.Configuration.ValidateOnSaveEnabled = false;
+                dbmodel.SaveChanges();
+            }
+            else
+            {
+                message = "Account not Found";
+            }
+            return View();
+        }
+        public ActionResult resetPassword(string id)
+        {
+            //Verify the reset password link
+            //find account associated with this link
+            //redirect to reset password page
+            var user = dbmodel.Admins.Where(x => x.resetPasswordCode == id).FirstOrDefault();
+            if(user !=null)
+            {
+                ResetPasswordModel resetPasswordModel=new ResetPasswordModel();
+                resetPasswordModel.ResetCode = id;
+                return View(resetPasswordModel);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+        [HttpPost]
+        public ActionResult resetPassword(ResetPasswordModel model)
+        {
+            var message = "";
+
+            if (ModelState.IsValid)
+            {
+                var user = dbmodel.Admins.Where(a => a.resetPasswordCode == model.ResetCode).FirstOrDefault();
+                if (user != null)
+                {
+                    user.password = Crypto.Hash(model.newPassword);
+
+                    user.resetPasswordCode = "";
+                    dbmodel.Configuration.ValidateOnSaveEnabled = false;
+                    dbmodel.SaveChanges();
+                    message = "New password Update Successfully";
+                }
+            }
+            else
+            {
+                message = "Some Thing is Invalid";
+            }
+            ViewBag.message = message;
+            return View(model);
+        }
     }
+    
 }

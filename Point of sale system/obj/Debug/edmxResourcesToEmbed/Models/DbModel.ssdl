@@ -8,6 +8,9 @@
     <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="Username" Type="varchar(max)" Nullable="false" />
     <Property Name="password" Type="varchar(max)" Nullable="false" />
+    <Property Name="resetPasswordCode" Type="varchar(max)" />
+    <Property Name="ActivationCode" Type="uniqueidentifier" />
+    <Property Name="IsEmailVerified" Type="bit" />
   </EntityType>
   <EntityType Name="Brand">
     <Key>

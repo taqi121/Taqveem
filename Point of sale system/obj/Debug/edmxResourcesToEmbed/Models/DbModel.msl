@@ -186,6 +186,9 @@
     <EntitySetMapping Name="Admins">
       <EntityTypeMapping TypeName="PointOfSaleModel.Admin">
         <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+          <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Name" ColumnName="Name" />

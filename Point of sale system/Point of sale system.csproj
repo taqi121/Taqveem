@@ -180,6 +180,7 @@
     <Compile Include="Models\purchase.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\Sale.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -604,7 +605,6 @@
     <Content Include="Views\Item\Additem.cshtml" />
     <Content Include="Views\Item\POS.cshtml" />
     <Content Include="Views\MainControl\Login.cshtml" />
-    <Content Include="Views\MainControl\ForgetPassword.cshtml" />
     <Content Include="Views\MainControl\RegisterUser.cshtml" />
     <Content Include="Views\Item\Newitem.cshtml" />
     <Content Include="Views\Item\ViewItems.cshtml" />
@@ -641,6 +641,8 @@
     <Content Include="Views\Purchase\NewPurchase.cshtml" />
     <Content Include="Views\Sales\NewSale.cshtml" />
     <Content Include="Views\Sales\POS.cshtml" />
+    <Content Include="Views\MainControl\ForgetPassword.cshtml" />
+    <Content Include="Views\MainControl\resetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

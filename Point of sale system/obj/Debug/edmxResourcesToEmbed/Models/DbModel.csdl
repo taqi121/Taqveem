@@ -391,5 +391,8 @@
     <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="resetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ActivationCode" Type="Guid" />
+    <Property Name="IsEmailVerified" Type="Boolean" />
   </EntityType>
 </Schema>
