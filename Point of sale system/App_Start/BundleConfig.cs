@@ -46,13 +46,12 @@ namespace Point_of_sale_system
                 ));
             bundles.Add(new ScriptBundle("~/template/Js").Include(
                       "~/assets/js/loader.js",
-                      "~/assets/js/libs/jquery-3.1.1.min.js",
+                      "~/assets/js/libs/jquery-3.5.1.js",
                       "~/bootstrap/js/popper.min.js",
                       "~/bootstrap/js/bootstrap.min.js",
                       "~/plugins/perfect-scrollbar/perfect-scrollbar.min.js",
                       "~/assets/js/app.js",
                       "~/assets/js/custom.js",
-                      "~/plugins/apex/apexcharts.min.js",
                       "~/assets/js/dashboard/dash_1.js",
                       "~/assets/js/dashboard/dash_2.js",
                       "~/plugins/table/datatable/button-ext/jszip.min.js",

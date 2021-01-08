@@ -188,7 +188,7 @@
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <span style="color:aliceblue; font-size:25px;">Total Quantaties:</span><span style="font-size:25px;" class="text-success"> 0 </span>
+                                                            <span style="color:aliceblue; font-size:25px;">Total Quantaties:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:25px;" class="text-success" id="totalQuantities"> 0 </span>
                                                             <br />
                                                             <br />
                                                             <br />
@@ -250,14 +250,32 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group text-center">
-                                                            <span style="color:aliceblue; font-size:20px;">Subtotal:</span><span style="font-size:20px;" class="text-success"> 20 </span><br />
-                                                            <span style="color:aliceblue; font-size:20px;">Other Charges:</span><span style="font-size:20px;" class="text-success"> 20 </span><br />
-                                                            <span style="color:aliceblue; font-size:20px;">Discount on All:</span><span style="font-size:20px;" class="text-success"> 20 </span><br />
-                                                            <span style="color:aliceblue; font-size:20px;">Grand Total:</span><span style="font-size:20px;" class="text-success"> 20 </span><br />
-
+                                                        <br />
+                                                        <br />
+                                                        <br />
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <span style="color:aliceblue; font-size:20px;">Subtotal:</span><br />
+                                                                    <span style="color:aliceblue; font-size:20px;">Other Charges:</span><br />
+                                                                    <span style="color:aliceblue; font-size:20px;">Discount on All:</span><br />
+                                                                    <span style="color:aliceblue; font-size:20px;">Grand Total:</span><br />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <div class="form-group">
+                                                                    <span style="font-size:20px;" class="text-success"> 20 </span><br />
+                                                                    <span style="font-size:20px;" class="text-success"> 20 </span><br />
+                                                                    <span style="font-size:20px;" class="text-success"> 20 </span><br />
+                                                                    <span style="font-size:20px;" class="text-success"> 20 </span><br />
+                                                                </div>
+                                                            </div>
+                                                            
                                                         </div>
+                                                        
                                                     </div>
+                                                    
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -363,7 +381,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <script>
-
+    var numberofRowsforItems = 0;
     //var htmlforItemTable = '<tr><td></td ><td></td><td></td><td></td><td></td><td></td><td><button class="remove">-</button></td></tr >';
     var htmlforSupplierTable = '<tr><td></td ><td></td><td></td><td></td><td></td><td><button class="remove">-</button></td></tr >';
 
@@ -373,7 +391,7 @@
     //    $('tbody').append(html);
     //});
     $("#Hello").change(function () {
-        
+        numberofRowsforItems++;
         //var id = $(this).data("id");
         //console.log(id);
         //$.ajax({
@@ -392,7 +410,7 @@
         //    }
         //});
         //var ValueFromInput = document.getElementById("#Hello").value;
-        
+
         var ValueFromInput = $('#Hello option:selected').val();
         $.ajax({
             type: "GET",
@@ -404,13 +422,30 @@
                 var SalesPrice = data.price;
                 var Tax = data.tax;
                 var ans = (SalesPrice / 100) * Tax;
-                
-                var htmlforItemTable = '<tr class="Table"><td><span style="color:White">' + data.Name + '</span></td ><td colspan="2"> <div><button id="table_q_btn">-</button> <input type="text"/><button id="table_q_btn">+</button> </div> </td >'
-                    + '<td><input type="text" value="' + SalesPrice + '"/></td><td><input type="text" value="' + Tax +'" disabled/></td>'
-                    + '<td><input type="text" value="' + ans + '"/></td><td><input type="text" onkeyup="functioncalculate()" id="DiscountValu"/></td><td><span style="color:White">' + SalesPrice +'</span></td><td><span style="color:White">' + SalesPrice+'</span></td><td><button class="remove">-</button></td></tr >';
+                //<td id="td_2_15">
+                //
+                  //  <input type="text" onkeyup="functioncalculate(numberofRowsforItems)" id="DiscountValu" />
+                //<td id="td_1_9"></td>
+
+                var htmlforItemTable = '<tr class="table" id="row_' + numberofRowsforItems + '" data-row="' + numberofRowsforItems + '"><td id="td_' + numberofRowsforItems + '_1"><label class="form-control" style="height:auto;"><a id="td_data_' + numberofRowsforItems + '_1" href="javascript:void(0)" onclick="show_purchase_item_modal(1)" title="">' + data.Name + '</a></label></td >'+
+                    '<td id ="td_' + numberofRowsforItems + '_3" colspan="2"><div class="input-group "><span class="input-group-btn"><button onclick="decrement_qty(' + numberofRowsforItems + ')" type="button" class="btn btn-default btn-flat">-</button></span><input typ="text" value="1" class="text-center" onkeyup="calculate_tax(' + numberofRowsforItems + ')" id="td_data_' + numberofRowsforItems + '_3" name="td_data_' + numberofRowsforItems + '_3"><span class="input-group-btn"><button onclick="increment_qty(' + numberofRowsforItems + ')" type="button" class="btn btn-default btn-flat">+</button></span></div> </td >'+
+                    '<td id ="td_' + numberofRowsforItems + '_4"><input type="text" name="td_data_' + numberofRowsforItems + '_4" id="td_data_' + numberofRowsforItems + '_4" class="text-right no-padding only_currency text-center" onkeyup="calculate_tax(' + numberofRowsforItems + ')" value="' + SalesPrice + '" style="width=40px;"></td>' +
+                    '<td id ="td_' + numberofRowsforItems + '_15" ><label class="form-control"><a id="td_data_' + numberofRowsforItems + '_15" data-toggle="tooltip" title="Click to Change" class="pointer" onclick="show_purchase_item_modal(' + numberofRowsforItems + ')">' + Tax + '%</a></label></td> ' +
+                    '<td id ="td_' + numberofRowsforItems + '_5"><input type="text" name="td_data_' + numberofRowsforItems + '_5" id="td_data_' + numberofRowsforItems + '_5" class="pointer text-right no-padding only_currency text-center" readonly="" value="46.61" style="border:none"></td>'+
+                    '<td id ="td_' + numberofRowsforItems + '_8" ><input type="text" name="td_data_' + numberofRowsforItems + '_8" id="td_data_' + numberofRowsforItems + '_8" class="pointer text-right no-padding only_currency text-center item_discount" value="" onkeyup="calculate_tax(' + numberofRowsforItems + ')" style=""></td >'+
+                    '<td id ="td_' + numberofRowsforItems + '_10" ><input type="text" name="td_data_1_10" id="td_data_' + numberofRowsforItems + '_10" class="pointer text-right no-padding only_currency text-center" readonly="" value="' + SalesPrice+'"></td >'+
+                    '<td id ="td_' + numberofRowsforItems + '_9"><input type="text" name="td_data_' + numberofRowsforItems + '_9" id="td_data_' + numberofRowsforItems + '_9" class="pointer text-right no-padding only_currency text-center" style="border-color: #f39c12;" title="Total" readonly="" value=""></td>' +
+                    '<td id ="td_' + numberofRowsforItems + '_16"><button class="remove">-</button></td>' +
+                    '<input type="hidden" id="tr_available_qty_' + numberofRowsforItems + '_13" value="6"/>' +
+                    '<input type="hidden" id="tr_item_id_' + numberofRowsforItems + '" name="tr_item_id_' + numberofRowsforItems + '" value="1"/>' +
+                    '<input type="hidden" id="tr_tax_type_' + numberofRowsforItems + '" name="tr_tax_type_' + numberofRowsforItems + '" value="5"/>'+
+                    '<input type ="hidden" id = "tr_tax_id_' + numberofRowsforItems + '" name = "tr_tax_id_' + numberofRowsforItems + '" value = "5" />' +
+                    '<input type="hidden" id="tr_tax_value_' + numberofRowsforItems + '" name="tr_tax_value_' + numberofRowsforItems + '" value="1"/></tr>';
                 $("#itemName").val(data.Name);
                 $('#Item_table_data').append(htmlforItemTable);
-                
+                //$('#totalQuantities').innerHTML = numberofRowsforItems;
+                document.getElementById("totalQuantities").innerHTML = numberofRowsforItems;
+
             },
             error: function (error) {
                 console.log(error);
@@ -418,17 +453,13 @@
 
         });
     });
-    function keyup() {
-        var a = $(this).closest('tr').find('.1a').val();
-        var b = $(this).val();
-        $(this).closest('tr').find('.tot').val(a * b);
-        calculateSum();
-    }
-    function functioncalculate() {
+    function functioncalculate(i) {
+        alert("In functionCalculate"+ i);
         var x = document.getElementById("DiscountValu").value;
         var answerDiscount = x * 100;
+        
         var a = $(this).closest('tr').find('.1a').val();
-        alert(a);
+        
         console.log(a);
         var b = $(this).val();
         alert(b);
@@ -443,7 +474,11 @@
     });
 
     $(document).on('click', '.remove', function () {
+        numberofRowsforItems--;
         $(this).parents('tr').remove();
+        document.getElementById("totalQuantities").innerHTML = numberofRowsforItems;
+
+
     });
 
     $('#getValues').click(function () {
@@ -453,6 +488,220 @@
         });
         alert(values.join(', '));
     });
+
+    /* ---------- CALCULATE TAX -------------*/
+    function calculate_tax(i) { //i=Row
+        alert(i);
+
+        set_tax_value(i);
+        //Find the Tax type and Tax amount
+        var tax_type = $("#tr_tax_type_" + i).val();
+        var tax_amount = $("#td_data_" + i + "_5").val();
+
+
+        var qty = $("#td_data_" + i + "_3").val().trim();
+        var purchase_price = parseFloat($("#td_data_" + i + "_4").val().trim());
+        var discount = $("#td_data_" + i + "_8").val().trim();
+        var tax = $("#tr_tax_value_" + i).val().trim();
+
+        //Discount on All
+        var discount_input = (isNaN(parseFloat($("#discount_to_all_input").val()))) ? 0 : parseFloat($("#discount_to_all_input").val());
+        if (discount_input > 0) {
+            discount = 0;
+        }
+
+        //var tax=$('option:selected', "#td_data_"+i+"_15").attr('data-tax');
+        //var tax=$("#tr_tax_value_"+i).val().trim();
+
+        //tax        =(isNaN(parseFloat(tax)))         ? 0 : parseFloat(tax);
+        discount = (isNaN(parseFloat(discount))) ? 0 : parseFloat(discount);
+
+        var amt = parseFloat(qty) * purchase_price;//Taxable
+        //var tax_amt=parseFloat((amt * tax)/100);
+        var discount_amt = ((amt) * discount) / 100;
+
+        var total_amt = amt - discount_amt;
+        total_amt = (tax_type == 'Inclusive') ? total_amt : parseFloat(total_amt) + parseFloat(tax_amount);
+        console.log("total_amt==" + total_amt);
+        //Set Unit cost
+
+        //CAlculate Item wise price and tax and discount
+        var tax_each = (tax_type == 'Inclusive') ? 0 : calculate_exclusive(purchase_price, tax);
+
+        var per_unit_total = parseFloat(purchase_price) + parseFloat(tax_each);
+
+        $("#td_data_" + i + "_10").val('').val(per_unit_total.toFixed(2));
+
+        // $("#td_data_"+i+"_5").val('').val(tax_amount.toFixed(2));
+        $("#td_data_" + i + "_9").val('').val(total_amt.toFixed(2));
+        //alert("calculate_tax() end");
+        final_total();
+
+    }
+
+    /* ---------- CALCULATE GST END -------------*/
+
+
+    /* ---------- Final Description of amount ------------*/
+    function final_total() {
+
+
+        var rowcount = $("#hidden_rowcount").val();
+        var subtotal = parseFloat(0);
+
+        var other_charges_per_amt = parseFloat(0);
+        var other_charges_total_amt = 0;
+        var taxable = 0;
+        if ($("#other_charges_input").val() != null && $("#other_charges_input").val() != '') {
+
+            other_charges_tax_id = $('option:selected', '#other_charges_tax_id').attr('data-tax');
+            other_charges_input = $("#other_charges_input").val();
+            if (other_charges_tax_id > 0) {
+
+                other_charges_per_amt = (other_charges_tax_id * other_charges_input) / 100;
+            }
+
+            taxable = parseFloat(other_charges_per_amt) + parseFloat(other_charges_input);//Other charges input
+            other_charges_total_amt = parseFloat(other_charges_per_amt) + parseFloat(other_charges_input);
+        }
+        else {
+            //$("#other_charges_amt").html('0.00');
+        }
+
+
+        var tax_amt = 0;
+        var actual_taxable = 0;
+        var total_quantity = 0;
+
+        for (i = 1; i <= rowcount; i++) {
+
+            if (document.getElementById("td_data_" + i + "_3")) {
+                //supplier_id must exist
+                if ($("#td_data_" + i + "_3").val() != null && $("#td_data_" + i + "_3").val() != '') {
+                    actual_taxable = actual_taxable + + +(parseFloat($("#td_data_" + i + "_13").val()).toFixed(2) * parseFloat($("#td_data_" + i + "_3").val()));
+                    subtotal = subtotal + + +parseFloat($("#td_data_" + i + "_9").val()).toFixed(2);
+                    if ($("#td_data_" + i + "_7").val() >= 0) {
+                        tax_amt = tax_amt + + +$("#td_data_" + i + "_7").val();
+                    }
+                    total_quantity += parseFloat($("#td_data_" + i + "_3").val().trim());
+                }
+
+            }//if end
+        }//for end
+
+
+        //Show total Purchase Quantitys
+        $(".total_quantity").html(total_quantity);
+
+        //Apply Output on screen
+        //subtotal
+        if ((subtotal != null || subtotal != '') && (subtotal != 0)) {
+
+            //subtotal
+            $("#subtotal_amt").html(subtotal.toFixed(2));
+
+            //other charges total amount
+            $("#other_charges_amt").html(parseFloat(other_charges_total_amt).toFixed(2));
+
+            //other charges total amount
+
+
+            taxable = taxable + subtotal;
+
+            //discount_to_all_amt
+            // if($("#discount_to_all_input").val()!=null && $("#discount_to_all_input").val()!=''){
+            var discount_input = parseFloat($("#discount_to_all_input").val());
+            discount_input = isNaN(discount_input) ? 0 : discount_input;
+            var discount = 0;
+            if (discount_input > 0) {
+                var discount_type = $("#discount_to_all_type").val();
+                if (discount_type == 'in_fixed') {
+                    taxable -= discount_input;
+                    discount = discount_input;
+                    //Minus
+                }
+                else if (discount_type == 'in_percentage') {
+                    discount = (taxable * discount_input) / 100;
+                    taxable -= discount;
+
+                }
+            }
+            else {
+                //discount += $("#")
+            }
+            discount = parseFloat(discount).toFixed(2);
+
+            $("#discount_to_all_amt").html(discount);
+            $("#hidden_discount_to_all_amt").val(discount);
+            //}
+            //subtotal_round=Math.round(taxable);
+            subtotal_round = round_off(taxable);//round_off() method custom defined
+            subtotal_diff = subtotal_round - taxable;
+
+            $("#round_off_amt").html(parseFloat(subtotal_diff).toFixed(2));
+            $("#total_amt").html(parseFloat(subtotal_round).toFixed(2));
+            $("#hidden_total_amt").val(parseFloat(subtotal_round).toFixed(2));
+        }
+        else {
+            $("#subtotal_amt").html('0.00');
+
+            $("#tax_amt").html('0.00');
+        }
+
+        // adjust_payments();
+        //alert("final_total() end");
+    }
+    /* ---------- Final Description of amount end ------------*/
+    function removerow(id) {//id=Rowid
+
+        $("#row_" + id).remove();
+        final_total();
+        failed.currentTime = 0;
+        failed.play();
+    }
+
+
+
+    function enable_or_disable_item_discount() {
+        var discount_input = parseFloat($("#discount_to_all_input").val());
+        discount_input = isNaN(discount_input) ? 0 : discount_input;
+        if (discount_input > 0) {
+            $(".item_discount").attr({
+                'readonly': true,
+                'style': 'border-color:red;cursor:no-drop',
+            });
+        }
+        else {
+            $(".item_discount").attr({
+                'readonly': false,
+                'style': '',
+            });
+        }
+
+        var rowcount = $("#hidden_rowcount").val();
+        for (k = 1; k <= rowcount; k++) {
+            if (document.getElementById("tr_item_id_" + k)) {
+                console.log("Hello=" + k);
+                calculate_tax(k);
+            }//if end
+        }//for end
+
+        //final_total();
+    }
+    function set_tax_value(row_id) {
+        //get the purchase price of the item
+        var tax_type = $("#tr_tax_type_" + row_id).val();
+        var tax = $("#tr_tax_value_" + row_id).val(); //%
+        var qty = $("#td_data_" + row_id + "_3").val().trim();
+        qty = (isNaN(qty)) ? 0 : qty;
+        var purchase_price = parseFloat($("#td_data_" + row_id + "_4").val());
+        purchase_price = (isNaN(purchase_price)) ? 0 : purchase_price;
+        purchase_price = purchase_price * qty;
+
+        var tax_amount = (tax_type == 'Inclusive') ? calculate_inclusive(purchase_price, tax) : calculate_exclusive(purchase_price, tax);
+        console.log("tax_amount=" + tax_amount);
+        $("#td_data_" + row_id + "_5").val(tax_amount);
+    }
 </script>
 
 <script type="text/javascript">

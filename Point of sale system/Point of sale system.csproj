@@ -388,7 +388,7 @@
     <Content Include="assets\js\forms\bootstrap_validation\bs_validation_script.js" />
     <Content Include="assets\js\forms\custom-clipboard.js" />
     <Content Include="assets\js\ie11fix\fn.fix-padStart.js" />
-    <Content Include="assets\js\libs\jquery-3.1.1.min.js" />
+    <Content Include="assets\js\libs\jquery-3.5.1.js" />
     <Content Include="assets\js\loader.js" />
     <Content Include="assets\js\pages\coming-soon\coming-soon.js" />
     <Content Include="assets\js\pages\faq\faq.js" />
@@ -416,6 +416,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DynamicTable.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="assets/js/libs/jquery-3.5.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+    <button id="btn" onclick="addRow()">Add Row</button>
+    <table id="Items_table" border="1">
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th colspan="2">Quantity</th>
+                <th>Purchase Price</th>
+                <th>Tax%</th>
+                <th>Tax Amount</th>
+                <th>Discount</th>
+                <th>Unit Cost</th>
+                <th>Total Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="Item_table_data">
+        </tbody>
+    </table>
+
+    <script>
+        var numberofRowsforItems = 0;
+        function addRow() {
+            numberofRowsforItems++;
+            var priceID = "'PurchasePrice_"+numberofRowsforItems+"'";
+            var htmlforItemTable = '<tr class="" id="row_' + numberofRowsforItems + '" data-row="'+ numberofRowsforItems +'"><td class="tablerow"><span style="color:White">Hello</span></td ><td colspan="2"> <div><button id="table_q_btn">-</button> <input type="text"/><button id="table_q_btn">+</button> </div> </td >'
+                + '<td><input type="text" value="Hellos" id="PurchasePrice_'+numberofRowsforItems+'"/></td><td><input type="text" value="Hello" disabled/></td>'
+                + '<td><input type="text" value="Hello"/></td><td><input type="text"/></td><td><span style="color:White">Hasd</span></td><td><span style="color:White">qdasd</span></td><td><button class="remove">-</button><button onclick="GetPrice('+priceID+')">Id</button></td></tr >';
+            $('#Item_table_data').append(htmlforItemTable);
+        }
+        $(document).on('click', '.getId', function () {
+
+            var a = $(this).closest('tr').find('.tablerow').val();
+            alert(a);
+
+            var b = $(this).val();
+            alert(b);
+        });
+        $(document).on('click', '.remove', function () {
+            $(this).parents('tr').remove();
+
+
+        });
+            function GetPrice(Price) {
+                alert(Price);
+            }
+    </script>
+</body>
+</html>
+
+<link href="~/assets/css/loader.css" rel="stylesheet" type="text/css" />
+<link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+<link href="~/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/dashboard/dash_2.css" rel="stylesheet" type="text/css" />
+<link href="~/plugins/table/datatable/datatables.css" rel="stylesheet" type="text/css" />
+<link href="~/plugins/table/datatable/custom_dt_html5.css" rel="stylesheet" type="text/css" />
+<link href="~/plugins/table/datatable/dt-global_style.css" rel="stylesheet" type="text/css" />
+<link href="~/plugins/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/components/cards/card.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/forms/theme-checkbox-radio.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/tables/table-basic.css" rel="stylesheet" type="text/css" />
+
+<script src="~/assets/js/loader.js"></script>
+<script src="~/assets/js/libs/jquery-3.5.1.js"></script>
+<script src="~/bootstrap/js/popper.min.js"></script>
+<script src="~/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/assets/js/app.js"></script>
+<script src="~/assets/js/custom.js"></script>
+<script src="~/assets/js/dashboard/dash_1.js"></script>
+<script src="~/assets/js/dashboard/dash_2.js"></script>
+<script src="~/plugins/table/datatable/button-ext/jszip.min.js"></script>
+<script src="~/plugins/dropify/dropify.min.js"></script>
+<script src="~/plugins/blockui/jquery.blockUI.min.js"></script>
+<script src="~/assets/js/users/account-settings.js"></script>
+<script src="~/plugins/highlight/highlight.pack.js"></script>
+<script src="~/assets/js/scrollspyNav.js"></script>
+<script src="~/assets/js/scrollspyNav.js"></script>
