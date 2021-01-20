@@ -15,24 +15,27 @@ namespace Point_of_sale_system.Models
     public partial class purchase
     {
         public int ID { get; set; }
-        public System.DateTime Date { get; set; }
         public string status { get; set; }
         public string ReferenceNo { get; set; }
-        public Nullable<int> DiscountItem { get; set; }
+        public string Date { get; set; }
         public Nullable<double> otherCharges { get; set; }
+        public string otherChargesType { get; set; }
         public Nullable<double> DiscountonAll { get; set; }
-        public double Quantity { get; set; }
-        public string Note { get; set; }
-        public double amount { get; set; }
+        public string DiscountOnAllType { get; set; }
+        public string NoteDiscount { get; set; }
+        public Nullable<double> Quantity { get; set; }
+        public string SubTotal { get; set; }
+        public string GrandTotal { get; set; }
+        public Nullable<double> amount { get; set; }
         public string paymentMethod { get; set; }
-        public Nullable<double> totalAmountwdis { get; set; }
-        public Nullable<double> totalAmountAll { get; set; }
+        public string AmountNote { get; set; }
         public int SupplierID { get; set; }
         public int UserID { get; set; }
-        public int ItemID { get; set; }
+        public Nullable<int> ItemId { get; set; }
     
+        public virtual Item Item { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual User User { get; set; }
-        public virtual Item Item { get; set; }
+        public virtual PurchaseItem PurchaseItem { get; set; }
     }
 }

@@ -92,21 +92,38 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="status" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="ReferenceNo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DiscountItem" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="10" />
+          <Property Name="ReferenceNo" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="varchar" MaxLength="30" />
           <Property Name="otherCharges" Type="float" />
+          <Property Name="otherChargesType" Type="varchar" MaxLength="50" />
           <Property Name="DiscountonAll" Type="float" />
-          <Property Name="Quantity" Type="float" Nullable="false" />
-          <Property Name="Note" Type="varchar" MaxLength="300" />
-          <Property Name="amount" Type="float" Nullable="false" />
-          <Property Name="paymentMethod" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="totalAmountwdis" Type="float" />
-          <Property Name="totalAmountAll" Type="float" />
+          <Property Name="DiscountOnAllType" Type="varchar" MaxLength="30" />
+          <Property Name="NoteDiscount" Type="varchar" MaxLength="300" />
+          <Property Name="Quantity" Type="float" />
+          <Property Name="SubTotal" Type="varchar" MaxLength="50" />
+          <Property Name="GrandTotal" Type="varchar" MaxLength="20" />
+          <Property Name="amount" Type="float" />
+          <Property Name="paymentMethod" Type="varchar" MaxLength="20" />
+          <Property Name="AmountNote" Type="varchar(max)" />
           <Property Name="SupplierID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" />
+        </EntityType>
+        <EntityType Name="PurchaseItems">
+          <Key>
+            <PropertyRef Name="ItemPurchaseID" />
+          </Key>
+          <Property Name="ItemPurchaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="100" />
+          <Property Name="Quantity" Type="float" />
+          <Property Name="PurchasePrice" Type="float" />
+          <Property Name="Tax" Type="float" />
+          <Property Name="TaxAmount" Type="float" />
+          <Property Name="Discount" Type="float" />
+          <Property Name="UnitCost" Type="float" />
+          <Property Name="TotalAmount" Type="float" />
+          <Property Name="PurchaseID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sales">
           <Key>
@@ -236,14 +253,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_purchase_Item">
-          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
           <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Item">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="purchase">
-              <PropertyRef Name="ItemID" />
+              <PropertyRef Name="ItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -268,6 +285,18 @@
             </Principal>
             <Dependent Role="purchase">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseItems_purchase">
+          <End Role="purchase" Type="Self.purchase" Multiplicity="1" />
+          <End Role="PurchaseItems" Type="Self.PurchaseItems" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="purchase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseItems">
+              <PropertyRef Name="ItemPurchaseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -328,6 +357,7 @@
           <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="purchase" EntityType="Self.purchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseItems" EntityType="Self.PurchaseItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -361,6 +391,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="purchase" EntitySet="purchase" />
           </AssociationSet>
+          <AssociationSet Name="FK_PurchaseItems_purchase" Association="Self.FK_PurchaseItems_purchase">
+            <End Role="purchase" EntitySet="purchase" />
+            <End Role="PurchaseItems" EntitySet="PurchaseItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sales_Customers" Association="Self.FK_Sales_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Sales" EntitySet="Sales" />
@@ -383,6 +417,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="PointOfSaleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DbModelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="PointOfSaleModel.Admin" />
           <EntitySet Name="Brands" EntityType="PointOfSaleModel.Brand" />
           <EntitySet Name="Categories" EntityType="PointOfSaleModel.Category" />
           <EntitySet Name="Customers" EntityType="PointOfSaleModel.Customer" />
@@ -390,6 +425,7 @@
           <EntitySet Name="Expenses" EntityType="PointOfSaleModel.Expens" />
           <EntitySet Name="Items" EntityType="PointOfSaleModel.Item" />
           <EntitySet Name="purchases" EntityType="PointOfSaleModel.purchase" />
+          <EntitySet Name="PurchaseItems" EntityType="PointOfSaleModel.PurchaseItem" />
           <EntitySet Name="Sales" EntityType="PointOfSaleModel.Sale" />
           <EntitySet Name="Suppliers" EntityType="PointOfSaleModel.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="PointOfSaleModel.sysdiagram" />
@@ -415,6 +451,10 @@
             <End Role="ExpenseCategory" EntitySet="ExpenseCategories" />
             <End Role="Expens" EntitySet="Expenses" />
           </AssociationSet>
+          <AssociationSet Name="FK_purchase_Item" Association="PointOfSaleModel.FK_purchase_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="purchase" EntitySet="purchases" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sales_Item" Association="PointOfSaleModel.FK_Sales_Item">
             <End Role="Item" EntitySet="Items" />
             <End Role="Sale" EntitySet="Sales" />
@@ -427,6 +467,10 @@
             <End Role="User" EntitySet="Users" />
             <End Role="purchase" EntitySet="purchases" />
           </AssociationSet>
+          <AssociationSet Name="FK_PurchaseItems_purchase" Association="PointOfSaleModel.FK_PurchaseItems_purchase">
+            <End Role="purchase" EntitySet="purchases" />
+            <End Role="PurchaseItem" EntitySet="PurchaseItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sales_Users" Association="PointOfSaleModel.FK_Sales_Users">
             <End Role="User" EntitySet="Users" />
             <End Role="Sale" EntitySet="Sales" />
@@ -435,12 +479,19 @@
             <End Role="User_Role" EntitySet="User_Role" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_purchase_Item" Association="PointOfSaleModel.FK_purchase_Item">
-            <End Role="Item" EntitySet="Items" />
-            <End Role="purchase" EntitySet="purchases" />
-          </AssociationSet>
-          <EntitySet Name="Admins" EntityType="PointOfSaleModel.Admin" />
         </EntityContainer>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="resetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActivationCode" Type="Guid" />
+          <Property Name="IsEmailVerified" Type="Boolean" />
+        </EntityType>
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="BrandID" />
@@ -519,32 +570,51 @@
           <Property Name="BrandID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Brand" Relationship="PointOfSaleModel.FK_Item_Brand" FromRole="Item" ToRole="Brand" />
           <NavigationProperty Name="Category" Relationship="PointOfSaleModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
-          <NavigationProperty Name="Sales" Relationship="PointOfSaleModel.FK_Sales_Item" FromRole="Item" ToRole="Sale" />
           <NavigationProperty Name="purchases" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="Item" ToRole="purchase" />
+          <NavigationProperty Name="Sales" Relationship="PointOfSaleModel.FK_Sales_Item" FromRole="Item" ToRole="Sale" />
         </EntityType>
         <EntityType Name="purchase">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ReferenceNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DiscountItem" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="otherCharges" Type="Double" />
+          <Property Name="otherChargesType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DiscountonAll" Type="Double" />
-          <Property Name="Quantity" Type="Double" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="Double" Nullable="false" />
-          <Property Name="paymentMethod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="totalAmountwdis" Type="Double" />
-          <Property Name="totalAmountAll" Type="Double" />
+          <Property Name="DiscountOnAllType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NoteDiscount" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="SubTotal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GrandTotal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Double" />
+          <Property Name="paymentMethod" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AmountNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SupplierID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="purchase" ToRole="Item" />
           <NavigationProperty Name="Supplier" Relationship="PointOfSaleModel.FK_purchase_Supplier" FromRole="purchase" ToRole="Supplier" />
           <NavigationProperty Name="User" Relationship="PointOfSaleModel.FK_purchase_Users" FromRole="purchase" ToRole="User" />
-          <Property Name="ItemID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Item" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="purchase" ToRole="Item" />
+          <NavigationProperty Name="PurchaseItem" Relationship="PointOfSaleModel.FK_PurchaseItems_purchase" FromRole="purchase" ToRole="PurchaseItem" />
+        </EntityType>
+        <EntityType Name="PurchaseItem">
+          <Key>
+            <PropertyRef Name="ItemPurchaseID" />
+          </Key>
+          <Property Name="ItemPurchaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="PurchasePrice" Type="Double" />
+          <Property Name="Tax" Type="Double" />
+          <Property Name="TaxAmount" Type="Double" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="UnitCost" Type="Double" />
+          <Property Name="TotalAmount" Type="Double" />
+          <Property Name="PurchaseID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="purchase" Relationship="PointOfSaleModel.FK_PurchaseItems_purchase" FromRole="PurchaseItem" ToRole="purchase" />
         </EntityType>
         <EntityType Name="Sale">
           <Key>
@@ -693,6 +763,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_purchase_Item">
+          <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="purchase">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sales_Item">
           <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="1" />
           <End Type="PointOfSaleModel.Sale" Role="Sale" Multiplicity="*" />
@@ -729,6 +811,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PurchaseItems_purchase">
+          <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="1" />
+          <End Type="PointOfSaleModel.PurchaseItem" Role="PurchaseItem" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="purchase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PurchaseItem">
+              <PropertyRef Name="ItemPurchaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sales_Users">
           <End Type="PointOfSaleModel.User" Role="User" Multiplicity="1" />
           <End Type="PointOfSaleModel.Sale" Role="Sale" Multiplicity="*" />
@@ -753,36 +847,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_purchase_Item">
-          <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="1" />
-          <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Item">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="purchase">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Admin">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="resetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ActivationCode" Type="Guid" />
-          <Property Name="IsEmailVerified" Type="Boolean" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PointOfSaleModelStoreContainer" CdmEntityContainer="DbModelEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="PointOfSaleModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="PointOfSaleModel.Brand">
               <MappingFragment StoreEntitySet="Brand">
@@ -862,22 +945,40 @@
           <EntitySetMapping Name="purchases">
             <EntityTypeMapping TypeName="PointOfSaleModel.purchase">
               <MappingFragment StoreEntitySet="purchase">
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="totalAmountAll" ColumnName="totalAmountAll" />
-                <ScalarProperty Name="totalAmountwdis" ColumnName="totalAmountwdis" />
+                <ScalarProperty Name="AmountNote" ColumnName="AmountNote" />
                 <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="NoteDiscount" ColumnName="NoteDiscount" />
+                <ScalarProperty Name="DiscountOnAllType" ColumnName="DiscountOnAllType" />
                 <ScalarProperty Name="DiscountonAll" ColumnName="DiscountonAll" />
+                <ScalarProperty Name="otherChargesType" ColumnName="otherChargesType" />
                 <ScalarProperty Name="otherCharges" ColumnName="otherCharges" />
-                <ScalarProperty Name="DiscountItem" ColumnName="DiscountItem" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
                 <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseItems">
+            <EntityTypeMapping TypeName="PointOfSaleModel.PurchaseItem">
+              <MappingFragment StoreEntitySet="PurchaseItems">
+                <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="TaxAmount" ColumnName="TaxAmount" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemPurchaseID" ColumnName="ItemPurchaseID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -960,19 +1061,6 @@
                 <ScalarProperty Name="cpassword" ColumnName="cpassword" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="PointOfSaleModel.Admin">
-              <MappingFragment StoreEntitySet="Admin">
-                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
-                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
-                <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

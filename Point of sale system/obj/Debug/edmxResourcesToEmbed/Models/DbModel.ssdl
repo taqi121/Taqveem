@@ -87,21 +87,38 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Date" Type="date" Nullable="false" />
-    <Property Name="status" Type="varchar" MaxLength="10" Nullable="false" />
-    <Property Name="ReferenceNo" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="DiscountItem" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="10" />
+    <Property Name="ReferenceNo" Type="varchar" MaxLength="50" />
+    <Property Name="Date" Type="varchar" MaxLength="30" />
     <Property Name="otherCharges" Type="float" />
+    <Property Name="otherChargesType" Type="varchar" MaxLength="50" />
     <Property Name="DiscountonAll" Type="float" />
-    <Property Name="Quantity" Type="float" Nullable="false" />
-    <Property Name="Note" Type="varchar" MaxLength="300" />
-    <Property Name="amount" Type="float" Nullable="false" />
-    <Property Name="paymentMethod" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="totalAmountwdis" Type="float" />
-    <Property Name="totalAmountAll" Type="float" />
+    <Property Name="DiscountOnAllType" Type="varchar" MaxLength="30" />
+    <Property Name="NoteDiscount" Type="varchar" MaxLength="300" />
+    <Property Name="Quantity" Type="float" />
+    <Property Name="SubTotal" Type="varchar" MaxLength="50" />
+    <Property Name="GrandTotal" Type="varchar" MaxLength="20" />
+    <Property Name="amount" Type="float" />
+    <Property Name="paymentMethod" Type="varchar" MaxLength="20" />
+    <Property Name="AmountNote" Type="varchar(max)" />
     <Property Name="SupplierID" Type="int" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
-    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="ItemId" Type="int" />
+  </EntityType>
+  <EntityType Name="PurchaseItems">
+    <Key>
+      <PropertyRef Name="ItemPurchaseID" />
+    </Key>
+    <Property Name="ItemPurchaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="100" />
+    <Property Name="Quantity" Type="float" />
+    <Property Name="PurchasePrice" Type="float" />
+    <Property Name="Tax" Type="float" />
+    <Property Name="TaxAmount" Type="float" />
+    <Property Name="Discount" Type="float" />
+    <Property Name="UnitCost" Type="float" />
+    <Property Name="TotalAmount" Type="float" />
+    <Property Name="PurchaseID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Sales">
     <Key>
@@ -231,14 +248,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_purchase_Item">
-    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
     <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Item">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="purchase">
-        <PropertyRef Name="ItemID" />
+        <PropertyRef Name="ItemId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -263,6 +280,18 @@
       </Principal>
       <Dependent Role="purchase">
         <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseItems_purchase">
+    <End Role="purchase" Type="Self.purchase" Multiplicity="1" />
+    <End Role="PurchaseItems" Type="Self.PurchaseItems" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="purchase">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PurchaseItems">
+        <PropertyRef Name="ItemPurchaseID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -323,6 +352,7 @@
     <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="purchase" EntityType="Self.purchase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseItems" EntityType="Self.PurchaseItems" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -355,6 +385,10 @@
     <AssociationSet Name="FK_purchase_Users" Association="Self.FK_purchase_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="purchase" EntitySet="purchase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseItems_purchase" Association="Self.FK_PurchaseItems_purchase">
+      <End Role="purchase" EntitySet="purchase" />
+      <End Role="PurchaseItems" EntitySet="PurchaseItems" />
     </AssociationSet>
     <AssociationSet Name="FK_Sales_Customers" Association="Self.FK_Sales_Customers">
       <End Role="Customers" EntitySet="Customers" />

@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="PointOfSaleModelStoreContainer" CdmEntityContainer="DbModelEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="PointOfSaleModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+          <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Brands">
       <EntityTypeMapping TypeName="PointOfSaleModel.Brand">
         <MappingFragment StoreEntitySet="Brand">
@@ -80,22 +93,40 @@
     <EntitySetMapping Name="purchases">
       <EntityTypeMapping TypeName="PointOfSaleModel.purchase">
         <MappingFragment StoreEntitySet="purchase">
-          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ItemId" ColumnName="ItemId" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-          <ScalarProperty Name="totalAmountAll" ColumnName="totalAmountAll" />
-          <ScalarProperty Name="totalAmountwdis" ColumnName="totalAmountwdis" />
+          <ScalarProperty Name="AmountNote" ColumnName="AmountNote" />
           <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
           <ScalarProperty Name="amount" ColumnName="amount" />
-          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+          <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="NoteDiscount" ColumnName="NoteDiscount" />
+          <ScalarProperty Name="DiscountOnAllType" ColumnName="DiscountOnAllType" />
           <ScalarProperty Name="DiscountonAll" ColumnName="DiscountonAll" />
+          <ScalarProperty Name="otherChargesType" ColumnName="otherChargesType" />
           <ScalarProperty Name="otherCharges" ColumnName="otherCharges" />
-          <ScalarProperty Name="DiscountItem" ColumnName="DiscountItem" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
           <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseItems">
+      <EntityTypeMapping TypeName="PointOfSaleModel.PurchaseItem">
+        <MappingFragment StoreEntitySet="PurchaseItems">
+          <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="TaxAmount" ColumnName="TaxAmount" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemPurchaseID" ColumnName="ItemPurchaseID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -178,19 +209,6 @@
           <ScalarProperty Name="cpassword" ColumnName="cpassword" />
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Admins">
-      <EntityTypeMapping TypeName="PointOfSaleModel.Admin">
-        <MappingFragment StoreEntitySet="Admin">
-          <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
-          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
-          <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>

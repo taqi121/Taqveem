@@ -28,6 +28,7 @@ namespace Point_of_sale_system.Controllers
             var Items_ki_list = new SelectList(Item_ki_list, "ID", "Name", "Quantity", "ExpiryDate", "Barcode", "price");
             ViewBag.MyStates = JsonConvert.SerializeObject(Items_ki_list);
 
+            purchase p = new purchase();
             //try
             //{
             //    if (Session["UserName"] != null)
@@ -45,6 +46,20 @@ namespace Point_of_sale_system.Controllers
             //}
             return View();
         }
+        [HttpPost]
+        public ActionResult NewPurchase(List<PurchaseItem> itemss )
+        {
+            foreach(var file in itemss)
+            {
+                dbModel.PurchaseItems.Add(file);
+                dbModel.SaveChanges();
+            }
+            return Json("output", JsonRequestBehavior.AllowGet);
+        } 
+        //public ActionResult saveAllPurchaseItems(PurchaseItem purchaseItem)
+        //{
+
+        //}
         [HttpGet]
         public ActionResult PurchaseData(int id)
         {
@@ -90,27 +105,6 @@ namespace Point_of_sale_system.Controllers
             {
                 return new JsonResult();
             }
-        }
-
-        [HttpPost]
-        public ActionResult newPurchase(purchase purchase)
-        {
-            //try
-            //{
-            //    if (Session["UserName"] != null)
-            //    {
-
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction("Login", "MainControl");
-            //    }
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
-            return View();
         }
         public ActionResult PurchaseList()
         {

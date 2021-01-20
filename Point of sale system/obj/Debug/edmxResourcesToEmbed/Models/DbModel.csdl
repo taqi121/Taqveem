@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PointOfSaleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="DbModelEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="PointOfSaleModel.Admin" />
     <EntitySet Name="Brands" EntityType="PointOfSaleModel.Brand" />
     <EntitySet Name="Categories" EntityType="PointOfSaleModel.Category" />
     <EntitySet Name="Customers" EntityType="PointOfSaleModel.Customer" />
@@ -8,6 +9,7 @@
     <EntitySet Name="Expenses" EntityType="PointOfSaleModel.Expens" />
     <EntitySet Name="Items" EntityType="PointOfSaleModel.Item" />
     <EntitySet Name="purchases" EntityType="PointOfSaleModel.purchase" />
+    <EntitySet Name="PurchaseItems" EntityType="PointOfSaleModel.PurchaseItem" />
     <EntitySet Name="Sales" EntityType="PointOfSaleModel.Sale" />
     <EntitySet Name="Suppliers" EntityType="PointOfSaleModel.Supplier" />
     <EntitySet Name="sysdiagrams" EntityType="PointOfSaleModel.sysdiagram" />
@@ -33,6 +35,10 @@
       <End Role="ExpenseCategory" EntitySet="ExpenseCategories" />
       <End Role="Expens" EntitySet="Expenses" />
     </AssociationSet>
+    <AssociationSet Name="FK_purchase_Item" Association="PointOfSaleModel.FK_purchase_Item">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="purchase" EntitySet="purchases" />
+    </AssociationSet>
     <AssociationSet Name="FK_Sales_Item" Association="PointOfSaleModel.FK_Sales_Item">
       <End Role="Item" EntitySet="Items" />
       <End Role="Sale" EntitySet="Sales" />
@@ -45,6 +51,10 @@
       <End Role="User" EntitySet="Users" />
       <End Role="purchase" EntitySet="purchases" />
     </AssociationSet>
+    <AssociationSet Name="FK_PurchaseItems_purchase" Association="PointOfSaleModel.FK_PurchaseItems_purchase">
+      <End Role="purchase" EntitySet="purchases" />
+      <End Role="PurchaseItem" EntitySet="PurchaseItems" />
+    </AssociationSet>
     <AssociationSet Name="FK_Sales_Users" Association="PointOfSaleModel.FK_Sales_Users">
       <End Role="User" EntitySet="Users" />
       <End Role="Sale" EntitySet="Sales" />
@@ -53,12 +63,19 @@
       <End Role="User_Role" EntitySet="User_Role" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
-    <AssociationSet Name="FK_purchase_Item" Association="PointOfSaleModel.FK_purchase_Item">
-      <End Role="Item" EntitySet="Items" />
-      <End Role="purchase" EntitySet="purchases" />
-    </AssociationSet>
-    <EntitySet Name="Admins" EntityType="PointOfSaleModel.Admin" />
   </EntityContainer>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="resetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ActivationCode" Type="Guid" />
+    <Property Name="IsEmailVerified" Type="Boolean" />
+  </EntityType>
   <EntityType Name="Brand">
     <Key>
       <PropertyRef Name="BrandID" />
@@ -137,32 +154,51 @@
     <Property Name="BrandID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Brand" Relationship="PointOfSaleModel.FK_Item_Brand" FromRole="Item" ToRole="Brand" />
     <NavigationProperty Name="Category" Relationship="PointOfSaleModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
-    <NavigationProperty Name="Sales" Relationship="PointOfSaleModel.FK_Sales_Item" FromRole="Item" ToRole="Sale" />
     <NavigationProperty Name="purchases" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="Item" ToRole="purchase" />
+    <NavigationProperty Name="Sales" Relationship="PointOfSaleModel.FK_Sales_Item" FromRole="Item" ToRole="Sale" />
   </EntityType>
   <EntityType Name="purchase">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="ReferenceNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="DiscountItem" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="otherCharges" Type="Double" />
+    <Property Name="otherChargesType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="DiscountonAll" Type="Double" />
-    <Property Name="Quantity" Type="Double" Nullable="false" />
-    <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="amount" Type="Double" Nullable="false" />
-    <Property Name="paymentMethod" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="totalAmountwdis" Type="Double" />
-    <Property Name="totalAmountAll" Type="Double" />
+    <Property Name="DiscountOnAllType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NoteDiscount" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="Double" />
+    <Property Name="SubTotal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GrandTotal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="Double" />
+    <Property Name="paymentMethod" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AmountNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="SupplierID" Type="Int32" Nullable="false" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="ItemId" Type="Int32" />
+    <NavigationProperty Name="Item" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="purchase" ToRole="Item" />
     <NavigationProperty Name="Supplier" Relationship="PointOfSaleModel.FK_purchase_Supplier" FromRole="purchase" ToRole="Supplier" />
     <NavigationProperty Name="User" Relationship="PointOfSaleModel.FK_purchase_Users" FromRole="purchase" ToRole="User" />
-    <Property Name="ItemID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Item" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="purchase" ToRole="Item" />
+    <NavigationProperty Name="PurchaseItem" Relationship="PointOfSaleModel.FK_PurchaseItems_purchase" FromRole="purchase" ToRole="PurchaseItem" />
+  </EntityType>
+  <EntityType Name="PurchaseItem">
+    <Key>
+      <PropertyRef Name="ItemPurchaseID" />
+    </Key>
+    <Property Name="ItemPurchaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="Double" />
+    <Property Name="PurchasePrice" Type="Double" />
+    <Property Name="Tax" Type="Double" />
+    <Property Name="TaxAmount" Type="Double" />
+    <Property Name="Discount" Type="Double" />
+    <Property Name="UnitCost" Type="Double" />
+    <Property Name="TotalAmount" Type="Double" />
+    <Property Name="PurchaseID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="purchase" Relationship="PointOfSaleModel.FK_PurchaseItems_purchase" FromRole="PurchaseItem" ToRole="purchase" />
   </EntityType>
   <EntityType Name="Sale">
     <Key>
@@ -311,6 +347,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_purchase_Item">
+    <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="0..1" />
+    <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="purchase">
+        <PropertyRef Name="ItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Sales_Item">
     <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="1" />
     <End Type="PointOfSaleModel.Sale" Role="Sale" Multiplicity="*" />
@@ -347,6 +395,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PurchaseItems_purchase">
+    <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="1" />
+    <End Type="PointOfSaleModel.PurchaseItem" Role="PurchaseItem" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="purchase">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PurchaseItem">
+        <PropertyRef Name="ItemPurchaseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Sales_Users">
     <End Type="PointOfSaleModel.User" Role="User" Multiplicity="1" />
     <End Type="PointOfSaleModel.Sale" Role="Sale" Multiplicity="*" />
@@ -371,28 +431,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_purchase_Item">
-    <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="1" />
-    <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Item">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="purchase">
-        <PropertyRef Name="ItemID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Admin">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="resetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="ActivationCode" Type="Guid" />
-    <Property Name="IsEmailVerified" Type="Boolean" />
-  </EntityType>
 </Schema>
