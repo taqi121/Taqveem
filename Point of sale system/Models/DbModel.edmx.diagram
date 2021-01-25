@@ -5,26 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8571528081334184b0c90fc1ea76d05c" Name="Diagram1" ZoomLevel="93">
-        <EntityTypeShape EntityType="PointOfSaleModel.Admin" Width="1.5" PointX="0.75" PointY="1.125" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Brand" Width="1.5" PointX="0.75" PointY="6.375" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Category" Width="1.5" PointX="3" PointY="6.25" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Customer" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="PointOfSaleModel.ExpenseCategory" Width="1.5" PointX="10.75" PointY="11.75" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Expens" Width="1.5" PointX="13" PointY="11.375" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Item" Width="1.5" PointX="5.25" PointY="5.125" />
-        <EntityTypeShape EntityType="PointOfSaleModel.purchase" Width="1.5" PointX="10.875" PointY="3.75" />
-        <EntityTypeShape EntityType="PointOfSaleModel.PurchaseItem" Width="1.5" PointX="12.75" PointY="5.75" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Sale" Width="1.5" PointX="7.5" PointY="4.75" />
-        <EntityTypeShape EntityType="PointOfSaleModel.Supplier" Width="1.5" PointX="8.25" PointY="0.875" />
-        <EntityTypeShape EntityType="PointOfSaleModel.sysdiagram" Width="1.5" PointX="0.75" PointY="9.125" />
-        <EntityTypeShape EntityType="PointOfSaleModel.User_Role" Width="1.5" PointX="6" PointY="12.375" />
-        <EntityTypeShape EntityType="PointOfSaleModel.User" Width="1.5" PointX="8.25" PointY="10.75" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Admin" Width="1.5" PointX="0.75" PointY="12" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Brand" Width="1.5" PointX="3.75" PointY="15.625" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Category" Width="1.5" PointX="3.75" PointY="18.375" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Customer" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="PointOfSaleModel.ExpenseCategory" Width="1.5" PointX="10.75" PointY="2.625" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Expens" Width="1.5" PointX="13" PointY="2.25" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Item" Width="1.5" PointX="6" PointY="16" />
+        <EntityTypeShape EntityType="PointOfSaleModel.purchase" Width="1.5" PointX="5.25" PointY="5.5" />
+        <EntityTypeShape EntityType="PointOfSaleModel.PurchaseItem" Width="1.5" PointX="7.5" PointY="11.625" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Sale" Width="1.5" PointX="8.25" PointY="5.625" />
+        <EntityTypeShape EntityType="PointOfSaleModel.Supplier" Width="1.5" PointX="3" PointY="1.625" />
+        <EntityTypeShape EntityType="PointOfSaleModel.sysdiagram" Width="1.5" PointX="2.75" PointY="12" />
+        <EntityTypeShape EntityType="PointOfSaleModel.User_Role" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="PointOfSaleModel.User" Width="1.5" PointX="3" PointY="5.625" />
         <AssociationConnector Association="PointOfSaleModel.FK_Category_Brand" />
         <AssociationConnector Association="PointOfSaleModel.FK_Item_Brand" />
         <AssociationConnector Association="PointOfSaleModel.FK_Item_Category" />
         <AssociationConnector Association="PointOfSaleModel.FK_Sales_Customers" />
         <AssociationConnector Association="PointOfSaleModel.FK_Expenses_ExpenseCategory1" />
-        <AssociationConnector Association="PointOfSaleModel.FK_purchase_Item" />
         <AssociationConnector Association="PointOfSaleModel.FK_Sales_Item" />
         <AssociationConnector Association="PointOfSaleModel.FK_purchase_Supplier" />
         <AssociationConnector Association="PointOfSaleModel.FK_purchase_Users" />

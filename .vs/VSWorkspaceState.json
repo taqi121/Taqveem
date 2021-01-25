@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Point of sale system",
+    "\\Point of sale system\\Controllers",
+    "\\Point of sale system\\Views",
+    "\\Point of sale system\\Views\\Purchase",
+    "\\Point of sale system\\Views\\Sales"
   ],
+  "SelectedNode": "\\Point of sale system\\Views\\Purchase\\NewPurchase.cshtml",
   "PreviewInSolutionExplorer": false
 }

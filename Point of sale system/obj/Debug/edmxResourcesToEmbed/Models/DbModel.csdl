@@ -35,10 +35,6 @@
       <End Role="ExpenseCategory" EntitySet="ExpenseCategories" />
       <End Role="Expens" EntitySet="Expenses" />
     </AssociationSet>
-    <AssociationSet Name="FK_purchase_Item" Association="PointOfSaleModel.FK_purchase_Item">
-      <End Role="Item" EntitySet="Items" />
-      <End Role="purchase" EntitySet="purchases" />
-    </AssociationSet>
     <AssociationSet Name="FK_Sales_Item" Association="PointOfSaleModel.FK_Sales_Item">
       <End Role="Item" EntitySet="Items" />
       <End Role="Sale" EntitySet="Sales" />
@@ -154,7 +150,6 @@
     <Property Name="BrandID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Brand" Relationship="PointOfSaleModel.FK_Item_Brand" FromRole="Item" ToRole="Brand" />
     <NavigationProperty Name="Category" Relationship="PointOfSaleModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
-    <NavigationProperty Name="purchases" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="Item" ToRole="purchase" />
     <NavigationProperty Name="Sales" Relationship="PointOfSaleModel.FK_Sales_Item" FromRole="Item" ToRole="Sale" />
   </EntityType>
   <EntityType Name="purchase">
@@ -167,8 +162,10 @@
     <Property Name="Date" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="otherCharges" Type="Double" />
     <Property Name="otherChargesType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="otherChargeswithTax" Type="Double" />
     <Property Name="DiscountonAll" Type="Double" />
     <Property Name="DiscountOnAllType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DiscountCalculate" Type="Double" />
     <Property Name="NoteDiscount" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="Quantity" Type="Double" />
     <Property Name="SubTotal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -178,8 +175,6 @@
     <Property Name="AmountNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="SupplierID" Type="Int32" Nullable="false" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
-    <Property Name="ItemId" Type="Int32" />
-    <NavigationProperty Name="Item" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="purchase" ToRole="Item" />
     <NavigationProperty Name="Supplier" Relationship="PointOfSaleModel.FK_purchase_Supplier" FromRole="purchase" ToRole="Supplier" />
     <NavigationProperty Name="User" Relationship="PointOfSaleModel.FK_purchase_Users" FromRole="purchase" ToRole="User" />
     <NavigationProperty Name="PurchaseItem" Relationship="PointOfSaleModel.FK_PurchaseItems_purchase" FromRole="purchase" ToRole="PurchaseItem" />
@@ -344,18 +339,6 @@
       </Principal>
       <Dependent Role="Expens">
         <PropertyRef Name="CategoryID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_purchase_Item">
-    <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="0..1" />
-    <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Item">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="purchase">
-        <PropertyRef Name="ItemId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -20,10 +20,10 @@ namespace Point_of_sale_system.Controllers
         {
             var supplier_list = dbModel.Suppliers.ToList();
             var suppliers_list = new SelectList(supplier_list, "ID", "Name");
-            ViewBag.SupplierList = suppliers_list;
+            ViewBag.SupplierList = supplier_list;
             var item_list = dbModel.Items.ToList();
             var items_list = new SelectList(item_list, "ID", "Name");
-            ViewBag.ItemList = items_list;
+            ViewBag.ItemList = item_list;
             var Item_ki_list = dbModel.Items.ToList();
             var Items_ki_list = new SelectList(Item_ki_list, "ID", "Name", "Quantity", "ExpiryDate", "Barcode", "price");
             ViewBag.MyStates = JsonConvert.SerializeObject(Items_ki_list);
@@ -47,12 +47,17 @@ namespace Point_of_sale_system.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult NewPurchase(List<PurchaseItem> itemss )
+        public ActionResult NewPurchase(List<PurchaseItem> itemss, purchase purchase_Details)
         {
+           
+            
+
             foreach(var file in itemss)
             {
+                //file.ItemPurchaseID = purchaseIdItem;
                 dbModel.PurchaseItems.Add(file);
                 dbModel.SaveChanges();
+                //purchaseIdItem++;
             }
             return Json("output", JsonRequestBehavior.AllowGet);
         } 

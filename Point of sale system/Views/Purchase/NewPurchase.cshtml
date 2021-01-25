@@ -5,8 +5,10 @@
     ViewBag.Title = "NewPurchase";
     Layout = "~/Views/Shared/_AdminSharedView.cshtml";
 }
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+@*<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>*@
+<link href="~/assets/select2/dist/css/select2.min.css" rel="stylesheet" />
+<link href="~/assets/select2/dist/css/select2.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
 @*<script rel="stylesheet" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
@@ -39,18 +41,35 @@
         border: none;
         color: darkblue;
     }
+
+    .select2-container .select2-selection--single {
+        /*height: 50px !important;*/
+    }
+
+    .select2-container--default .select2-selection--single {
+        color: white;
+        border: 1px solid #1b2e4b;
+        padding: 8px 8px;
+        border-radius: 6px !important;
+        font-size: 15px;
+        height: calc(1.4em + 1.4rem + 2px);
+        background: #1b2e4b;
+    }
 </style>
 <!-- **********************MODALS***************** -->
 <div class="modal fade" id="supplier-modal">
-    <form action="~/assets/index.php/#" class="" id="supplier-form" method="post" accept-charset="utf-8">
+    @using (Html.BeginForm("NewSupplierThroughModel", "Users", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "formmmmmm" }))
+    {
+    @*<form action="~/assets/index.php/#" id="supplier-form" method="post" accept-charset="utf-8">*@
         <input type="hidden" name="csrf_test_name" value="a8f5c96e331a6014495303119a457634" />
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header header-custom">
+
+                    <h4 class="modal-title text-center">Add Supplier</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <stax_number aria-hidden="true">&times;</stax_number>
                     </button>
-                    <h4 class="modal-title text-center">Add Supplier</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -59,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="supplier_name">Supplier Name*</label>
                                     <stax_number id="supplier_name_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="text" class="form-control" id="supplier_name" name="supplier_name" placeholder="">
+                                    <input type="text" class="form-control" id="supplier_name" name="Name" placeholder=".." required>
                                 </div>
                             </div>
                         </div>
@@ -68,26 +87,18 @@
                                 <div class="form-group">
                                     <label for="mobile">Mobile</label>
                                     <stax_number id="mobile_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="tel" class="form-control no_special_char_no_space " id="mobile" name="mobile" placeholder="">
+                                    <input type="tel" class="form-control no_special_char_no_space " id="mobile" name="Mobile" placeholder=".." required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="phone">Phone</label>
-                                    <stax_number id="phone_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="tel" class="form-control maxlength no_special_char_no_space " id="phone" name="phone" placeholder="">
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col-md-4">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <stax_number id="email_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="email" class="form-control " id="email" name="email" placeholder="">
+                                    <input type="email" class="form-control " id="email" name="email" placeholder=".." required>
                                 </div>
                             </div>
                         </div>
@@ -96,107 +107,55 @@
                                 <div class="form-group">
                                     <label for="opening_balance">Opening Balance</label>
                                     <stax_number id="opening_balance_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="text" class="form-control" id="opening_balance" name="opening_balance" placeholder="">
+                                    <input type="text" class="form-control" id="opening_balance" name="Balance" placeholder=".." required>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="gstin_msg">GST Number</label>
-                                    <stax_number id="gstin_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="text" class="form-control maxlength  " id="gstin" name="gstin" placeholder="">
+                                    <label for="city_msg">City</label>
+                                    <stax_number id="city_msg" class="text-danger text-right pull-right"></stax_number>
+                                    <input type="text" class="form-control maxlength  " id="city_msg" name="city" placeholder=".." required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="tax_number">TAX Number</label>
-                                    <stax_number id="tax_number_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="text" class="form-control maxlength  " id="tax_number" name="tax_number" placeholder="">
+                                    <label for="tax_number">Post Code</label>
+                                    <stax_number id="post_code_msg" class="text-danger text-right pull-right"></stax_number>
+                                    <input type="text" class="form-control maxlength  " id="post_code_msg" name="postcode" placeholder=".." required>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <stax_number id="state_msg" class="text-danger text-right pull-right"></stax_number>
+                                    <input type="text" class="form-control maxlength  " id="state_msg" name="State" placeholder=".." required>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="col-md-4">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="country">Country</label>
                                     <stax_number id="country_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <select class="form-control select2" id="country" name="country" style="width: 100%;" onkeyup="shift_cursor(event,'state')" value="">
-                                        <option value='1'>India</option>
-                                        <option value='2'>USA</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="country_msg" name="country" placeholder=".." required>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="state">State</label>
-                                    <stax_number id="state_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <select class="form-control select2" id="state" name="state" style="width: 100%;" onkeyup="shift_cursor(event,'state_code')">
-                                        <option value="">-Select-</option>
-                                        <option value='23'>Karnataka</option>
-                                        <option value='24'>Maharashtra</option>
-                                        <option value='25'>Andhra Pradesh</option>
-                                        <option value='26'>Arunachal Pradesh</option>
-                                        <option value='27'>Assam</option>
-                                        <option value='28'>Bihar</option>
-                                        <option value='29'>Chhattisgarh</option>
-                                        <option value='30'>Goa</option>
-                                        <option value='31'>Gujarat</option>
-                                        <option value='32'>Haryana</option>
-                                        <option value='33'>Himachal Pradesh</option>
-                                        <option value='34'>Jammu and Kashmir</option>
-                                        <option value='35'>Jharkhand</option>
-                                        <option value='36'>Kerala</option>
-                                        <option value='37'>Madhya Pradesh</option>
-                                        <option value='38'>Manipur</option>
-                                        <option value='39'>Meghalaya</option>
-                                        <option value='40'>Mizoram</option>
-                                        <option value='41'>Nagaland</option>
-                                        <option value='42'>Odisha</option>
-                                        <option value='43'>Punjab</option>
-                                        <option value='44'>Rajasthan</option>
-                                        <option value='45'>Sikkim</option>
-                                        <option value='46'>Tamil Nadu</option>
-                                        <option value='47'>Telangana</option>
-                                        <option value='48'>Tripura</option>
-                                        <option value='49'>Uttar Pradesh</option>
-                                        <option value='50'>Uttarakhand</option>
-                                        <option value='51'>West Bengal</option>
-                                        <option value='52'>New York</option>
-                                        <option value='53'>Delhi</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="city">City</label>
-                                    <stax_number id="city_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="text" class="form-control" id="city" name="city" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="postcode">Postcode</label>
-                                    <stax_number id="postcode_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <input type="text" class="form-control" id="postcode" name="postcode" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        
+                        <div class="col-md-8">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="address">Address</label>
                                     <stax_number id="address_msg" class="text-danger text-right pull-right"></stax_number>
-                                    <textarea type="text" class="form-control" id="address" name="address" placeholder=""></textarea>
+                                    <textarea type="text" class="form-control" id="address" name="Address" placeholder=".." required></textarea >
                                 </div>
                             </div>
                         </div>
@@ -206,13 +165,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary add_supplier">Save</button>
+                    <button type="button" class="btn btn-primary add_supplier" onclick="set_Supplier_Info();">Save</button>
                 </div>
             </div>
-<!-- /.modal-content -->
+            <!-- /.modal-content -->
         </div>
-<!-- /.modal-dialog -->
-    </form>
+    }
+        <!-- /.modal-dialog -->
+    @*</form>*@
 </div>
 <!-- /.modal -->
 <div class="purchase_item_modal">
@@ -223,8 +183,8 @@
                     <h4 class="modal-title">Manage Purchase Item</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     @*@*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>*@
+                            <span aria-hidden="true">×</span>
+                        </button>*@
 
                 </div>
                 <div class="modal-body">
@@ -235,62 +195,62 @@
                                     <b>Item Name : </b> <span id='popup_item_name'></span>
                                 </div>
                             </div>
-<!-- /.row -->
+                            <!-- /.row -->
                         </div>
                         <div class="col-md-12">
                             <div>
-                            <input type="hidden" name="payment_row_count" id="payment_row_count" value="">
-                            <div class="col-md-12  payments_div">
-                                <div class="box box-solid bg-gray">
-                                     <div class="box-body">
-                                        <div class="row">
+                                <input type="hidden" name="payment_row_count" id="payment_row_count" value="">
+                                <div class="col-md-12  payments_div">
+                                    <div class="box box-solid bg-gray">
+                                        <div class="box-body">
+                                            <div class="row">
 
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="popup_tax_type">Tax Type</label>
-                                                    <select class="form-control" id="popup_tax_type" name="popup_tax_id" style="width: 100%;">
-                                                    <option value="Exclusive">Exclusive</option>
-                                                    <option value="Inclusive">Inclusive</option>
-                                                    </select>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="popup_tax_type">Tax Type</label>
+                                                        <select class="form-control" id="popup_tax_type" name="popup_tax_id" style="width: 100%;">
+                                                            <option value="Exclusive">Exclusive</option>
+                                                            <option value="Inclusive">Inclusive</option>
+                                                        </select>
+                                                    </div>
+
                                                 </div>
 
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="popup_tax_id">Tax</label>
+                                                        <select class="form-control" id="popup_tax_id" name="popup_tax_id" style="width: 100%;">
+                                                            <option value="">-Select-</option>
+                                                            <option data-tax='5.00' data-tax-value='Vat 5%' value='4'>Vat 5%</option>
+                                                            <option data-tax='10.00' data-tax-value='Tax 10%' value='5'>Tax 10%</option>
+                                                            <option data-tax='18.00' data-tax-value='Tax 18%' value='6'>Tax 18%</option>
+                                                            <option data-tax='4.50' data-tax-value='IGST 4.5%' value='7'>IGST 4.5%</option>
+                                                            <option data-tax='4.50' data-tax-value='SGST 4.5%' value='8'>SGST 4.5%</option>
+                                                            <option data-tax='9.00' data-tax-value='GST 9%' value='9'>GST 9%</option>
+                                                            <option data-tax='9.00' data-tax-value='ISGT 9%' value='10'>ISGT 9%</option>
+                                                            <option data-tax='9.00' data-tax-value='SGST 9%' value='11'>SGST 9%</option>
+                                                            <option data-tax='18.00' data-tax-value='GST 18%' value='12'>GST 18%</option>
+                                                        </select>
+                                                    </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="popup_tax_id">Tax</label>
-                                                     <select class="form-control" id="popup_tax_id" name="popup_tax_id" style="width: 100%;">
-                                                        <option value="">-Select-</option>
-                                                        <option data-tax='5.00' data-tax-value='Vat 5%' value='4'>Vat 5%</option>
-                                                        <option data-tax='10.00' data-tax-value='Tax 10%' value='5'>Tax 10%</option>
-                                                        <option data-tax='18.00' data-tax-value='Tax 18%' value='6'>Tax 18%</option>
-                                                        <option data-tax='4.50' data-tax-value='IGST 4.5%' value='7'>IGST 4.5%</option>
-                                                        <option data-tax='4.50' data-tax-value='SGST 4.5%' value='8'>SGST 4.5%</option>
-                                                        <option data-tax='9.00' data-tax-value='GST 9%' value='9'>GST 9%</option>
-                                                        <option data-tax='9.00' data-tax-value='ISGT 9%' value='10'>ISGT 9%</option>
-                                                        <option data-tax='9.00' data-tax-value='SGST 9%' value='11'>SGST 9%</option>
-                                                        <option data-tax='18.00' data-tax-value='GST 18%' value='12'>GST 18%</option>
-                                                     </select>
                                                 </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                <label for="popup_tax_amt">Tax Amount</label>
-                                                <input type="text" class="form-control text-right paid_amt" id="popup_tax_amt" name="popup_tax_amt" readonly>
-                                                <span id="popup_tax_amt_msg"  style="display:none" class="text-danger"></span>
+                                                <div class="col-md-6">
+                                                    <div class="">
+                                                        <label for="popup_tax_amt">Tax Amount</label>
+                                                        <input type="text" class="form-control text-right paid_amt" id="popup_tax_amt" name="popup_tax_amt" readonly>
+                                                        <span id="popup_tax_amt_msg" style="display:none" class="text-danger"></span>
+                                                    </div>
                                                 </div>
-                                            </div> 
-                                            <div class="clearfix"></div>
+                                                <div class="clearfix"></div>
                                             </div>
                                         </div>
-                                     </div>
+                                    </div>
                                 </div>
-<!-- col-md-12 -->
+                                <!-- col-md-12 -->
                             </div>
                         </div>
-<!-- col-md-9 -->
-<!-- RIGHT HAND -->
+                        <!-- col-md-9 -->
+                        <!-- RIGHT HAND -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -299,9 +259,9 @@
                     <button type="button" onclick="set_info()" class="btn bg-green btn-lg place_order btn-lg">Set<i class="fa  fa-check "></i></button>
                 </div>
             </div>
-<!-- /.modal-content -->
+            <!-- /.modal-content -->
         </div>
-<!-- /.modal-dialog -->
+        <!-- /.modal-dialog -->
     </div>
 </div>
 <!-- **********************MODALS END***************** -->
@@ -314,6 +274,7 @@
             <a href="javascript:void()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>
                 Ultimate Inventory with POS new Version 1.7.6 released , Faster and Customizable Application Software. If you have any queries please message <a target='_blank' href='https://codecanyon.net/item/ultimate-inventory-with-pos/23992003/comments'>here</a>. [Some features are disabled in demo and it will be reset after each hour.]
+                <a href="#supplier-modal" data-toggle="modal" data-target="#supplier-modal">Hello</a>
             </strong>
         </div>
         <!-- ********** ALERT MESSAGE END******* -->
@@ -325,332 +286,353 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                     @*@using (Html.BeginForm("NewPurchase", "Purchase", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "purchase-form" }))
-                    {*@
-                        @*<form action="~/assets/index.php/#" class="form-horizontal" id="purchase-form" enctype="multipart/form-data" method="POST" accept-charset="utf-8">*@
-                        <input type="hidden" name="csrf_test_name" value="a8f5c96e331a6014495303119a457634" />
-                        <input type="hidden" id="base_url" value="~/assets/">
-                        <input type="hidden" value='1' id="hidden_rowcount" name="hidden_rowcount">
-                        <input type="hidden" value='5' id="hidden_update_rowid" name="hidden_update_rowid">
-                        <div id="general-info" class="section general-info">
-                            <div class="info">
-                                <span style="font-size:25px; color:white;"><b>General Information</b></span>
-                                
-                                <input type="text" value="@DateTime.Now.ToString("MM/dd/yyyy")" class="datepicker" style="background:none;border:none; color:white" id="purchaseDate" name="purchaseDate" />
-                                <span class="pull-left" >
-                                    <button class='btn btn-success pull-right' style="float:right" onclick="SaveAllValues()">
-                                        Save
-                                    </button>
-                                </span>
-                                <div class="row">
-                                    <div class="col-lg-12 mx-auto">
-                                        <div class="row">
-                                            <div class="col-xl-1 col-lg-10 col-md-2">
-                                                @*<div class="upload mt-4 pr-md-4">
-                            <input type="file" id="input-file-max-fs" class="dropify" data-default-file="assets/img/user-profile.jpeg" data-max-file-size="15M" name="ImageofUser" required />
-                            <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p>
-                        </div>*@
-                                            </div>
-                                            <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
-                                                <div class="form">
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            @*<label for="supplier_id">Supplier Name<label class="text-danger">*</label></label>*@
-                                                            <label for="Supplier">Supplier Name<span class="text-danger">*</span>@*<label class="text-danger">*</label>*@</label>
+                        {*@
+                    @*<form action="~/assets/index.php/#" class="form-horizontal" id="purchase-form" enctype="multipart/form-data" method="POST" accept-charset="utf-8">*@
+                    <input type="hidden" name="csrf_test_name" value="a8f5c96e331a6014495303119a457634" />
+                    <input type="hidden" id="base_url" value="~/assets/">
+                    <input type="hidden" value='1' id="hidden_rowcount" name="hidden_rowcount">
+                    <input type="hidden" value='5' id="hidden_update_rowid" name="hidden_update_rowid">
+                    <div id="general-info" class="section general-info">
+                        <div class="info">
+                            <span style="font-size:25px; color:white;"><b>General Information</b></span>
+
+                            <input type="text" value="@DateTime.Now.ToString("MM/dd/yyyy")" class="datepicker" style="background:none;border:none; color:white" id="purchaseDate" name="purchaseDate" />
+                            <span class="pull-left">
+                                <button class='btn btn-success pull-right' style="float:right" onclick="SaveAllValues()">
+                                    Save
+                                </button>
+                            </span>
+                            <div class="row">
+                                <div class="col-lg-12 mx-auto">
+                                    <div class="row">
+                                        <div class="col-xl-1 col-lg-10 col-md-2">
+                                            @*<div class="upload mt-4 pr-md-4">
+                                                    <input type="file" id="input-file-max-fs" class="dropify" data-default-file="assets/img/user-profile.jpeg" data-max-file-size="15M" name="ImageofUser" required />
+                                                    <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p>
+                                                </div>*@
+                                        </div>
+                                        <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
+                                            <div class="form">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        @*<label for="supplier_id">Supplier Name<label class="text-danger">*</label></label>*@
+                                                        <label for="Supplier">Supplier Name<span class="text-danger">*</span>@*<label class="text-danger">*</label>*@</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" id="dropdown_Supplier" name="dropdown_Supplier" required>
+                                                                @*<option value="">-Select-</option>*@
+                                                                @foreach (var supplier in ViewBag.SupplierList)
+                                                                {
+                                                                    <option value="@supplier.ID">@supplier.Name</option>
+                                                                }
+                                                            </select>
+                                                            
+                                                            @*@Html.DropDownListFor(item => @Model.SupplierID, ViewBag.SupplierList as SelectList, "--- Select Supplier ----", new { @class = "form-control", @id = "dropdown_Supplier", required = "required" })
+                                                            @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })*@
+                                                            @*<button class="btn btn-secondary" id="btn-new_supplier" >New</button>*@
+                                                            @*<a class="btn btn-info" href="@Url.Action("NewSupplier","Users")">New</a>*@
+                                                            <button class="btn btn-info" onclick="show_supplier_modal();">New</button>
+                                                        </div>
+                                                        <span id="supplier_id_msg" style="display:none" class="text-danger"></span>
+
+
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        @*<label for="supplier_id">Supplier Name<label class="text-danger">*</label></label>*@
+                                                        <label for="status">Status<span class="text-danger">*</span>@*<label class="text-danger">*</label>*@</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control select2" id="status_report" name="status_report">
+                                                                <!-- <option value="">-Select-</option> -->
+                                                                <option value="Received">Received</option>
+                                                                <option value="Pending">Pending</option>
+                                                                <option value="Ordered">Ordered</option>
+                                                            </select>
+                                                        </div>
+                                                        <span id="status_report_msg" style="display:none" class="text-danger"></span>
+
+
+
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label for="Reference Number">Reference No.:</label>
                                                             <div class="input-group">
-                                                                @Html.DropDownListFor(item => @Model.SupplierID, ViewBag.SupplierList as SelectList, "--- Select Supplier ----", new { @class = "form-control", @id = "dropdown_Supplier", required = "required" })
-                                                                @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })
-                                                                @*<button class="btn btn-secondary" id="btn-new_supplier" >New</button>*@
-                                                                <a class="btn btn-info" href="@Url.Action("NewSupplier","Users")">New</a>
+                                                                <input type="text" class="form-control mb-4" required placeholder="Reference Number.." name="referenceNo" id="referenceNo" />
+                                                                <span id="referenceNo_msg" style="display:none" class="text-danger"></span>
+
                                                             </div>
-                                                            <span id="supplier_id_msg" style="display:none" class="text-danger"></span>
-
-
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            @*<label for="supplier_id">Supplier Name<label class="text-danger">*</label></label>*@
-                                                            <label for="status">Status<span class="text-danger">*</span>@*<label class="text-danger">*</label>*@</label>
-                                                            <div class="input-group">
-                                                                <select class="form-control select2" id="supplier_id" name="supplier_id" onkeyup="shift_cursor(event,'mobile')">
-                                                                    <!-- <option value="">-Select-</option> -->
-                                                                    <option value="Received">Received</option>
-                                                                    <option value="Pending">Pending</option>
-                                                                    <option value="Ordered">Ordered</option>
-                                                                </select>
-                                                            </div>
-                                                            <span id="supplier_id_msg" style="display:none" class="text-danger"></span>
-
-
-
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label for="Reference Number">Reference No.:</label>
-                                                                <div class="input-group">
-                                                                    @Html.EditorFor(model => model.ReferenceNo, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Reference...", @id = "supply" } })
-                                                                    @Html.ValidationMessageFor(model => model.ReferenceNo, "", new { @class = "text-danger" })
-                                                                </div>
-                                                                <span id="pur_date_msg" style="display:none" class="text-danger"></span>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <label for="TodayDate" hidden>Today Date</label>
-                                                                <div class="input-group date">
-
-                                                                    <input type="hidden" class="form-control pull-right datepicker" id="pur_date" name="pur_date" readonly onkeyup="shift_cursor(event,'purchase_status')" value="@DateTime.Now.ToString("dddd, dd MMMM yyyy")">
-                                                                </div>
-                                                                <span id="pur_date_msg" style="display:none" class="text-danger"></span>
-                                                            </div>
+                                                            <span id="pur_date_msg" style="display:none" class="text-danger"></span>
                                                         </div>
 
                                                     </div>
-                                                    @*<div class="row">
-                                <div class="col-sm-6">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="TodayDate" hidden>Today Date</label>
+                                                            <div class="input-group date">
 
-
-                                </div>
-                                <div class="col-sm-6">
-
-                                </div>
-
-                            </div>*@
-                                                    @*<div class="row">
-                                <div class=" col-sm-12">
-                                    <hr style="border:0.1px solid white" />
-                                </div>
-                            </div>*@
-                                                    <div class="row" style="margin-top:-50px;">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label for="role">Items</label>
-                                                                @Html.DropDownListFor(item => @Model.ItemId, ViewBag.ItemList as SelectList, "---------------", new { @class = "form-control", required = "required", @id = "Hello" })
-                                                                @Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger" })
+                                                                <input type="hidden" class="form-control pull-right datepicker" id="pur_date" name="pur_date" readonly onkeyup="shift_cursor(event,'purchase_status')" value="@DateTime.Now.ToString("dddd, dd MMMM yyyy")">
                                                             </div>
+                                                            <span id="pur_date_msg" style="display:none" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                @*<div class="row">
+                                                        <div class="col-sm-6">
+
+
+                                                        </div>
+                                                        <div class="col-sm-6">
+
+                                                        </div>
+
+                                                    </div>*@
+                                                @*<div class="row">
+                                                        <div class=" col-sm-12">
+                                                            <hr style="border:0.1px solid white" />
+                                                        </div>
+                                                    </div>*@
+                                                <div class="row" style="margin-top:-50px;">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="Items">Items</label>
+                                                            <select class="form-control" id="Item_Selector" name="Item_Selector">
+                                                                @*<option value="">-Select-</option>*@
+                                                                @foreach (var items in ViewBag.ItemList)
+                                                                {
+                                                                    <option value="@items.ID">@items.Name</option>
+                                                                }
+                                                            </select>
+
+                                                            @*@Html.DropDownListFor(item => @Model.ItemId, ViewBag.ItemList as SelectList, "---------------", new { @class = "form-control", required = "required", @id = "Hello" })
+                                                                @Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger" })*@
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="row" style="margin-top:-20px;">
-                                            <div class=" col-sm-12">
-                                                <hr style="border:0.1px solid white" />
-                                            </div>
+                                    <div class="row" style="margin-top:-20px;">
+                                        <div class=" col-sm-12">
+                                            <hr style="border:0.1px solid white" />
                                         </div>
-                                        <br />
-                                        <div class="row" style="margin-top:-20px;">
-                                            <div class="col-md-11 mx-auto">
-                                                <div class="row">
-                                                    <div class="col-md-6">
+                                    </div>
+                                    <br />
+                                    <div class="row" style="margin-top:-20px;">
+                                        <div class="col-md-11 mx-auto">
+                                            <div class="row">
+                                                <div class="col-md-6">
 
-                                                        <div class="form-group">
-                                                            <span style="color:aliceblue; font-size:25px;">Total Quantaties:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:25px;" class="text-success" id="totalQuantities"> 0 </span>
-                                                            <br />
-                                                            <br />
-                                                            <br />
-                                                            <br />
-                                                            <br />
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <span>Other Charges:</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.EditorFor(model => model.otherCharges, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", @id = "other_charges_input", @name = "other_charges_input", @onkeyup = "final_total();" } })
-                                                                        @Html.ValidationMessageFor(model => model.otherCharges, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <select class="form-control " id="other_charges_tax_id" name="other_charges_tax_id" onchange="final_total();" style="width: 100%;">
-                                                                        <option>None</option>
-                                                                        <option data-tax="5.00" value="4">Vat 5%</option>
-                                                                        <option data-tax="10.00" value="5">Tax 10%</option>
-                                                                        <option data-tax="18.00" value="6">Tax 18%</option>
-                                                                        <option data-tax="4.50" value="7">IGST 4.5%</option>
-                                                                        <option data-tax="4.50" value="8">SGST 4.5%</option>
-                                                                        <option data-tax="9.00" value="9">GST 9%</option>
-                                                                        <option data-tax="9.00" value="10">ISGT 9%</option>
-                                                                        <option data-tax="9.00" value="11">SGST 9%</option>
-                                                                        <option data-tax="18.00" value="12">GST 18%</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <span>Discount on All:</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.EditorFor(model => model.DiscountonAll, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", @id = "discount_to_all_input", @name = "discount_to_all_input", @onkeyup = "enable_or_disable_item_discount();" } })
-                                                                        @Html.ValidationMessageFor(model => model.DiscountonAll, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <select class="form-control" onchange="final_total();" id="discount_to_all_type" name="discount_to_all_type">
-                                                                            <option value="in_percentage">Per%</option>
-                                                                            <option value="in_fixed">Fixed</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <span> Note: <span class="text-danger">*</span></span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-8">
-                                                                    <div class="form-group">
-
-                                                                        @Html.TextAreaFor(model => model.NoteDiscount, new { @class = "form-control", placeholder = "Note", rows = "4", required = "required" })
-                                                                        @Html.ValidationMessageFor(model => model.NoteDiscount, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <span style="color:aliceblue; font-size:25px;">Total Quantaties:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:25px;" class="text-success" id="totalQuantities"> 0 </span>
+                                                        <br />
+                                                        <br />
                                                         <br />
                                                         <br />
                                                         <br />
                                                         <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <span>Other Charges:</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control mb-4" id="other_charges_input" name="other_charges_input" required onkeyup="final_total();" />
+                                                                    <span id="other_charges_input_msg" style="display:none" class="text-danger"></span>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <select class="form-control " id="other_charges_tax_id" name="other_charges_tax_id" onchange="final_total();" style="width: 100%;">
+                                                                    <option>None</option>
+                                                                    <option data-tax="5.00" value="4">Vat 5%</option>
+                                                                    <option data-tax="10.00" value="5">Tax 10%</option>
+                                                                    <option data-tax="18.00" value="6">Tax 18%</option>
+                                                                    <option data-tax="4.50" value="7">IGST 4.5%</option>
+                                                                    <option data-tax="4.50" value="8">SGST 4.5%</option>
+                                                                    <option data-tax="9.00" value="9">GST 9%</option>
+                                                                    <option data-tax="9.00" value="10">ISGT 9%</option>
+                                                                    <option data-tax="9.00" value="11">SGST 9%</option>
+                                                                    <option data-tax="18.00" value="12">GST 18%</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <span>Discount on All:</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control mb-4" required id="discount_to_all_input" name="discount_to_all_input" onkeyup="enable_or_disable_item_discount();" />
+                                                                    <span id="discount_to_all_input_msg" style="display:none" class="text-danger"></span>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <select class="form-control" onchange="final_total();" id="discount_to_all_type" name="discount_to_all_type">
+                                                                        <option value="in_percentage">Per%</option>
+                                                                        <option value="in_fixed">Fixed</option>
+                                                                    </select>
+                                                                    <span id="discount_to_all_type" style="display:none" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <span> Note: <span class="text-danger">*</span></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="form-group">
+                                                                    <textarea class="form-control" placeholder="Note" rows="4" required name="discount_note_All" id="discount_note_All"></textarea>
+                                                                    <span id="discount_note_All_msg" style="display:none" class="text-danger"></span>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <span style="color:aliceblue; font-size:20px;">Subtotal:</span> <br />
+                                                                <span style="color:aliceblue; font-size:20px;">Other Charges:</span><br />
+                                                                <span style="color:aliceblue; font-size:20px;">Discount on All:</span><br />
+                                                                <span style="color:aliceblue; font-size:20px;">Grand Total:</span><br />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <div class="form-group">
+                                                                <b style="font-size:20px;" class="text-success" id="subtotal_amt" name="subtotal_amt"> 0.00 </b><br />
+                                                                <b style="font-size:20px;" class="text-success" id="other_charges_amt" name="other_charges_amt"> 0.00 </b><br />
+                                                                <b style="font-size:20px;" class="text-success" id="discount_to_all_amt" name="discount_to_all_amt"> 0.00 </b><br />
+                                                                <b style="font-size:20px;" class="text-success" id="total_amt" name="total_amt"> 0.00 </b><br />
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:-30px;">
+                                        <div class=" col-sm-12">
+                                            <hr style="border:0.1px solid white" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+                                            <div class="form-group">
+                                                <div class="table-responsive">
+                                                    <table class="table-bordered table-striped mb-4" style="width:100%" id="purchase_table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Item Name</th>
+                                                                <th colspan="2">Quantity</th>
+                                                                <th>Purchase Price</th>
+                                                                <th>Tax%</th>
+                                                                <th>Tax Amount</th>
+                                                                <th>Discount</th>
+                                                                <th>Unit Cost</th>
+                                                                <th>Total Amount</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="Item_table_data">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-sm-12">
+                                            <hr style="border:0.1px solid white" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+
+                                            <div class="form-group">
+                                                <div class="table-responsive mb-4 mt-4">
+                                                    <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Date</th>
+                                                                <th>Payment Type</th>
+                                                                <th>Payment Note</th>
+                                                                <th>Payment</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="Supplier_Old_data">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-11 mx-auto">
+                                            <h5 class="">Make Payment</h5>
+                                            <div class="edu-section">
+                                                <div class="row" style="background-color:rgb(7, 36, 82)">
+
+                                                    <div class="col-md-12">
+                                                        <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <span style="color:aliceblue; font-size:20px;">Subtotal:</span> <br />
-                                                                    <span style="color:aliceblue; font-size:20px;">Other Charges:</span><br />
-                                                                    <span style="color:aliceblue; font-size:20px;">Discount on All:</span><br />
-                                                                    <span style="color:aliceblue; font-size:20px;">Grand Total:</span><br />
+                                                                    <label for="degreename">Amount</label>
+                                                                    <input type="text" class="form-control mb-4" name="Amount_User" id="Amount_user" required />
+                                                                    <span id="Amount_user" style="display:none" class="text-danger"></span>
+
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-5">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <b style="font-size:20px;" class="text-success" id="subtotal_amt" name="subtotal_amt"> 0.00 </b><br />
-                                                                    <b style="font-size:20px;" class="text-success" id="other_charges_amt" name="other_charges_amt"> 0.00 </b><br />
-                                                                    <b style="font-size:20px;" class="text-success" id="discount_to_all_amt" name="discount_to_all_amt"> 0.00 </b><br />
-                                                                    <b style="font-size:20px;" class="text-success" id="total_amt" name="total_amt"> 0.00 </b><br />
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-top:-30px;">
-                                            <div class=" col-sm-12">
-                                                <hr style="border:0.1px solid white" />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 ">
-                                                <div class="form-group">
-                                                    <div class="table-responsive">
-                                                        <table class="table-bordered table-striped mb-4" style="width:100%" id="purchase_table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Item Name</th>
-                                                                    <th colspan="2">Quantity</th>
-                                                                    <th>Purchase Price</th>
-                                                                    <th>Tax%</th>
-                                                                    <th>Tax Amount</th>
-                                                                    <th>Discount</th>
-                                                                    <th>Unit Cost</th>
-                                                                    <th>Total Amount</th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="Item_table_data">
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class=" col-sm-12">
-                                                <hr style="border:0.1px solid white" />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 ">
-
-                                                <div class="form-group">
-                                                    <div class="table-responsive mb-4 mt-4">
-                                                        <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Date</th>
-                                                                    <th>Payment Type</th>
-                                                                    <th>Payment Note</th>
-                                                                    <th>Payment</th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="Supplier_Old_data">
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-11 mx-auto">
-                                                <h5 class="">Make Payment</h5>
-                                                <div class="edu-section">
-                                                    <div class="row" style="background-color:rgb(7, 36, 82)">
-
-                                                        <div class="col-md-12">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="degreename">Amount</label>
-                                                                        @Html.EditorFor(model => model.amount, new { htmlAttributes = new { @class = "form-control mb-4", required = "required" } })
-                                                                        @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="endingDate">Payment Type</label>
-                                                                        @Html.EditorFor(model => model.paymentMethod, new { htmlAttributes = new { @class = "form-control mb-4", required = "required", placeholder = "Payment Type" } })
-                                                                        @Html.ValidationMessageFor(model => model.paymentMethod, "", new { @class = "text-danger" })
-                                                                    </div>
+                                                                    <label for="endingDate">Payment Type</label>
+                                                                    <input type="text" class="form-control mb-4" name="Amount_User_AmountType" id="Amount_User_AmountType" required />
+                                                                    <span id="Amount_User_AmountType" style="display:none" class="text-danger"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="degree1">Note</label>
-                                                                @Html.EditorFor(model => model.AmountNote, new { htmlAttributes = new { @class = "form-control mb-4", required = "required" } })
-                                                                @Html.ValidationMessageFor(model => model.AmountNote, "", new { @class = "text-danger" })
-
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="degree1">Note</label>
+                                                            <input type="text" class="form-control mb-4" name="Amount_User_Note" id="Amount_User_Note" required />
+                                                            <span id="Amount_User_Note" style="display:none" class="text-danger"></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-11 mx-auto">
-                                                <hr style="border:solid 0.1px white;" />
-                                                <button type="reset" class="btn btn-danger mt-3" style="float: right">Reset</button>
-                                            </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-11 mx-auto">
+                                            <hr style="border:solid 0.1px white;" />
+                                            <button type="reset" class="btn btn-danger mt-3" style="float: right">Reset</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -693,7 +675,7 @@
     //$('#addRow').click(function () {
     //    $('tbody').append(html);
     //});
-    $("#Hello").change(function () {
+    $("#Item_Selector").change(function () {
         numberofRowsforItems++;
         //var id = $(this).data("id");
         //console.log(id);
@@ -712,9 +694,9 @@
         //        console.log(d);
         //    }
         //});
-        //var ValueFromInput = document.getElementById("#Hello").value;
+        //var ValueFromInput = document.getElementById("#Item_Selector").value;
 
-        var ValueFromInput = $('#Hello option:selected').val();
+        var ValueFromInput = $('#Item_Selector option:selected').val();
         $.ajax({
             type: "GET",
             url: "/Purchase/PurchaseData/?Id=" + ValueFromInput,
@@ -730,12 +712,12 @@
                 //
                 //  <input type="text" onkeyup="functioncalculate(numberofRowsforItems)" id="DiscountValu" />
                 //<td id="td_1_9"></td>
-                
+
                 var htmlforItemTable = '<tr class="table" id="row_' + numberofRowsforItems + '" data-row="' + numberofRowsforItems + '"><td id="td_' + numberofRowsforItems + '_1"><label class="form-control" style="height:auto;"><a id="td_data_' + numberofRowsforItems + '_1" href="javascript:void(0)" onclick="show_purchase_item_modal(' + numberofRowsforItems + ')" title="">' + data.Name + '</a></label></td >' +
                     '<td id ="td_' + numberofRowsforItems + '_3" colspan="2"><div class="input-group "><span class="input-group-btn"><button onclick="decrement_qty(' + numberofRowsforItems + ')" type="button" class="btn btn-default btn-flat">-</button></span><input type="text" value="1" class="text-center" onkeyup="calculate_tax(' + numberofRowsforItems + ')" id="td_data_' + numberofRowsforItems + '_3" name="td_data_' + numberofRowsforItems + '_3"><span class="input-group-btn"><button onclick="increment_qty(' + numberofRowsforItems + ')" type="button" class="btn btn-default btn-flat">+</button></span></div> </td >' +
                     '<td id ="td_' + numberofRowsforItems + '_4"><input type="text" name="td_data_' + numberofRowsforItems + '_4" id="td_data_' + numberofRowsforItems + '_4" class="text-right no-padding only_currency text-center" onkeyup="calculate_tax(' + numberofRowsforItems + ')" value="' + SalesPrice + '" style="width=40px;"></td>' +
                     '<td id ="td_' + numberofRowsforItems + '_15" ><label class="form-control"><a id="td_data_' + numberofRowsforItems + '_15" data-toggle="tooltip" title="Click to Change" class="pointer" onclick="show_purchase_item_modal(' + numberofRowsforItems + ')">' + Tax + '%</a></label></td> ' +
-                    '<td id ="td_' + numberofRowsforItems + '_5"><input type="text" name="td_data_' + numberofRowsforItems + '_5" id="td_data_' + numberofRowsforItems + '_5" class="pointer text-right no-padding only_currency text-center" readonly="" value="' + ans+'" style="border:none"></td>' +
+                    '<td id ="td_' + numberofRowsforItems + '_5"><input type="text" name="td_data_' + numberofRowsforItems + '_5" id="td_data_' + numberofRowsforItems + '_5" class="pointer text-right no-padding only_currency text-center" readonly="" value="' + ans + '" style="border:none"></td>' +
                     '<td id ="td_' + numberofRowsforItems + '_8" ><input type="text" name="td_data_' + numberofRowsforItems + '_8" id="td_data_' + numberofRowsforItems + '_8" class="pointer text-right no-padding only_currency text-center item_discount" value="" onkeyup="calculate_tax(' + numberofRowsforItems + ')" style=""></td >' +
                     '<td id ="td_' + numberofRowsforItems + '_10" ><input type="text" name="td_data_1_10" id="td_data_' + numberofRowsforItems + '_10" class="pointer text-right no-padding only_currency text-center" readonly="" value="' + SalesPrice + '"></td >' +
                     '<td id ="td_' + numberofRowsforItems + '_9"><input type="text" name="td_data_' + numberofRowsforItems + '_9" id="td_data_' + numberofRowsforItems + '_9" class="pointer text-right no-padding only_currency text-center" style="border-color: #f39c12;" title="Total" readonly="" value="' + SalesPrice + '"></td>' +
@@ -775,7 +757,7 @@
     });
 
     $(document).on('click', '.remove', function () {
-        
+
         $(this).parents('tr').remove();
     });
     $('#getValues').click(function () {
@@ -1024,10 +1006,10 @@
     function set_info() {
         var row_id = $("#popup_row_id").val();
         var tax_type = $("#popup_tax_type").val();
-        var tax_id = $("#popup_tax_id").val();   
+        var tax_id = $("#popup_tax_id").val();
         var tax_name = ($('option:selected', "#popup_tax_id").attr('data-tax-value'));
         var tax = parseFloat($('option:selected', "#popup_tax_id").attr('data-tax'));
-        
+
         //Set it into row
         $("#tr_tax_type_" + row_id).val(tax_type);
         $("#tr_tax_id_" + row_id).val(tax_id);
@@ -1038,18 +1020,18 @@
         $('#purchase_item').modal('toggle');
     }
     function set_tax_value(row_id) {
-       
+
         //get the purchase price of the item
         var tax_type = $("#tr_tax_type_" + row_id).val();
         var tax = $("#tr_tax_value_" + row_id).val(); //%
         //alert("In Set Tax Value Amount of tax iss : " + tax);
         var qty = $("#td_data_" + row_id + "_3").val().trim();
-        qty = (isNaN(qty)) ? 0 : qty; 
+        qty = (isNaN(qty)) ? 0 : qty;
         var purchase_price = parseFloat($("#td_data_" + row_id + "_4").val());
-        
+
         purchase_price = (isNaN(purchase_price)) ? 0 : purchase_price;
         purchase_price = purchase_price * qty;
-        
+
         var tax_amount = (tax_type == 'Inclusive') ? calculate_inclusive(purchase_price, tax) : calculate_exclusive(purchase_price, tax);
         //alert("In set Tax Funstion : " + tax_amount);
         console.log("tax_amount=" + tax_amount);
@@ -1092,7 +1074,7 @@
             $("#td_data_" + i + "_3").val(value);
             calculate_tax(i);
         }
-        
+
     }
 </script>
 
@@ -1112,15 +1094,36 @@
 
 </script>
 @*<script>
-    function myFunction() {
-        var x = document.getElementById("supply").value;
+        function myFunction() {
+            var x = document.getElementById("supply").value;
 
-        document.getElementById("Dataaaraaa").innerHTML = x;
-    }
-</script>*@
+            document.getElementById("Dataaaraaa").innerHTML = x;
+        }
+    </script>*@
 <script>
     function SaveAllValues() {
-         //Loop through the Table rows and build a JSON array.
+        var dataArray = new Array();
+        var purchase_Details = {};
+        purchase_Details.SupplierID = $('#dropdown_Supplier option:selected').val();
+        purchase_Details.status = $('#status_report option:selected').val();
+        purchase_Details.ReferenceNo = $('#referenceNo').val();
+        purchase_Details.Date = $('#purchaseDate').val();
+        purchase_Details.otherCharges = $('#other_charges_input').val();
+        purchase_Details.otherChargesType = $('#other_charges_tax_id').val();
+        purchase_Details.otherChargeswithTax = $('#other_charges_amt').text();
+        purchase_Details.DiscountonAll = $('#discount_to_all_input').val();
+        purchase_Details.DiscountOnAllType = $('#discount_to_all_type').val();
+        purchase_Details.DiscountCalculate = $('#discount_to_all_amt').text();
+        purchase_Details.NoteDiscount = $('#discount_note_All').val();
+        purchase_Details.Quantity = $('#totalQuantities').text();
+        purchase_Details.SubTotal = $('#subtotal_amt').text();
+        purchase_Details.GrandTotal = $('#total_amt').text();
+        purchase_Details.amount = $('#Amount_user').val();
+        purchase_Details.paymentMethod = $('#Amount_User_AmountType').val();
+        purchase_Details.AmountNote = $('#Amount_User_Note').val();       
+        console.log(purchase_Details);
+        dataArray.push(purchase_Details);
+        //Loop through the Table rows and build a JSON array.
         var itemss = new Array();
         $("#purchase_table tbody tr").each(function () {
             var row = $(this);
@@ -1137,13 +1140,18 @@
             itemss.push(itemDetails);
             console.log(itemDetails);
         });
+        dataArray.push(itemss);
+        console.log(dataArray);
+        var model = {
+            itemss : purchase_Details
+        };
         //Send the JSON array to Controller using AJAX.
         var data = JSON.stringify(itemss);
-        console.log(data);
+        console.log(model);
         $.ajax({
             type: "POST",
             url: "/Purchase/NewPurchase",
-            data: JSON.stringify(itemss),
+            data: JSON.stringify(model),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (r) {
@@ -1154,3 +1162,26 @@
         //console.log(itemss);
     }
 </script>
+<script>
+    $('#Item_Selector').select2();
+</script>
+<script>
+    //Show Supplier Model
+    function show_supplier_modal() {
+        //alert(row_id);
+        //alert("Pointer is passed here");
+        $('#supplier-modal').modal('toggle');
+        $("#popup_tax_id").select2();  
+    }
+
+    function set_Supplier_Info() {
+        //alert("In Set Supplier Function");
+        $("#formmmmmm").submit();
+    }
+</script>
+@*<script type="text/javascript">
+        // Material Select Initialization
+        $(document).ready(function () {
+            $('.mdb-select').materialSelect();
+        });
+    </script>*@

@@ -269,10 +269,10 @@
                         </a>
                         <ul class="collapse submenu list-unstyled show" id="dashboard" data-parent="#accordionExample">
                             <li class="active">
-                                <a href="mainPage"> Sales </a>
+                                <a href="/Home/mainPage"> Sales </a>
                             </li>
                             <li>
-                                <a href="mainPage2"> Analytics </a>
+                                <a href="/Home/mainPage2"> Analytics </a>
                             </li>
                         </ul>
                     </li>
@@ -314,7 +314,7 @@
                         <ul class="collapse submenu list-unstyled" id="components" data-parent="#accordionExample">
                             <!--Purchase Menu-->
                             <li>
-                                @Html.ActionLink("New Purchase", "Newitem", "Item")
+                                @Html.ActionLink("New Purchase", "NewPurchase", "Purchase")
                             </li>
                             <li>
                                 @Html.ActionLink("Purchase List", "ViewItems", "Item")
@@ -399,7 +399,7 @@
                     </li>
 
                     <li class="menu">
-                        <a href="#forms" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <a href="#users" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
                                 <span>Expense </span>
@@ -408,7 +408,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled" id="forms" data-parent="#accordionExample">
+                        <ul class="collapse submenu list-unstyled" id="users" data-parent="#accordionExample">
                             <!--items-->
 
                             <li>

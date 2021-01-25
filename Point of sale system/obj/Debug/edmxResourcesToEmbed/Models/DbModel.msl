@@ -93,7 +93,6 @@
     <EntitySetMapping Name="purchases">
       <EntityTypeMapping TypeName="PointOfSaleModel.purchase">
         <MappingFragment StoreEntitySet="purchase">
-          <ScalarProperty Name="ItemId" ColumnName="ItemId" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
           <ScalarProperty Name="AmountNote" ColumnName="AmountNote" />
@@ -103,8 +102,10 @@
           <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="NoteDiscount" ColumnName="NoteDiscount" />
+          <ScalarProperty Name="DiscountCalculate" ColumnName="DiscountCalculate" />
           <ScalarProperty Name="DiscountOnAllType" ColumnName="DiscountOnAllType" />
           <ScalarProperty Name="DiscountonAll" ColumnName="DiscountonAll" />
+          <ScalarProperty Name="otherChargeswithTax" ColumnName="otherChargeswithTax" />
           <ScalarProperty Name="otherChargesType" ColumnName="otherChargesType" />
           <ScalarProperty Name="otherCharges" ColumnName="otherCharges" />
           <ScalarProperty Name="Date" ColumnName="Date" />

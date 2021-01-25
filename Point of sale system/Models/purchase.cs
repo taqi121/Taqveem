@@ -20,8 +20,10 @@ namespace Point_of_sale_system.Models
         public string Date { get; set; }
         public Nullable<double> otherCharges { get; set; }
         public string otherChargesType { get; set; }
+        public Nullable<double> otherChargeswithTax { get; set; }
         public Nullable<double> DiscountonAll { get; set; }
         public string DiscountOnAllType { get; set; }
+        public Nullable<double> DiscountCalculate { get; set; }
         public string NoteDiscount { get; set; }
         public Nullable<double> Quantity { get; set; }
         public string SubTotal { get; set; }
@@ -31,9 +33,7 @@ namespace Point_of_sale_system.Models
         public string AmountNote { get; set; }
         public int SupplierID { get; set; }
         public int UserID { get; set; }
-        public Nullable<int> ItemId { get; set; }
     
-        public virtual Item Item { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual User User { get; set; }
         public virtual PurchaseItem PurchaseItem { get; set; }

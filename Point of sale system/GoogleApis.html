@@ -7,15 +7,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!--<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp50bHYOpQOnO97GBywtMPMhiwgDNzlew&callback=initMap&libraries=&v=weekly"
-            defer></script>-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    
     <!-- Google Maps JavaScript library -->
-    <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed%20in=true&libraries=places"></script>-->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyD-S-cuUziy083ZS2a2X_Btnr-msbXJFnw"></script>
-    <!--<script defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp50bHYOpQOnO97GBywtMPMhiwgDNzlew&libraries=geometry&callback=initMap">
-    </script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&callback=initMap&key=AIzaSyD-S-cuUziy083ZS2a2X_Btnr-msbXJFnw"></script>
+   
 
     <style>
         #search_input {
@@ -27,31 +23,37 @@
             margin-top: 50px;
         }
 
-            .form-group label {
-                font-size: 18px;
-                font-weight: 600;
-            }
+        .form-group label {
+            font-size: 18px;
+            font-weight: 600;
+        }
 
-            .form-group input {
-                width: 100%;
-                padding: .375rem .75rem;
-                font-size: 1rem;
-                line-height: 1.5;
-                color: #495057;
-                background-color: #fff;
-                background-clip: padding-box;
-                border: 1px solid #ced4da;
-                border-radius: .25rem;
-                transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-            }
+        .form-group input {
+            width: 100%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
 
-                .form-group input:focus {
-                    color: #495057;
-                    background-color: #fff;
-                    border-color: #80bdff;
-                    outline: 0;
-                    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-                }
+        .form-group input:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+            height: 700px;
+            width: 1000px;
+        }
     </style>
 </head>
 <body>
@@ -65,39 +67,41 @@
                     <input type="text" class="form-control" id="search_input" placeholder="Type address..." />
                     <label id="result"></label>
                 </div>
+                <div id="map"></div>
             </div>
         </div>
     </div>
     <script>
+        let map;
+        var latitude = "";
+        var longitude = "";
         google.maps.event.addDomListener(window, 'load', initilize);
         function initilize() {
             var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search_input'));
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
                 var location = "<b>Location: </b>" + place.formatted_address + "</br>";
-                var latitude = place.geometry.location.A;
+                latitude = place.geometry.location.lat();
+                alert("Latitude of Area is : " + latitude);
                 location += "Latitude: " + latitude + "</br>";
-                var longitude = place.geometry.location.F;
+                longitude = place.geometry.location.lng();
                 location += "Longitude: " + longitude + "</br>";
                 document.getElementById('result').innerHTML = location;
+                var directionsService = new google.maps.DirectionsService();
+                directionsDisplay = new google.maps.DirectionsRenderer();
+                const uluru = { lat: latitude, lng: longitude };
+
+                var mapOptions = { zoom: 10, mapTypeId: google.maps.MapTypeId.ROADMAP, center: uluru }
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                directionsDisplay.setMap(map);
+                // The marker, positioned at Uluru
+                const marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map,
+                });
             });
             
         }
-//var searchInput = 'search_input';
-
-//$(document).ready(function () {
-// var autocomplete;
-// autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-//  types: ['geocode'],
-//  /*componentRestrictions: {
-//   country: "USA"
-//  }*/
-// });
-
-// google.maps.event.addListener(autocomplete, 'place_changed', function () {
-//  var near_place = autocomplete.getPlace();
-// });
-//});
     </script>
 </body>
 </html>

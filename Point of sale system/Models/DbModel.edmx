@@ -97,8 +97,10 @@
           <Property Name="Date" Type="varchar" MaxLength="30" />
           <Property Name="otherCharges" Type="float" />
           <Property Name="otherChargesType" Type="varchar" MaxLength="50" />
+          <Property Name="otherChargeswithTax" Type="float" />
           <Property Name="DiscountonAll" Type="float" />
           <Property Name="DiscountOnAllType" Type="varchar" MaxLength="30" />
+          <Property Name="DiscountCalculate" Type="float" />
           <Property Name="NoteDiscount" Type="varchar" MaxLength="300" />
           <Property Name="Quantity" Type="float" />
           <Property Name="SubTotal" Type="varchar" MaxLength="50" />
@@ -108,7 +110,6 @@
           <Property Name="AmountNote" Type="varchar(max)" />
           <Property Name="SupplierID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="ItemId" Type="int" />
         </EntityType>
         <EntityType Name="PurchaseItems">
           <Key>
@@ -252,18 +253,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_purchase_Item">
-          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
-          <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Item">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="purchase">
-              <PropertyRef Name="ItemId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_purchase_Supplier">
           <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
           <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
@@ -379,10 +368,6 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
-          <AssociationSet Name="FK_purchase_Item" Association="Self.FK_purchase_Item">
-            <End Role="Item" EntitySet="Item" />
-            <End Role="purchase" EntitySet="purchase" />
-          </AssociationSet>
           <AssociationSet Name="FK_purchase_Supplier" Association="Self.FK_purchase_Supplier">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="purchase" EntitySet="purchase" />
@@ -450,10 +435,6 @@
           <AssociationSet Name="FK_Expenses_ExpenseCategory1" Association="PointOfSaleModel.FK_Expenses_ExpenseCategory1">
             <End Role="ExpenseCategory" EntitySet="ExpenseCategories" />
             <End Role="Expens" EntitySet="Expenses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_purchase_Item" Association="PointOfSaleModel.FK_purchase_Item">
-            <End Role="Item" EntitySet="Items" />
-            <End Role="purchase" EntitySet="purchases" />
           </AssociationSet>
           <AssociationSet Name="FK_Sales_Item" Association="PointOfSaleModel.FK_Sales_Item">
             <End Role="Item" EntitySet="Items" />
@@ -570,7 +551,6 @@
           <Property Name="BrandID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Brand" Relationship="PointOfSaleModel.FK_Item_Brand" FromRole="Item" ToRole="Brand" />
           <NavigationProperty Name="Category" Relationship="PointOfSaleModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
-          <NavigationProperty Name="purchases" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="Item" ToRole="purchase" />
           <NavigationProperty Name="Sales" Relationship="PointOfSaleModel.FK_Sales_Item" FromRole="Item" ToRole="Sale" />
         </EntityType>
         <EntityType Name="purchase">
@@ -583,8 +563,10 @@
           <Property Name="Date" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="otherCharges" Type="Double" />
           <Property Name="otherChargesType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="otherChargeswithTax" Type="Double" />
           <Property Name="DiscountonAll" Type="Double" />
           <Property Name="DiscountOnAllType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountCalculate" Type="Double" />
           <Property Name="NoteDiscount" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="Double" />
           <Property Name="SubTotal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -594,8 +576,6 @@
           <Property Name="AmountNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SupplierID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="ItemId" Type="Int32" />
-          <NavigationProperty Name="Item" Relationship="PointOfSaleModel.FK_purchase_Item" FromRole="purchase" ToRole="Item" />
           <NavigationProperty Name="Supplier" Relationship="PointOfSaleModel.FK_purchase_Supplier" FromRole="purchase" ToRole="Supplier" />
           <NavigationProperty Name="User" Relationship="PointOfSaleModel.FK_purchase_Users" FromRole="purchase" ToRole="User" />
           <NavigationProperty Name="PurchaseItem" Relationship="PointOfSaleModel.FK_PurchaseItems_purchase" FromRole="purchase" ToRole="PurchaseItem" />
@@ -760,18 +740,6 @@
             </Principal>
             <Dependent Role="Expens">
               <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_purchase_Item">
-          <End Type="PointOfSaleModel.Item" Role="Item" Multiplicity="0..1" />
-          <End Type="PointOfSaleModel.purchase" Role="purchase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Item">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="purchase">
-              <PropertyRef Name="ItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -945,7 +913,6 @@
           <EntitySetMapping Name="purchases">
             <EntityTypeMapping TypeName="PointOfSaleModel.purchase">
               <MappingFragment StoreEntitySet="purchase">
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="AmountNote" ColumnName="AmountNote" />
@@ -955,8 +922,10 @@
                 <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="NoteDiscount" ColumnName="NoteDiscount" />
+                <ScalarProperty Name="DiscountCalculate" ColumnName="DiscountCalculate" />
                 <ScalarProperty Name="DiscountOnAllType" ColumnName="DiscountOnAllType" />
                 <ScalarProperty Name="DiscountonAll" ColumnName="DiscountonAll" />
+                <ScalarProperty Name="otherChargeswithTax" ColumnName="otherChargeswithTax" />
                 <ScalarProperty Name="otherChargesType" ColumnName="otherChargesType" />
                 <ScalarProperty Name="otherCharges" ColumnName="otherCharges" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
